@@ -2,9 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+@layer base {
     body {
         @apply antialiased font-sans bg-white overflow-hidden;
         @apply h-full;
+    }
+}
+
+@layer components {
+    .breadcrumb {
+        @apply flex border-b border-gray-200 bg-white text-sm;
+    }
+    .breadcrumb .lists
+    {
+        @apply mx-auto flex w-full space-x-4 px-4 sm:px-6 lg:px-8;
     }
 }

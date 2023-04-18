@@ -1,5 +1,5 @@
-<nav class="flex border-b border-gray-200 bg-white text-small">
-    <ol role="list" class="mx-auto flex w-full space-x-4 px-4 sm:px-6 lg:px-8">
+<nav class="breadcrumb">
+    <ol role="list" class="lists">
         <li class="flex">
             <div class="flex items-center">
                 <a href="#" class="text-gray-400 hover:text-gray-500">
