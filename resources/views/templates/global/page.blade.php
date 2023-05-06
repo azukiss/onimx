@@ -18,6 +18,7 @@
                     </div>
                 </div>
             </main>
+            @include('templates.global.footer')
         </div>
     </div>
 </body>

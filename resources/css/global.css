@@ -12,6 +12,7 @@
 @layer components {
     .breadcrumb {
         @apply flex border-b border-gray-200 bg-white text-sm;
+        @apply py-2;
     }
     .breadcrumb .lists
     {

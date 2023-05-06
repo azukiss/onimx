@@ -11,7 +11,8 @@
     @endif
 
     @vite('resources/css/global.css')
-    <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
+    @vite('resources/css/ripple.css')
+    <link rel="stylesheet" href="{{ asset('assets/fonts/fa/css/all.min.css') }}">
     @hasSection('headerCSS')
         @yield('headerCSS')
     @endif
