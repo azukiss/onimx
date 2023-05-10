@@ -26,6 +26,3 @@ public/uploads
 
 storage/app/public/assets/fontawesome/css/.DS_Store
 storage/app/public/assets/image/.DS_Store
-
-# composer
-composer.lock
