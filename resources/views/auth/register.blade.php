@@ -1,14 +1,21 @@
 @extends('templates.auth.page')
 
 @section('auth_title')
-    <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Login</h2>
+    <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Register</h2>
     <p class="mt-2 text-center text-sm text-gray-600">
-        Don't have an account? <a href="{{ route('register') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Register</a>
+        Already have an account? <a href="{{ route('login') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Login</a>
     </p>
 @endsection
 
 @section('auth_form')
-    <form class="space-y-6" action="{{ route('login') }}" method="POST">
+    <form class="space-y-6" action="{{ route('register') }}" method="POST">
+        <div>
+            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+            <div class="mt-1">
+                <input id="username" name="username" type="text" required class="block w-full">
+            </div>
+        </div>
+
         <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
             <div class="mt-1">
@@ -20,17 +27,6 @@
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
             <div class="mt-1">
                 <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full">
-            </div>
-        </div>
-
-        <div class="flex items-center justify-between">
-            <div class="flex items-center">
-                <input id="remember-me" name="remember-me" type="checkbox" class="cursor-pointer">
-                <label for="remember-me" class="ml-2 block text-sm text-gray-900 cursor-pointer">Remember me</label>
-            </div>
-
-            <div class="text-sm">
-                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
             </div>
         </div>
 
