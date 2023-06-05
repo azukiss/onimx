@@ -3,44 +3,54 @@
 @tailwind utilities;
 
 @layer base {
+    html {
+        @apply h-full bg-gray-50;
+    }
+
     body {
-        @apply antialiased font-sans bg-white overflow-hidden;
-        @apply h-full;
+        @apply antialiased font-sans bg-white text-gray-800 bg-gray-50;
+    }
+
+    .main-section {
+        @apply flex flex-1 flex-col lg:pl-64;
+    }
+
+    .page-section {
+        @apply bg-gray-50;
+        @apply flex-1 space-y-6 py-6 px-4 sm:px-6 md:px-8;
+        @apply min-h-screen;
     }
 }
 
 @layer components {
-    .breadcrumb {
-        @apply flex border-b border-gray-200 bg-white text-sm;
-        @apply py-2;
-    }
-    .breadcrumb .lists
-    {
-        @apply mx-auto flex w-full space-x-4 px-4 sm:px-6 lg:px-8;
-    }
-
-    input[type='text'],
-    input[type='password'],
-    input[type='email'],
-    input[type='number'],
-    input[type='url'],
-    input[type='date'],
-    input[type='datetime-local'],
-    input[type='month'],
-    input[type='week'],
-    input[type='time'],
-    input[type='search'],
-    input[type='tel'],
-    select,
-    select[multiple],
-    textarea {
+    .form-input,
+    .form-textarea,
+    .form-select,
+    .form-multiselect{
         @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm;
         @apply focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
     }
 
-    input[type='checkbox'],
-    input[type='radio'] {
+    .form-checkbox,
+    .form-radio {
         @apply rounded border-gray-300 text-indigo-600 shadow-sm;
         @apply focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50;
+    }
+
+    .breadcrumb {
+        @apply bg-gray-50 pb-2 pt-4;
+        @apply text-sm font-medium;
+    }
+    .breadcrumb .lists
+    {
+        @apply mx-auto flex items-center w-full;
+        @apply space-x-4 px-4 sm:px-6 lg:px-8;
+    }
+    .breadcrumb a {
+        @apply ml-4 text-gray-500 hover:text-gray-700;
+    }
+
+    .card {
+        @apply overflow-hidden rounded-lg bg-white shadow;
     }
 }

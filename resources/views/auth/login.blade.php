@@ -12,20 +12,20 @@
         <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
             <div class="mt-1">
-                <input id="email" name="email" type="email" autocomplete="email" required class="block w-full">
+                <input id="email" name="email" type="email" autocomplete="email" required class="block w-full form-input">
             </div>
         </div>
 
         <div>
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
             <div class="mt-1">
-                <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full">
+                <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full form-input">
             </div>
         </div>
 
         <div class="flex items-center justify-between">
             <div class="flex items-center">
-                <input id="remember-me" name="remember-me" type="checkbox" class="cursor-pointer">
+                <input id="remember-me" name="remember-me" type="checkbox" class="cursor-pointer form-checkbox">
                 <label for="remember-me" class="ml-2 block text-sm text-gray-900 cursor-pointer">Remember me</label>
             </div>
 

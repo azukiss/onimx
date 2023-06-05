@@ -1,22 +1,25 @@
-<nav class="breadcrumb">
+<nav class="breadcrumb" aria-label="Breadcrumb">
     <ol role="list" class="lists">
-        <li class="flex">
-            <div class="flex items-center">
-                <a href="{{ route('home') }}" class="text-gray-400 hover:text-gray-500">
-                    <i class="fas fa-home"></i>
+        <li>
+            <div>
+                <a href="{{ route('home') }}">
+                    <i class="fas fa-home flex-shrink-0"></i>
+                    <span class="sr-only">Home</span>
                 </a>
             </div>
         </li>
-        <li class="flex">
+
+        <li>
             <div class="flex items-center">
-                <i class="fas fa-chevron-right fa-fw flex-shrink-0 text-gray-300"></i>
-                <a href="#" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">Projects</a>
+                <i class="fa-regular fa-slash-forward flex-shrink-0 text-gray-300"></i>
+                <a href="#">Projects</a>
             </div>
         </li>
-        <li class="flex">
+
+        <li>
             <div class="flex items-center">
-                <i class="fas fa-chevron-right fa-fw flex-shrink-0 text-gray-300"></i>
-                <a href="#" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" aria-current="page">Project Nero</a>
+                <i class="fa-regular fa-slash-forward flex-shrink-0 text-gray-300"></i>
+                <a href="#">Project Nero</a>
             </div>
         </li>
     </ol>

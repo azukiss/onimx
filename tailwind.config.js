@@ -12,6 +12,7 @@ module.exports = {
             colors: {
                 'transparent': 'transparent',
                 'current': 'currentColor',
+                'primary': '#d65352',
                 'palette-1': '#2bc0c7',
                 'palette-2': '#71C9CE',
                 'palette-3': '#A6E3E9',
@@ -39,8 +40,8 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/forms')({
-            strategy: 'base',
-            // strategy: 'class',
+            // strategy: 'base',
+            strategy: 'class',
         }),
         require('@tailwindcss/typography'),
     ],

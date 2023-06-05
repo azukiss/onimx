@@ -12,21 +12,21 @@
         <div>
             <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
             <div class="mt-1">
-                <input id="username" name="username" type="text" required class="block w-full">
+                <input id="username" name="username" type="text" required class="block w-full form-input">
             </div>
         </div>
 
         <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
             <div class="mt-1">
-                <input id="email" name="email" type="email" autocomplete="email" required class="block w-full">
+                <input id="email" name="email" type="email" autocomplete="email" required class="block w-full form-input">
             </div>
         </div>
 
         <div>
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
             <div class="mt-1">
-                <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full">
+                <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full form-input">
             </div>
         </div>
 
