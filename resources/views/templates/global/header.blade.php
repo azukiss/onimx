@@ -35,7 +35,7 @@
             @else
                 <div class="hidden sm:block ml-3 space-x-2">
                     <a href="{{ route('login') }}" x-data x-ripple class="relative inline-flex items-center rounded-md border border-gray-300 bg-transparent px-4 py-2 text-sm font-medium text-black shadow-sm hover:border-gray-400">Login</a>
-                    <a href="{{ route('register') }}" x-data x-ripple class="relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700">Register</a>
+                    <a href="{{ route('register') }}" x-data x-ripple class="relative inline-flex items-center rounded-md border border-transparent bg-oni-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-oni-700">Register</a>
                 </div>
             @endauth
         </div>

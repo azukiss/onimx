@@ -3,12 +3,13 @@
 @section('auth_title')
     <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Login</h2>
     <p class="mt-2 text-center text-sm text-gray-600">
-        Don't have an account? <a href="{{ route('register') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Register</a>
+        Don't have an account? <a href="{{ route('register') }}" class="font-medium text-oni-600 hover:text-oni-500">Register</a>
     </p>
 @endsection
 
 @section('auth_form')
     <form class="space-y-6" action="{{ route('login') }}" method="POST">
+        @csrf
         <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
             <div class="mt-1">
@@ -30,12 +31,12 @@
             </div>
 
             <div class="text-sm">
-                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
+                <a href="#" class="font-medium text-oni-600 hover:text-oni-500">Forgot your password?</a>
             </div>
         </div>
 
         <div>
-            <button x-data x-ripple type="submit" class="relative w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700">Login</button>
+            <button x-data x-ripple type="submit" class="relative w-full justify-center rounded-md border border-transparent bg-oni-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-oni-700">Login</button>
         </div>
     </form>
 @endsection

@@ -32,8 +32,8 @@
                     <img src="https://4play.to/assets/ads/00/150x150.png" loading="lazy" class="max-w-[150px] max-h-[150px] z-0">
                 </a>
                 <div class="flex flex-col mt-5 text-center space-y-1">
-                    <a href="#" class="font-medium text-sm hover:text-primary">Advertising</a>
-                    <a href="#" class="font-medium text-sm hover:text-primary">Terms of Service</a>
+                    <a href="#" class="font-medium text-sm hover:text-oni-600">Advertising</a>
+                    <a href="#" class="font-medium text-sm hover:text-oni-600">Terms of Service</a>
                 </div>
             </div>
         </div>
@@ -69,8 +69,8 @@
                 </a>
             </div>
             <div class="flex flex-col mt-5 text-center space-y-1">
-                <a href="#" class="font-medium text-sm hover:text-primary">Advertising</a>
-                <a href="#" class="font-medium text-sm hover:text-primary">Terms of Service</a>
+                <a href="#" class="font-medium text-sm hover:text-oni-600">Advertising</a>
+                <a href="#" class="font-medium text-sm hover:text-oni-600">Terms of Service</a>
             </div>
         </div>
     </div>

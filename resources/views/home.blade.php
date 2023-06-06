@@ -32,7 +32,7 @@
                         <div class="flex items-center justify-between">
                             <div class="space-y-1">
                                 <div class="font-medium">
-                                    <a href="#" class="hover:text-indigo-500">Coser Name</a>
+                                    <a href="#" class="hover:text-oni-600">Coser Name</a>
                                 </div>
                                 <div class="text-sm text-gray-500">{{ \Carbon\Carbon::now() }}</div>
                             </div>
