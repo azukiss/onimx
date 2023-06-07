@@ -16,6 +16,7 @@
             @include('templates.global.footer')
         </div>
     </div>
+    @include('sweetalert::alert')
 </body>
 
 </html>

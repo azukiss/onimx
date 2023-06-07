@@ -28,9 +28,9 @@
                 </nav>
             </div>
             <div class="flex flex-col flex-shrink-0 items-center justify-center">
-                <a href="#">
+                {{--<a href="#">
                     <img src="https://4play.to/assets/ads/00/150x150.png" loading="lazy" class="max-w-[150px] max-h-[150px] z-0">
-                </a>
+                </a>--}}
                 <div class="flex flex-col mt-5 text-center space-y-1">
                     <a href="#" class="font-medium text-sm hover:text-oni-600">Advertising</a>
                     <a href="#" class="font-medium text-sm hover:text-oni-600">Terms of Service</a>
@@ -63,11 +63,11 @@
             </nav>
         </div>
         <div class="flex flex-col flex-shrink-0 items-center justify-center">
-            <div>
+            {{--<div>
                 <a href="#">
                     <img src="https://4play.to/assets/ads/00/150x150.png" loading="lazy" class="h-full w-full max-w-[150px] max-h-[150px]">
                 </a>
-            </div>
+            </div>--}}
             <div class="flex flex-col mt-5 text-center space-y-1">
                 <a href="#" class="font-medium text-sm hover:text-oni-600">Advertising</a>
                 <a href="#" class="font-medium text-sm hover:text-oni-600">Terms of Service</a>

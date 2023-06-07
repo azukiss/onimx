@@ -26,8 +26,8 @@
 
         <div class="flex items-center justify-between">
             <div class="flex items-center">
-                <input id="remember-me" name="remember-me" type="checkbox" class="cursor-pointer form-checkbox">
-                <label for="remember-me" class="ml-2 block text-sm text-gray-900 cursor-pointer">Remember me</label>
+                <input id="remember" name="remember" type="checkbox" class="cursor-pointer form-checkbox">
+                <label for="remember" class="ml-2 block text-sm text-gray-900 cursor-pointer">Remember me</label>
             </div>
 
             <div class="text-sm">

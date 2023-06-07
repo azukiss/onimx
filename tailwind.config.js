@@ -9,6 +9,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                poppins: ['Poppins', ...defaultTheme.fontFamily.sans],
+            },
             colors: {
                 'transparent': 'transparent',
                 'current': 'currentColor',
@@ -64,7 +67,7 @@ module.exports = {
                     '200': '#b3eeee',
                     '300': '#7ee0e2',
                     '400': '#42c9ce',
-                    '500': '#2bc0c7',
+                    '500': '#27adb3',
                     '600': '#238c97',
                     '700': '#23717b',
                     '800': '#245d66',
