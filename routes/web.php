@@ -34,5 +34,7 @@ Route::name('user')->group(function () {
         Route::get('/settings/2fa/disable', function () { return abort(404); });
         Route::get('/settings/password', 'ChangePassword')->name('.password');
         Route::get('/settings/account', 'AccountPreferences')->name('.account');
+        Route::get('/settings/avatar', function () { return abort(404); });
+        Route::put('/settings/avatar', 'UpdateAvatar')->name('.avatar');
     });
 });

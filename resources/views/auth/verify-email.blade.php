@@ -12,7 +12,7 @@
                     <i class="fa-solid fa-circle-check fa-fw text-green-400"></i>
                 </div>
                 <div class="ml-3">
-                    <p class="text-sm font-medium text-green-800">A new email verification link has been emailed to you!</p>
+                    <p class="text-sm font-medium text-green-800">{{ __('A new email verification link has been emailed to you!') }}</p>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
         </div>
 
         <div>
-            <button x-data x-ripple type="submit" class="relative w-full justify-center rounded-md border border-transparent bg-oni-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-oni-700">Send Verification Link</button>
+            <button x-data x-ripple type="submit" class="btn btn-base btn-primary btn-oni">{{ __('Send Verification Link') }}</button>
         </div>
     </form>
 @endsection

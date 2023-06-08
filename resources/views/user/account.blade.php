@@ -2,18 +2,26 @@
 
 @section('user-settings')
     <div class="card">
-        <form action="#" method="post">
+        <form action="{{ route('user.settings.avatar') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('put')
             <div class="card-body space-y-6">
                 <div>
                     <h2 class="text-lg font-medium leading-6 text-gray-900">{{ __('Change Avatar') }}</h2>
                 </div>
 
-                <div></div>
+                <div>
+                    <label for="avatar" class="block text-sm font-medium text-gray-700">{{ __('Avatar') }}</label>
+                    <input type="file" name="avatar" id="avatar">
+                    @error('avatar')
+                        <p class="text-oni-500">{{ $errors->first('avatar') }}</p>
+                    @enderror
+                </div>
 
             </div>
             <div class="card-footer">
-                <button type="submit" name="remove" x-data x-ripple class="btn btn-base btn-primary btn-oni">Remove</button>
-                <button type="submit" name="save" x-data x-ripple class="btn btn-base btn-primary btn-scooter">Save</button>
+                <button type="submit" name="remove" value="true" x-data x-ripple class="btn btn-base btn-primary btn-oni">Remove</button>
+                <button type="submit" name="save" value="true" x-data x-ripple class="btn btn-base btn-primary btn-scooter">Save</button>
             </div>
         </form>
     </div>

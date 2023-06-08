@@ -51,8 +51,7 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
         ->name('logout');
     /* END Authentication */
 
-    // Password Reset...
-    /* START  */
+    /* START Password Reset */
     if (Features::enabled(Features::resetPasswords())) {
         if ($enableViews) {
             Route::get(RoutePath::for('password.request', '/forgot-password'), [PasswordResetLinkController::class, 'create'])
@@ -72,7 +71,7 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
             ->middleware(['guest:'.config('fortify.guard')])
             ->name('password.update');
     }
-    /* END  */
+    /* END Password Reset */
 
     /* START Registration */
     if (Features::enabled(Features::registration())) {

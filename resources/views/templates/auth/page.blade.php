@@ -3,7 +3,7 @@
 
 @include('templates.global.head')
 
-<body class="h-full {{ (!empty($page_id) ? $page_id : null) }}">
+<body class="h-full auth">
 <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <a href="{{ route('home') }}">
