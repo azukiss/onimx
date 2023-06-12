@@ -47,9 +47,6 @@ class SettingsController extends Controller
 
     protected function UpdateAvatar(Request $request)
     {
-//        dd($request->avatar);
-//        dd(public_path('uploads/avatar/'));
-
         if ($request->save == true) {
             $request->validate([
                 'avatar' => ['required', 'image', 'mimes:png,jpg,jpeg'],

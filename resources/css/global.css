@@ -25,7 +25,7 @@
 }
 
 @layer components {
-    /* START Header*/
+    /* START Header */
     .header {
         @apply sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow;
     }
@@ -36,8 +36,9 @@
     .header .mobile-menu-button {
         @apply border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 lg:hidden;
     }
-    /* END Header*/
+    /* END Header */
 
+    /* START Form */
     .form-input,
     .form-textarea,
     .form-select,
@@ -69,6 +70,7 @@
     .form-error {
         @apply border border-oni-300 ring ring-oni-200 ring-opacity-50
     }
+    /* END Form */
 
     /* Start Breadcrumb */
     .breadcrumb {
@@ -87,6 +89,7 @@
     }
     /* End Breadcrumb */
 
+    /* Start Card */
     .card {
         /*@apply overflow-hidden rounded-lg shadow;*/
         @apply shadow sm:overflow-hidden sm:rounded-md;
@@ -103,6 +106,7 @@
     .card-hover {
         @apply hover:ring-2 hover:ring-oni-300 hover:ring-opacity-50;
     }
+    /* End Card */
 
     /* Start Button */
     .btn {
@@ -188,7 +192,7 @@
         @apply bg-white text-gray-700 hover:bg-gray-50 focus:ring-gray-300;
         @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
     }
-    /* End Button*/
+    /* End Button */
 
     /* Start Badge*/
     .badge-md, .badge-base {
