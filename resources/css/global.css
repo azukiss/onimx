@@ -6,11 +6,11 @@
 
 @layer base {
     html {
-        @apply h-full bg-gray-50;
+        @apply h-full;
     }
 
     body {
-        @apply antialiased font-poppins leading-6 text-gray-800 bg-gray-50;
+        @apply antialiased font-poppins leading-6 text-gray-800 bg-white;
     }
 
     .main-section {
@@ -18,7 +18,6 @@
     }
 
     .page-section {
-        @apply bg-gray-50;
         @apply flex-1 space-y-6 py-6 px-4 sm:px-6 md:px-8;
         @apply min-h-screen;
     }
@@ -74,7 +73,7 @@
 
     /* Start Breadcrumb */
     .breadcrumb {
-        @apply bg-gray-50 pb-2 pt-4;
+        @apply mb-2 mt-4;
         @apply text-sm font-medium;
     }
 
@@ -85,14 +84,19 @@
     }
 
     .breadcrumb a {
-        @apply ml-4 text-gray-500 hover:text-gray-700;
+        @apply ml-4 text-gray-500 hover:text-oni-500;
+    }
+
+    .breadcrumb a.active {
+        @apply ml-4 text-oni-500;
     }
     /* End Breadcrumb */
 
     /* Start Card */
     .card {
         /*@apply overflow-hidden rounded-lg shadow;*/
-        @apply shadow sm:overflow-hidden sm:rounded-md;
+        @apply transition ease-in-out duration-300;
+        @apply shadow border overflow-hidden rounded-md bg-white;
     }
 
     .card-body {
@@ -104,7 +108,9 @@
     }
 
     .card-hover {
-        @apply hover:ring-2 hover:ring-oni-300 hover:ring-opacity-50;
+        @apply hover:border-oni-500 hover:border-opacity-50;
+        /*@apply hover:ring-2 hover:ring-oni-500 hover:ring-opacity-50;*/
+        @apply hover:shadow-oni-500;
     }
     /* End Card */
 
@@ -230,7 +236,7 @@
     }
 
     .settings-page .nav-link.active {
-        @apply text-scooter-500 hover:bg-scooter-100;
+        @apply text-oni-500 hover:bg-oni-100;
     }
 
     .settings-page .nav-link.not-active {
@@ -238,6 +244,29 @@
     }
 
     .settings-page .nav-link.active > i {
-        @apply text-scooter-500;
+        @apply text-oni-500;
     }
+
+    /* START Cosplay Content*/
+    .cosplay-content {
+        @apply bg-white;
+    }
+
+    .cosplay-gallery {
+        @apply flex flex-col;
+    }
+
+    .cosplay-gallery .main-image {
+        @apply w-full h-64 md:h-96;
+    }
+
+    .cosplay-gallery .sub-image {
+        @apply mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none;
+    }
+
+    .cosplay-gallery .sub-image button {
+        @apply relative flex h-24 cursor-pointer items-center justify-center rounded-md focus:outline-none ring ring-opacity-50 ring-offset-4;
+    }
+
+    /* END Cosplay Content*/
 }

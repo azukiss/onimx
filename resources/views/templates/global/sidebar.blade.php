@@ -13,16 +13,16 @@
             </div>
             <div class="mt-5 h-0 flex-1">
                 <nav class="space-y-1 px-2">
-                    <a href="{{ route('home') }}" class="@if(Route::is('home')) bg-gray-100 text-gray-900 @else text-gray-600 @endif group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fa-solid fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
+                    <a href="{{ route('page.home') }}" class="@if(Route::is('home')) bg-gray-100 text-gray-900 @else text-gray-600 @endif group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-gray-50 hover:text-gray-900">
+                        <i class="fa-regular fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
                         Home
                     </a>
                     <a href="#" class="text-gray-600 group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fa-solid fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
+                        <i class="fa-regular fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
                         Coser
                     </a>
                     <a href="#" class="text-gray-600 group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fa-solid fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
+                        <i class="fa-regular fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
                         Cosplay
                     </a>
                 </nav>
@@ -48,16 +48,16 @@
         </div>
         <div class="mt-5 flex flex-grow flex-col">
             <nav class="flex-1 space-y-1 px-2 pb-4">
-                <a href="{{ route('home') }}" class="@if(Route::is('home')) bg-gray-100 text-gray-900 @else text-gray-600 @endif group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-gray-50 hover:text-gray-900">
-                    <i class="fa-solid fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
+                <a href="{{ route('page.home') }}" class="@if(Route::is('page.home')) bg-oni-100 text-gray-900 @else text-gray-600 @endif group flex items-center px-2 py-2 text-base rounded-md hover:bg-gray-200 hover:text-gray-900">
+                    <i class="fa-regular fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
                     Home
                 </a>
-                <a href="#" class="text-gray-600 group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-gray-50 hover:text-gray-900">
-                    <i class="fa-solid fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
+                <a href="#" class="text-gray-600 group flex items-center px-2 py-2 text-base rounded-md hover:bg-gray-200 hover:text-gray-900">
+                    <i class="fa-regular fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
                     Coser
                 </a>
-                <a href="#" class="text-gray-600 group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-gray-50 hover:text-gray-900">
-                    <i class="fa-solid fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
+                <a href="#" class="text-gray-600 group flex items-center px-2 py-2 text-base rounded-md hover:bg-gray-200 hover:text-gray-900">
+                    <i class="fa-regular fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
                     Cosplay
                 </a>
             </nav>

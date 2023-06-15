@@ -24,7 +24,7 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 Alert::toast('Goodbye', 'success');
-                return redirect()->route('home');
+                return redirect()->route('page.home');
             }
         });
 
@@ -32,7 +32,7 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 Alert::toast('Welcome, ' . Str::words(auth()->user()->username, 2, null), 'success');
-                return redirect()->route('home');
+                return redirect()->route('page.home');
             }
         });
     }

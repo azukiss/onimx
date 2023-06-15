@@ -20,13 +20,17 @@
                     <div>
                         <button @click="profileMenu = !profileMenu" @click.outside="profileMenu = false" type="button" class="avatar" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                             <span class="sr-only">Open user menu</span>
-                            <img class="h-8 w-8 rounded-full" src="#" alt="user-avatar" onerror="this.src='{{ asset('assets/images/default_avatar.jpg') }}'">
+                            <img class="h-8 w-8 rounded-full" src="{{ asset(auth()->user()->avatar) }}" alt="user-avatar" onerror="this.src='{{ asset('assets/images/default_avatar.jpg') }}'">
                         </button>
                     </div>
                     <div x-show="profileMenu" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95">
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700">Your Profile</a>
 
                         <a href="{{ route('user.settings.index') }}" class="block px-4 py-2 text-sm text-gray-700 @if(Route::is('settings')) bg-gray-100 @endif">Settings</a>
+
+                        @can('access-filament')
+                            <a href="{{ config('app.url').'/'.config('filament.path') }}" class="block px-4 py-2 text-sm text-gray-700" target="_blank">Admin Panel</a>
+                        @endcan
 
                         <a class="block px-4 py-2 text-sm text-gray-700 cursor-pointer" onclick="event.preventDefault(); document.getElementById('logout').submit();">Sign out</a>
                         <form id="logout" action="{{ route('logout') }}" method="POST">
@@ -43,7 +47,6 @@
         </div>
     </div>
 </div>
-{{--@include('templates.global.breadcrumbs')--}}
 {{ Breadcrumbs::render() }}
 {{--<div class="flex items-center justify-center px-4 sm:px-6 md:px-8">
     <a href="#">

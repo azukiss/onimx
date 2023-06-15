@@ -6,7 +6,7 @@
 <body class="h-full auth">
 <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <a href="{{ route('home') }}">
+        <a href="{{ route('page.home') }}">
             <img class="mx-auto h-32 w-auto" src="{{ asset('assets/images/logo_small.png') }}" alt="{{ config('app.name') }}">
         </a>
         @hasSection('auth_title')

@@ -12,7 +12,8 @@ use App\Models\User;
 
 class SettingsController extends Controller
 {
-    private $page_id = 'settings-page';
+    private $page_title = 'Settings ';
+    private $page_id = 'settings-page ';
 
     public function __construct()
     {
@@ -27,21 +28,24 @@ class SettingsController extends Controller
     public function TwoFactor()
     {
         return view('user.two-factor', [
-            'page_id' => $this->page_id . ' 2fa',
+            'page_title' => $this->page_title . 'Two Factor',
+            'page_id' => $this->page_id . '2fa',
         ]);
     }
 
     public function ChangePassword()
     {
         return view('user.password', [
-            'page_id' => $this->page_id . ' password',
+            'page_title' => $this->page_title . 'Password',
+            'page_id' => $this->page_id . 'password',
         ]);
     }
 
     public function AccountPreferences(Request $request)
     {
         return view('user.account', [
-            'page_id' => $this->page_id . ' account',
+            'page_title' => $this->page_title . 'Account',
+            'page_id' => $this->page_id . 'account',
         ]);
     }
 
@@ -57,7 +61,7 @@ class SettingsController extends Controller
 
                 if ($request->hasfile('avatar')) {
                     if (!empty($user->avatar)) {
-                        File::delete(public_path('uploads/avatar/' . $user->avatar));
+                        File::delete(public_path($user->avatar));
                     }
 
                     $img = Image::make($request->file('avatar'));
@@ -67,8 +71,8 @@ class SettingsController extends Controller
                         $constraint->upsize();
                     });
 
-                    $avatarName = $user->id . '_' . time() . '.' . $request->file('avatar')->extension();
-                    $img->save(public_path('uploads/avatar/' . $avatarName));
+                    $avatarName = 'uploads/avatar/' . bin2hex(random_bytes(10)) . '.' . $request->file('avatar')->extension();
+                    $img->save(public_path($avatarName));
                     $img->destroy();
                 } else {
                     $avatarName = $user->avatar;
@@ -78,6 +82,7 @@ class SettingsController extends Controller
                     'avatar' => $avatarName,
                 ]);
             });
+
             Alert::toast('Successful', 'success');
         }
         elseif ($request->remove == true)
@@ -86,7 +91,7 @@ class SettingsController extends Controller
                 $user = auth()->user();
 
                 if (!empty($user->avatar)) {
-                    File::delete(public_path('uploads/avatar/' . $user->avatar));
+                    File::delete(public_path($user->avatar));
                 }
 
                 $avatarName = null;
@@ -95,6 +100,7 @@ class SettingsController extends Controller
                     'avatar' => $avatarName,
                 ]);
             });
+
             Alert::toast('Successful', 'success');
         }
         else {

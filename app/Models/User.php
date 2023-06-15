@@ -9,12 +9,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
+use Filament\Models\Contracts\HasName;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser, HasAvatar, HasName
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, TwoFactorAuthenticatable, HasRoles;
 
     protected $fillable = [
+        'avatar',
         'username',
         'email',
         'password',
@@ -28,4 +33,39 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function canAccessFilament(): bool
+    {
+        return $this->can('access-filament') && $this->hasVerifiedEmail();
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return !empty($this->avatar) ? asset($this->avatar) : asset('assets/images/default_avatar.png');
+    }
+
+    public function getFilamentName(): string
+    {
+        return "{$this->username}";
+    }
+
+    public function verifyEmail()
+    {
+        $this->attributes['email_verified_at'] = date('Y-m-d h:i:s', time());
+        $this->save();
+    }
+
+    public function unVerifyEmail()
+    {
+        $this->attributes['email_verified_at'] = null;
+        $this->save();
+    }
+
+    public function disableTwoFactor()
+    {
+        $this->attributes['two_factor_confirmed_at'] = null;
+        $this->attributes['two_factor_secret'] = null;
+        $this->attributes['two_factor_recovery_codes'] = null;
+        $this->save();
+    }
 }

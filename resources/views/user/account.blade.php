@@ -10,12 +10,12 @@
                     <h2 class="text-lg font-medium leading-6 text-gray-900">{{ __('Change Avatar') }}</h2>
                 </div>
 
-                <div>
-                    <label for="avatar" class="block text-sm font-medium text-gray-700">{{ __('Avatar') }}</label>
-                    <input type="file" name="avatar" id="avatar">
-                    @error('avatar')
-                        <p class="text-oni-500">{{ $errors->first('avatar') }}</p>
-                    @enderror
+                <div class="col-span-full">
+                    <div class="mt-2 flex items-center gap-x-3">
+                        <img class="h-20 w-20 rounded-full" src="{{ asset(auth()->user()->avatar) }}" alt="user-avatar" id="avatar_output" onerror="this.src='{{ asset('assets/images/default_avatar.jpg') }}'">
+                        <input type="file" name="avatar" id="avatar_file" accept="image/*" onchange="document.getElementById('avatar_output').src = window.URL.createObjectURL(this.files[0])" class="hidden">
+                        <button type="button" class="btn btn-sm btn-tertiary" onclick="document.getElementById('avatar_file').click();">{{ __('Upload') }}</button>
+                    </div>
                 </div>
 
             </div>
