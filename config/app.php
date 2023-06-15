@@ -194,6 +194,14 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // Fortify
+        App\Providers\FortifyServiceProvider::class,
+        // Spatie Permissions
+        Spatie\Permission\PermissionServiceProvider::class,
+        // SweetAlert2
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        // Intervention Image
+        Intervention\Image\ImageServiceProvider::class
 
     ],
 
@@ -209,7 +217,10 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        // SweetAlert2
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        // Intervention Image
+        'Image' => Intervention\Image\Facades\Image::class
     ])->toArray(),
 
 ];

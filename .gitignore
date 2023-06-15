@@ -17,3 +17,12 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# macOS Files
+.DS_Store
+
+public/assets
+public/uploads
+
+storage/app/public/assets/fontawesome/css/.DS_Store
+storage/app/public/assets/image/.DS_Store

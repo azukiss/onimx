@@ -1,10 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-    body {
-        @apply antialiased font-sans bg-white overflow-hidden;
+@layer base {
+    html {
         @apply h-full;
     }
+
+    body {
+        @apply antialiased font-poppins leading-6 text-gray-800 bg-white;
+    }
+
+    .main-section {
+        @apply flex flex-1 flex-col lg:pl-64;
+    }
+
+    .page-section {
+        @apply flex-1 space-y-6 py-6 px-4 sm:px-6 md:px-8;
+        @apply min-h-screen;
+    }
+}
+
+@layer components {
+    /* START Header */
+    .header {
+        @apply sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow;
+    }
+    .header .avatar {
+        @apply flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-oni-500 focus:ring-opacity-50;
+    }
+
+    .header .mobile-menu-button {
+        @apply border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 lg:hidden;
+    }
+    /* END Header */
+
+    /* START Form */
+    .form-input,
+    .form-textarea,
+    .form-select,
+    .form-multiselect{
+        @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm;
+        @apply focus:border focus:border-scooter-300 focus:ring focus:ring-scooter-200 focus:ring-opacity-50;
+    }
+
+    .form-checkbox,
+    .form-radio {
+        @apply rounded border-gray-300 text-scooter-600 shadow-sm;
+        @apply focus:border focus:border-scooter-300 focus:ring focus:ring-offset-0 focus:ring-scooter-200 focus:ring-opacity-50;
+    }
+
+    .auth .form-input,
+    .auth .form-textarea,
+    .auth .form-select,
+    .auth .form-multiselect{
+        @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm;
+        @apply focus:border focus:border-oni-300 focus:ring focus:ring-oni-200 focus:ring-opacity-50;
+    }
+
+    .auth .form-checkbox,
+    .auth .form-radio {
+        @apply rounded border-gray-300 text-oni-600 shadow-sm;
+        @apply focus:border focus:border-oni-300 focus:ring focus:ring-offset-0 focus:ring-oni-200 focus:ring-opacity-50;
+    }
+
+    .form-error {
+        @apply border border-oni-300 ring ring-oni-200 ring-opacity-50
+    }
+    /* END Form */
+
+    /* Start Breadcrumb */
+    .breadcrumb {
+        @apply mb-2 mt-4;
+        @apply text-sm font-medium;
+    }
+
+    .breadcrumb .lists
+    {
+        @apply mx-auto flex items-center w-full;
+        @apply space-x-4 px-4 sm:px-6 lg:px-8;
+    }
+
+    .breadcrumb a {
+        @apply ml-4 text-gray-500 hover:text-oni-500;
+    }
+
+    .breadcrumb a.active {
+        @apply ml-4 text-oni-500;
+    }
+    /* End Breadcrumb */
+
+    /* Start Card */
+    .card {
+        /*@apply overflow-hidden rounded-lg shadow;*/
+        @apply transition ease-in-out duration-300;
+        @apply shadow border overflow-hidden rounded-md bg-white;
+    }
+
+    .card-body {
+        @apply bg-white py-6 px-4 sm:p-6;
+    }
+
+    .card-footer {
+        @apply bg-gray-50 px-4 py-3 text-right sm:px-6;
+    }
+
+    .card-hover {
+        @apply hover:border-oni-500 hover:border-opacity-50;
+        /*@apply hover:ring-2 hover:ring-oni-500 hover:ring-opacity-50;*/
+        @apply hover:shadow-oni-500;
+    }
+    /* End Card */
+
+    /* Start Button */
+    .btn {
+        @apply relative inline-flex justify-center items-center font-medium shadow-sm;
+        @apply transition ease-in-out duration-200;
+    }
+
+    .btn-xs {
+        @apply rounded px-2.5 py-1.5 text-xs;
+    }
+
+    .btn-sm {
+        @apply rounded-md px-3 py-2 text-sm leading-4;
+    }
+
+    .btn-md, .btn-base {
+        @apply rounded-md px-4 py-2 text-sm;
+    }
+
+    .btn-lg {
+        @apply rounded-md px-4 py-2 text-base;
+    }
+
+    .btn-xl {
+        @apply rounded-md px-6 py-3 text-base;
+    }
+
+    .btn-primary {
+        @apply text-white;
+        @apply border border-transparent;
+    }
+
+    .btn-primary.btn-scooter {
+        @apply bg-scooter-500 hover:bg-scooter-600 focus:ring-scooter-500;
+        @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+    }
+
+    .btn-primary.btn-oni {
+        @apply bg-oni-500 hover:bg-oni-600 focus:ring-oni-500;
+        @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+    }
+
+    .btn-primary.btn-roman {
+        @apply bg-roman-500 hover:bg-roman-600 focus:ring-roman-500;
+        @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+    }
+
+    .btn-primary.btn-salmon {
+        @apply bg-salmon-500 hover:bg-salmon-600 focus:ring-salmon-500;
+        @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+    }
+
+    .btn-secondary {
+        @apply border border-transparent;
+    }
+
+    .btn-secondary.btn-scooter {
+        @apply text-scooter-700;
+        @apply bg-scooter-100 hover:bg-scooter-200 focus:ring-scooter-500;
+        @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+    }
+
+    .btn-secondary.btn-oni {
+        @apply text-oni-700;
+        @apply bg-oni-100 hover:bg-oni-200 focus:ring-oni-500;
+        @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+    }
+
+    .btn-secondary.btn-roman {
+        @apply text-roman-700;
+        @apply bg-roman-100 hover:bg-roman-200 focus:ring-roman-500;
+        @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+    }
+
+    .btn-secondary.btn-salmon {
+        @apply text-salmon-700;
+        @apply bg-salmon-100 hover:bg-salmon-200 focus:ring-salmon-500;
+        @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+    }
+
+    .btn-tertiary {
+        @apply border border-gray-300;
+        @apply bg-white text-gray-700 hover:bg-gray-50 focus:ring-gray-300;
+        @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+    }
+    /* End Button */
+
+    /* Start Badge*/
+    .badge-md, .badge-base {
+        @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+    }
+
+    .badge-lg {
+        @apply inline-flex items-center rounded-full px-3 py-0.5 text-sm font-medium;
+    }
+
+    .badge-rounded {
+        @apply
+    }
+    /* End Badge */
+
+    /* Settings Page */
+    .settings-page .page-body {
+        @apply lg:grid lg:grid-cols-12 lg:gap-x-5;
+    }
+
+    .settings-page .side-bar {
+        @apply py-6 px-2 sm:px-6 lg:col-span-3 lg:py-0 lg:px-0;
+    }
+
+    .settings-page .main-side {
+        @apply space-y-6 sm:px-6 lg:col-span-9 lg:px-0;
+    }
+
+    .settings-page .nav-link {
+        @apply rounded-md px-3 py-2 flex items-center text-sm font-medium;
+    }
+
+    .settings-page .nav-link>i {
+        @apply text-lg text-gray-400 hover:text-gray-500 flex-shrink-0 -ml-1 mr-3;
+    }
+
+    .settings-page .nav-link.active {
+        @apply text-oni-500 hover:bg-oni-100;
+    }
+
+    .settings-page .nav-link.not-active {
+        @apply hover:bg-gray-100;
+    }
+
+    .settings-page .nav-link.active > i {
+        @apply text-oni-500;
+    }
+
+    /* START Cosplay Content*/
+    .cosplay-content {
+        @apply bg-white;
+    }
+
+    .cosplay-gallery {
+        @apply flex flex-col;
+    }
+
+    .cosplay-gallery .main-image {
+        @apply w-full h-64 md:h-96;
+    }
+
+    .cosplay-gallery .sub-image {
+        @apply mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none;
+    }
+
+    .cosplay-gallery .sub-image button {
+        @apply relative flex h-24 cursor-pointer items-center justify-center rounded-md focus:outline-none ring ring-opacity-50 ring-offset-4;
+    }
+
+    /* END Cosplay Content*/
 }

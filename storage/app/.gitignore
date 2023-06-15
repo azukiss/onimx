@@ -1,3 +1,6 @@
-*
 !public/
+!public/assets/
+!public/uploads/
+!public/uploads/users/avatar/
+!public/uploads/users/cover/
 !.gitignore

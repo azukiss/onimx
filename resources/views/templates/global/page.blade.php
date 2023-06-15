@@ -6,20 +6,17 @@
 <body class="{{ (!empty($page_id) ? $page_id : null) }}">
     <div x-data="{ sideMenu: false }">
         @include('templates.global.sidebar')
-        <div class="flex flex-1 flex-col md:pl-64">
+        <div class="main-section">
             @include('templates.global.header')
-            @include('templates.global.breadcrumb')
-            <main class="flex-1">
-                <div class="py-6">
-                    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 md:px-8">
-                        @hasSection('main')
-                            @yield('main')
-                        @endif
-                    </div>
-                </div>
-            </main>
+            <div class="page-section">
+                @hasSection('main')
+                    @yield('main')
+                @endif
+            </div>
+            @include('templates.global.footer')
         </div>
     </div>
+    @include('sweetalert::alert')
 </body>
 
 </html>

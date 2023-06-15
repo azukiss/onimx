@@ -2,21 +2,34 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\Page\HomeController as HomeController;
+use App\Http\Controllers\User\SettingsController as SettingsController;
+use App\Http\Controllers\Post\PageController as PostPageController;
 
-Route::get('/', function () {
-    return view('welcome');
+require_once __DIR__ . '/fortify.php';
+
+Route::get('/logout', function () {
+    return abort(403);
 });
 
-Route::get('/home', function () {
-    return view('home');
+Route::controller(HomeController::class)->name('page')->group(function () {
+    Route::get('/', 'welcome')->name('.welcome');
+    Route::get('/home', 'home')->name('.home');
+});
+
+Route::name('user')->group(function () {
+    Route::controller(SettingsController::class)->prefix('/settings')->name('.settings')->group(function () {
+        Route::get('/', 'index')->name('.index');
+        Route::get('/2fa', 'TwoFactor')->name('.2fa');
+        Route::get('/2fa/enable', function () { return abort(404); });
+        Route::get('/2fa/confirm', function () { return abort(404); });
+        Route::get('/2fa/disable', function () { return abort(404); });
+        Route::get('/password', 'ChangePassword')->name('.password');
+        Route::get('/account', 'AccountPreferences')->name('.account');
+        Route::get('/avatar', function () { return abort(404); });
+        Route::put('/avatar', 'UpdateAvatar')->name('.avatar');
+    });
+});
+Route::controller(PostPageController::class)->prefix('/post')->name('post')->group(function () {
+    Route::get('/cosplay', 'cosplay')->name('.cosplay');
 });
