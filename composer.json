@@ -9,6 +9,7 @@
         "diglactic/laravel-breadcrumbs": "^8.1",
         "filament/filament": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
+        "haruncpi/laravel-id-generator": "^1.1",
         "intervention/image": "^2.7",
         "laravel/fortify": "^1.16",
         "laravel/framework": "^10.0",

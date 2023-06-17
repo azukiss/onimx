@@ -13,6 +13,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class TagResource extends Resource
 {
@@ -26,20 +27,40 @@ class TagResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('User Data')
+                Forms\Components\Section::make('Tag Data')
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->rules(['required', 'min:3', 'max:20', 'string'])
-                            ->required()
-                            ->afterStateUpdated(function ($state, callable $set) {
-                                $set('slug', Str::slug($state));
-                                $set('name', Str::title($state));
-                            })
-                            ->reactive(),
-                        Forms\Components\TextInput::make('slug')
-                            ->rules(['required', 'alpha-dash'])
-                            ->required()
-                            ->disabled(),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->rules(['required', 'min:3', 'max:20', 'string'])
+                                    ->unique(table: Tag::class, ignoreRecord: true)
+                                    ->required()
+                                    ->afterStateUpdated(function ($state, callable $set) {
+                                        $set('slug', Str::slug($state));
+                                        $set('name', Str::title($state));
+                                        $set('code', Str::upper(preg_replace('#[aeiou\s]+#i', '', $state)));
+                                    })
+                                    ->reactive(),
+                                Forms\Components\TextInput::make('slug')
+                                    ->rules(['required', 'alpha-dash'])
+                                    ->unique(table: Tag::class, ignoreRecord: true)
+                                    ->required()
+                                    ->disabled(),
+                                Forms\Components\TextInput::make('icon')
+                                    ->rules(['string', 'nullable'])
+                                    ->default('fa-solid fa-circle fa-fw')
+                                    ->hint('Icon from <a href="https://fontawesome.com" target="_blank">FontAwesome</a>')
+                                    ->hintIcon('heroicon-o-information-circle'),
+                                Forms\Components\TextInput::make('order')
+                                    ->rules(['numeric', 'min:0', 'max:99', 'nullable'])
+                                    ->numeric()
+                                    ->default(0),
+                                Forms\Components\TextInput::make('code')
+                                    ->rules(['alpha', 'min:2', 'max:99', 'required'])
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->disabled(),
+                            ]),
                     ]),
             ]);
     }
@@ -53,15 +74,26 @@ class TagResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('code')
+                    ->sortable(),
+                Tables\Columns\ViewColumn::make('icon')->view('filament.tables.columns.post.tag.icon')
+                    ->alignCenter(),
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ForceDeleteAction::make(),
+                    Tables\Actions\RestoreAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
 

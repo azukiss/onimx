@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    private $page_id = 'home-page ';
+    private $page_id = '-page';
 
     public function welcome()
     {
@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         return view('page.home', [
             'page_title' => 'Home',
-            'page_id' => $this->page_id . '2fa',
+            'page_id' => 'home' . $this->page_id,
         ]);
     }
 }

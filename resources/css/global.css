@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -269,4 +270,62 @@
     }
 
     /* END Cosplay Content*/
+
+    /* START Sidebar */
+    .sidebar-m {
+        @apply relative z-40 lg:hidden;
+    }
+
+    .sidebar-m .body {
+        @apply relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4 overflow-x-hidden;
+    }
+
+    .sidebar-m .burger-button {
+        @apply ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white;
+    }
+
+    .sidebar-m .logo, .sidebar-d .logo {
+        @apply flex flex-shrink-0 justify-center items-center px-4;
+    }
+
+    .sidebar-m nav.links {
+        @apply mt-5 h-0 flex-1 space-y-1 px-2;
+    }
+
+    .sidebar-m nav.links .link, .sidebar-d nav.links .link {
+        @apply flex items-center px-2 py-2 text-base rounded-md hover:bg-gray-100 hover:text-oni-500;
+    }
+
+    .sidebar-m nav.links .link i, .sidebar-d nav.links .link i {
+        @apply mr-4 flex-shrink-0 hover:text-oni-500;
+    }
+
+    .sidebar-m .footer, .sidebar-d .footer {
+        @apply flex flex-col flex-shrink-0 items-center justify-center;
+    }
+
+    .sidebar-m .sponsor img, .sidebar-d .sponsor img {
+        @apply h-full w-full max-w-[150px] max-h-[150px] z-0;
+    }
+
+    .sidebar-m .footer .links, .sidebar-d .footer .links {
+        @apply flex flex-col mt-5 justify-center items-center space-y-1;
+    }
+
+    .sidebar-m .footer .links .link, .sidebar-d .footer .links .link {
+        @apply font-medium text-sm hover:text-oni-600;
+    }
+
+    .sidebar-d {
+        @apply hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col;
+    }
+
+    .sidebar-d .body {
+        @apply flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white py-5;
+    }
+
+    .sidebar-d nav.links {
+        @apply mt-5 flex flex-grow flex-col flex-1 space-y-1 px-2 pb-4;
+    }
+    /* END Sidebar */
 }
