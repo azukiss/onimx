@@ -36,8 +36,8 @@ class TagResource extends Resource
                                     ->unique(table: Tag::class, ignoreRecord: true)
                                     ->required()
                                     ->afterStateUpdated(function ($state, callable $set) {
-                                        $set('slug', Str::slug($state));
                                         $set('name', Str::title($state));
+                                        $set('slug', Str::slug($state));
                                         $set('code', Str::upper(preg_replace('#[aeiou\s]+#i', '', $state)));
                                     })
                                     ->reactive(),
@@ -45,7 +45,9 @@ class TagResource extends Resource
                                     ->rules(['required', 'alpha-dash'])
                                     ->unique(table: Tag::class, ignoreRecord: true)
                                     ->required()
-                                    ->disabled(),
+                                    ->disabled()
+                                    ->hint('Auto generate by input title')
+                                    ->hintIcon('heroicon-o-information-circle'),
                                 Forms\Components\TextInput::make('icon')
                                     ->rules(['string', 'nullable'])
                                     ->default('fa-solid fa-circle fa-fw')
@@ -76,7 +78,8 @@ class TagResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('code')
                     ->sortable(),
-                Tables\Columns\ViewColumn::make('icon')->view('filament.tables.columns.post.tag.icon')
+                Tables\Columns\ViewColumn::make('icon')
+                    ->view('filament.tables.columns.post.tag.icon')
                     ->alignCenter(),
             ])
             ->filters([

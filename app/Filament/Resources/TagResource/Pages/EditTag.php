@@ -15,7 +15,8 @@ class EditTag extends EditRecord
         return [
             Actions\DeleteAction::make(),
             Actions\ForceDeleteAction::make(),
-            Actions\RestoreAction::make(),        ];
+            Actions\RestoreAction::make(),
+        ];
     }
 
     protected function getRedirectUrl(): string

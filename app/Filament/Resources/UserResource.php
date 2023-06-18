@@ -33,11 +33,12 @@ class UserResource extends Resource
                 Forms\Components\Section::make('User Data')
                     ->schema([
                         Forms\Components\FileUpload::make('avatar')
-                            ->rules(['required', 'image', 'mimes:png,jpg,jpeg'])
+                            ->nullable()
                             ->image()
+                            ->rules(['nullable', 'image', 'mimes:png,jpg,jpeg'])
                             ->disk('public')
-                            ->directory('uploads/avatar')
                             ->visibility('public')
+                            ->directory('uploads/avatar')
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                 return (string) str(bin2hex(random_bytes(10)).'.'.$file->extension());
                             })
@@ -45,10 +46,12 @@ class UserResource extends Resource
                             ->hintIcon('heroicon-o-exclamation')
                             ->hintColor('warning'),
                         Forms\Components\TextInput::make('username')
+                            ->required()
                             ->rules(['required', 'min:5', 'max:30'])
                             ->unique(ignoreRecord: true)
                             ->disableAutocomplete(),
                         Forms\Components\TextInput::make('email')
+                            ->required()
                             ->rules(['required', 'email'])
                             ->unique(ignoreRecord: true)
                             ->disableAutocomplete(),

@@ -41,9 +41,9 @@ Breadcrumbs::for('user.settings.2fa', function (BreadcrumbTrail $trail) {
 
 /* END Settings */
 
-/* START Cosplay Page */
-Breadcrumbs::for('post.cosplay', function (BreadcrumbTrail $trail) {
+/* START Post Page */
+Breadcrumbs::for('post.page', function (BreadcrumbTrail $trail, $post) {
     $trail->parent('page.home');
-    $trail->push('Cosplay', route('post.cosplay'));
+    $trail->push($post->title, route('post.page', $post->id));
 });
-/* END Cosplay Page */
+/* END Post Page */

@@ -15,14 +15,13 @@ return new class extends Migration
             $table->id();
 
             $table->string('title');
-
             $table->string('slug');
-            $table->string('main-tag');
-            $table->json('sub-tag')->default('');
             $table->string('code')->unique();
             $table->text('description')->nullable();
-            $table->json('info')->default('');
+            $table->json('info')->default('[]');
             $table->json('link');
+            $table->boolean('is_published')->default(false);
+            $table->json('image')->default('[]');
 
             $table->timestamps();
             $table->softDeletes();

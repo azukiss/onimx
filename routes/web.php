@@ -31,5 +31,5 @@ Route::name('user')->group(function () {
     });
 });
 Route::controller(PostPageController::class)->prefix('/post')->name('post')->group(function () {
-    Route::get('/cosplay', 'cosplay')->name('.cosplay');
+    Route::get('/{post:id}', 'post')->name('.page');
 });

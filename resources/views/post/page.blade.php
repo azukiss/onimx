@@ -9,21 +9,28 @@
                 <article class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
                     <div class="space-y-2">
                         <h1 class="text-3xl font-bold text-gray-900">{{ !empty($page_title) ? $page_title : "Undefined Page Title" }}</h1>
-                        <h2>{{ !empty($code_collection) ? $code_collection : "-" }}</h2>
+                        <h2>{{ $post->code ?? "-" }}</h2>
                     </div>
 
-                    <div class="mt-6">
-                        <div class="mb-2 font-semibold">Description</div>
-                        <div class="space-y-6 text-base text-gray-700">
-                            <p>The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack.
-                                With convertible straps, you can hand carry, should sling, or backpack this convenient
-                                and spacious bag. The zip top and durable canvas construction keeps your goods protected
-                                for all-day use.</p>
+                    @if(!empty(array_values($post->info)))
+                        @foreach($post->info as $key => $info)
+                            <div>{{ Str::title($key) . ': ' . $info }}</div>
+                        @endforeach
+                    @endif
+
+                    @if(empty($post->description))
+                        <div class="mt-6">
+                            <div class="mb-2 font-semibold">{{ __('Description') }}</div>
+                            <div class="space-y-6 text-base text-gray-700">
+                                <p>{{ $post->description }}</p>
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
-                    <div class="mt-10 flex">
-                        <a href="#" class="btn btn-primary btn-lg btn-scooter w-full">Download</a>
+                    <div class="mt-10 flex flex-col space-y-2">
+                        @foreach($post->link as $link)
+                            <a href="{{ $link['link'] }}" class="btn btn-primary btn-lg btn-scooter w-full">Download</a>
+                        @endforeach
                     </div>
 
                     @include('templates.post.acordion.carousel')
