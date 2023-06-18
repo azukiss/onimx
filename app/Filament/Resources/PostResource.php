@@ -140,7 +140,8 @@ class PostResource extends Resource
         return $table
             ->contentGrid([
                 'md' => 2,
-                'xl' => 3,
+                'lg' => 3,
+                'xl' => 4,
             ])
             ->columns([
                 Tables\Columns\ViewColumn::make('image')

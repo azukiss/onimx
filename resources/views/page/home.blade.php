@@ -7,8 +7,10 @@
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                 @foreach($posts as $post)
                     <div class="card card-hover">
-                        <a href="{{ route('post.page', $post->id) }}" class="relative text-gra" x-data x-ripple>
-                            <img src="{{ array_values($post->image)[0] }}" alt="{{ $post->slug }}" loading="lazy">
+                        <a href="{{ route('post.page', $post->id) }}" class="relative" x-data x-ripple>
+                            <div class="bg-gray-50">
+                                <img src="{{ array_values($post->image)[0] }}" alt="{{ $post->slug }}" loading="lazy" class="h-40 md:h-52 w-full object-contain onject-center">
+                            </div>
                             <div class="px-4 mt-4">
                                 <div class="font-medium text-base">{{ $post->title }}</div>
 {{--                                <div class="font-medium text-xl">Chapayev</div>--}}
@@ -16,21 +18,9 @@
                             @if(isset($post->info))
                                 <div class="px-6 mt-4">
                                     <div class="text-sm text-gray-500 font-mono space-y-0.5">
-{{--                                        <div class="flex items-center space-x-3">--}}
-{{--                                            <div>Pics:</div>--}}
-{{--                                            <div>20 Pics</div>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="flex items-center space-x-3">--}}
-{{--                                            <div>Vids:</div>--}}
-{{--                                            <div>20 Vids</div>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="flex items-center space-x-3">--}}
-{{--                                            <div>Size:</div>--}}
-{{--                                            <div>20 MB</div>--}}
-{{--                                        </div>--}}
-                                        @foreach($post->info as $info => $key)
+                                        @foreach($post->info as $key => $info)
                                             <div class="flex items-center space-x-3">
-                                                <div>{{ $key }}</div>
+                                                <div>{{ Str::title($key) }}</div>
                                                 <div>{{ $info }}</div>
                                             </div>
                                         @endforeach

@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('slug');
             $table->string('code')->unique();
             $table->text('description')->nullable();
-            $table->json('info')->default('[]');
+            $table->json('info');
             $table->json('link');
             $table->boolean('is_published')->default(false);
-            $table->json('image')->default('[]');
+            $table->json('image');
 
             $table->timestamps();
             $table->softDeletes();

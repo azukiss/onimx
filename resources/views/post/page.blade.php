@@ -29,7 +29,7 @@
 
                     <div class="mt-10 flex flex-col space-y-2">
                         @foreach($post->link as $link)
-                            <a href="{{ $link['link'] }}" class="btn btn-primary btn-lg btn-scooter w-full">Download</a>
+                            <a href="{{ $link['link'] }}" target="_blank" class="btn btn-primary btn-lg btn-scooter w-full">Download</a>
                         @endforeach
                     </div>
 
