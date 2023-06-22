@@ -31,5 +31,6 @@ Route::name('user')->group(function () {
     });
 });
 Route::controller(PostPageController::class)->prefix('/post')->name('post')->group(function () {
-    Route::get('/{post:id}', 'post')->name('.page');
+    Route::get('/{post:id}-{slug}', 'post')->name('.page');
+    Route::get('/{post:id}', 'postWithoutSLug');
 });

@@ -20,7 +20,10 @@ class HomeController extends Controller
         return view('page.home', [
             'page_title' => 'Home',
             'page_id' => 'home' . $this->page_id,
-            'posts' => Post::where('is_published', true)->whereNull('deleted_at')->paginate(20),
+            'posts' => Post::select(['id', 'title', 'slug', 'code', 'image', 'created_at'])
+                ->where('is_published', true)
+                ->whereNull('deleted_at')
+                ->paginate(20),
         ]);
     }
 }

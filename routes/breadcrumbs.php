@@ -44,6 +44,6 @@ Breadcrumbs::for('user.settings.2fa', function (BreadcrumbTrail $trail) {
 /* START Post Page */
 Breadcrumbs::for('post.page', function (BreadcrumbTrail $trail, $post) {
     $trail->parent('page.home');
-    $trail->push($post->title, route('post.page', $post->id));
+    $trail->push($post->title, route('post.page', [$post->id, $post->slug]));
 });
 /* END Post Page */

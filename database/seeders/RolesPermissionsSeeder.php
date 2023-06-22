@@ -20,7 +20,6 @@ class RolesPermissionsSeeder extends Seeder
         Role::create(['name' => 'super-admin']);
         $admin = Role::create(['name' => 'admin']);
         $mod = Role::create(['name' => 'moderator']);
-        $uploader = Role::create(['name' => 'uploader']);
 
 //        $resources = [
 //            'view-any',
@@ -79,7 +78,7 @@ class RolesPermissionsSeeder extends Seeder
         }
 
         $admin->syncPermissions([
-            // Access Page
+            // Access Admin
             'access-filament',
             // Manage Users
             'view-any-user',
@@ -111,11 +110,27 @@ class RolesPermissionsSeeder extends Seeder
             'update-comment',
             'delete-comment',
             'restore-comment',
+            // Download Link
+            'create-download-link',
+            'update-download-link',
+            'delete-download-link',
+            'view-any-download-link',
+            'view-download-link',
+            // Live View
+            'view-any-live-view',
+            'view-live-view',
+            'create-live-view',
+            'update-live-view',
+            'delete-live-view',
+            'restore-live-view',
+            'force-delete-live-view',
+            // Upgrade
+            'free-short-link',
+            'free-ads',
         ]);
 
         User::find(1)->syncRoles('super-admin');
         User::find(2)->syncRoles('admin');
         User::find(3)->syncRoles('moderator');
-        User::find(4)->syncRoles('uploader');
     }
 }

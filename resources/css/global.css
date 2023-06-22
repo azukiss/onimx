@@ -109,9 +109,9 @@
     }
 
     .card-hover {
-        @apply hover:border-oni-500 hover:border-opacity-50;
-        /*@apply hover:ring-2 hover:ring-oni-500 hover:ring-opacity-50;*/
-        @apply hover:shadow-oni-500;
+        @apply hover:border-oni-300 hover:border-opacity-50;
+        @apply hover:ring-2 hover:ring-oni-300 hover:ring-opacity-50;
+        /*@apply hover:shadow-oni-500;*/
     }
     /* End Card */
 
@@ -203,15 +203,71 @@
 
     /* Start Badge*/
     .badge-md, .badge-base {
-        @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+        @apply inline-flex items-center px-2.5 py-0.5 text-xs font-medium;
     }
 
     .badge-lg {
-        @apply inline-flex items-center rounded-full px-3 py-0.5 text-sm font-medium;
+        @apply inline-flex items-center px-3 py-0.5 text-sm font-medium;
     }
 
     .badge-rounded {
-        @apply
+        @apply rounded;
+    }
+
+    .badge-circle {
+        @apply rounded-full;
+    }
+
+    .badge-oni {
+        @apply bg-oni-100 text-oni-800;
+    }
+
+    .badge-roman {
+        @apply bg-roman-100 text-roman-800;
+    }
+
+    .badge-salmon {
+        @apply bg-salmon-100 text-salmon-800;
+    }
+
+    .badge-scooter {
+        @apply bg-scooter-100 text-scooter-800;
+    }
+
+    .badge-gray {
+        @apply bg-gray-100 text-gray-800;
+    }
+
+    .badge-red {
+        @apply bg-red-100 text-red-800;
+    }
+
+    .badge-yellow {
+        @apply bg-yellow-100 text-yellow-800;
+    }
+
+    .badge-green {
+        @apply bg-green-100 text-green-800;
+    }
+
+    .badge-blue {
+        @apply bg-blue-100 text-blue-800;
+    }
+
+    .badge-indigo {
+        @apply bg-indigo-100 text-indigo-800;
+    }
+
+    .badge-purple {
+        @apply bg-purple-100 text-purple-800;
+    }
+
+    .badge-pink {
+        @apply bg-pink-100 text-pink-800;
+    }
+
+    .badge-amber {
+        @apply bg-amber-100 text-amber-800;
     }
     /* End Badge */
 
@@ -261,6 +317,14 @@
         @apply w-full h-64 md:h-96;
     }
 
+    .cosplay-gallery .main-image img {
+        @apply h-64 md:h-96 w-full object-contain object-center rounded-md;
+    }
+
+    .cosplay-gallery .main-image .canvas {
+        @apply bg-gray-50 ring ring-scooter-100 rounded-md;
+    }
+
     .cosplay-gallery .sub-image {
         @apply mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none;
     }
@@ -268,7 +332,6 @@
     .cosplay-gallery .sub-image button {
         @apply relative flex h-24 cursor-pointer items-center justify-center rounded-md focus:outline-none ring ring-opacity-50 ring-offset-4;
     }
-
     /* END Cosplay Content*/
 
     /* START Sidebar */

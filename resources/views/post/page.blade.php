@@ -13,19 +13,33 @@
                     </div>
 
                     @if(!empty(array_values($post->info)))
-                        @foreach($post->info as $key => $info)
-                            <div>{{ Str::title($key) . ': ' . $info }}</div>
-                        @endforeach
+                        <div class="mt-5">
+                            <div class="mb-2 font-medium">{{ __('Content Information') }}</div>
+                            <div class="font-mono">
+                                <div>{{ 'Pics: ' . $post->info['pics'] }}</div>
+                                <div>{{ 'Vids: ' . $post->info['vids'] }}</div>
+                                <div>{{ 'Size: ' . $post->info['size'] }}</div>
+                            </div>
+                        </div>
                     @endif
 
-                    @if(empty($post->description))
-                        <div class="mt-6">
+                    @if(!empty($post->description))
+                        <div class="mt-5">
                             <div class="mb-2 font-semibold">{{ __('Description') }}</div>
                             <div class="space-y-6 text-base text-gray-700">
                                 <p>{{ $post->description }}</p>
                             </div>
                         </div>
                     @endif
+
+                    @isset($post->tags)
+                        <div class="mt-5">
+                            <div class="mb-2 font-medium">{{ __('Tags') }}</div>
+                            @foreach($post->tags->pluck('name') as $tag)
+                                <div class="badge-base badge-circle badge-amber">{{ $tag }}</div>
+                            @endforeach
+                        </div>
+                    @endisset
 
                     <div class="mt-10 flex flex-col space-y-2">
                         @foreach($post->link as $link)
