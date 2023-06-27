@@ -6,7 +6,9 @@ use App\Filament\Resources\TagResource\Pages;
 use App\Filament\Resources\TagResource\RelationManagers;
 use App\Models\Tag;
 use Filament\Forms;
+use Filament\Pages\Page;
 use Filament\Resources\Form;
+use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -35,10 +37,13 @@ class TagResource extends Resource
                                     ->rules(['required', 'min:3', 'max:20', 'string'])
                                     ->unique(table: Tag::class, ignoreRecord: true)
                                     ->required()
-                                    ->afterStateUpdated(function ($state, callable $set) {
+                                    ->afterStateUpdated(function ($state, callable $set, Page $livewire) {
                                         $set('name', Str::title($state));
                                         $set('slug', Str::slug($state));
-                                        $set('code', Str::upper(preg_replace('#[aeiou\s]+#i', '', $state)));
+                                        if ($livewire instanceof CreateRecord)
+                                        {
+                                            $set('code', Str::upper(preg_replace('#[aeiou\s]+#i', '', $state)));
+                                        }
                                     })
                                     ->reactive(),
                                 Forms\Components\TextInput::make('slug')
@@ -54,14 +59,13 @@ class TagResource extends Resource
                                     ->hint('Icon from <a href="https://fontawesome.com" target="_blank">FontAwesome</a>')
                                     ->hintIcon('heroicon-o-information-circle'),
                                 Forms\Components\TextInput::make('order')
-                                    ->rules(['numeric', 'min:0', 'max:99', 'nullable'])
+                                    ->rules(['numeric', 'min:1', 'max:99', 'nullable'])
                                     ->numeric()
-                                    ->default(0),
+                                    ->default(1),
                                 Forms\Components\TextInput::make('code')
                                     ->rules(['alpha', 'min:2', 'max:99', 'required'])
                                     ->required()
-                                    ->unique(ignoreRecord: true)
-                                    ->disabled(),
+                                    ->unique(table: Tag::class, ignoreRecord: true),
                             ]),
                     ]),
             ]);
@@ -71,6 +75,12 @@ class TagResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('order')
+                    ->alignCenter()
+                    ->sortable(),
+                Tables\Columns\ViewColumn::make('icon')
+                    ->view('filament.tables.columns.post.tag.icon')
+                    ->alignCenter(),
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
@@ -78,10 +88,8 @@ class TagResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('code')
                     ->sortable(),
-                Tables\Columns\ViewColumn::make('icon')
-                    ->view('filament.tables.columns.post.tag.icon')
-                    ->alignCenter(),
             ])
+            ->defaultSort('order')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
@@ -97,7 +105,8 @@ class TagResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
-            ]);
+            ])
+            ->reorderable('order');
     }
 
     public static function getRelations(): array

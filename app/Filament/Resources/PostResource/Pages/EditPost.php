@@ -16,7 +16,16 @@ class EditPost extends EditRecord
     {
         return [
             Actions\DeleteAction::make(),
-            Actions\ForceDeleteAction::make(),
+            Actions\ForceDeleteAction::make()
+                ->before(function () {
+                    if (!empty(array_values($this->record->image)))
+                    {
+                        foreach ($this->record->image as $image)
+                        {
+                            File::delete(public_path($image));
+                        }
+                    }
+                }),
             Actions\RestoreAction::make(),
         ];
     }

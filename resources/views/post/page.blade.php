@@ -6,16 +6,22 @@
             <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
                 @include('templates.post.image')
 
-                <article class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-                    <div class="space-y-2">
-                        <h1 class="text-3xl font-bold text-gray-900">{{ !empty($page_title) ? $page_title : "Undefined Page Title" }}</h1>
-                        <h2>{{ $post->code ?? "-" }}</h2>
+                <div class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
+                    <div id="post-info">
+                        <div class="space-y-1">
+                            <h1 class="text-3xl font-bold text-gray-900">{{ !empty($page_title) ? $page_title : "Undefined Page Title" }}</h1>
+                            <div class="text-sm">{{__('Posted by')}} {{ $post->author->username }} &bull; {{ \Carbon\Carbon::parse($post->created_at)->locale(config('app.locale'))->diffForHumans() }}</div>
+                        </div>
                     </div>
 
                     @if(!empty(array_values($post->info)))
                         <div class="mt-5">
                             <div class="mb-2 font-medium">{{ __('Content Information') }}</div>
                             <div class="font-mono">
+                                <div class="flex">
+                                    <span>Code:&nbsp;</span>
+                                    <h2 class="font-mono">{{ $post->code ?? "-" }}</h2>
+                                </div>
                                 <div>{{ 'Pics: ' . $post->info['pics'] }}</div>
                                 <div>{{ 'Vids: ' . $post->info['vids'] }}</div>
                                 <div>{{ 'Size: ' . $post->info['size'] }}</div>
@@ -24,12 +30,12 @@
                     @endif
 
                     @if(!empty($post->description))
-                        <div class="mt-5">
+                        <article class="mt-5 prose prose-cyan">
                             <div class="mb-2 font-semibold">{{ __('Description') }}</div>
                             <div class="space-y-6 text-base text-gray-700">
-                                <p>{{ $post->description }}</p>
+                                <p>{!! Str::markdown($post->description) !!}</p>
                             </div>
-                        </div>
+                        </article>
                     @endif
 
                     @isset($post->tags)
@@ -43,12 +49,12 @@
 
                     <div class="mt-10 flex flex-col space-y-2">
                         @foreach($post->link as $link)
-                            <a href="{{ $link['link'] }}" target="_blank" class="btn btn-primary btn-lg btn-scooter w-full">Download</a>
+                            <a href="{{ $link['link'] }}" target="_blank" class="btn btn-primary btn-lg btn-scooter w-full" x-data x-ripple>Download</a>
                         @endforeach
                     </div>
 
                     @include('templates.post.acordion.carousel')
-                </article>
+                </div>
             </div>
 
 

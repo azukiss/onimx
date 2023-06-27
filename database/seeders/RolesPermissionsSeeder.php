@@ -35,7 +35,7 @@ class RolesPermissionsSeeder extends Seeder
             // Access Page
             'access-filament',
             // Manage Users
-            'view-any-user',
+            'view-any-users',
             'view-user',
             'create-user',
             'update-user',
@@ -43,7 +43,7 @@ class RolesPermissionsSeeder extends Seeder
             'restore-user',
             'force-delete-user',
             // Manage Roles
-            'view-any-role',
+            'view-any-roles',
             'view-role',
             'create-role',
             'update-role',
@@ -51,9 +51,34 @@ class RolesPermissionsSeeder extends Seeder
             'restore-role',
             'force-delete-role',
             // Manage Permissions
-            'view-any-permission',
+            'view-any-permissions',
             'view-permission',
             'update-permission',
+            // Manage Posts
+            'view-any-posts',
+            'view-post',
+            'create-post',
+            'update-post',
+            'delete-post',
+            'restore-post',
+            'force-delete-post',
+            'view-nsfw-post',
+            // Download Link
+            'update-download-link',
+            'view-any-download-link',
+            'view-download-link',
+            // Manage Comment
+            'view-any-comment',
+            'view-comment',
+            'create-comment',
+            'update-comment',
+            'delete-comment',
+            'restore-comment',
+            'force-delete-comment',
+            // Membership
+            'free-short-link',
+            'free-ads',
+
             // Activity Logs
             'view-any-activity-log',
             'view-activity-log',
@@ -63,59 +88,6 @@ class RolesPermissionsSeeder extends Seeder
             'access-logs-viewer',
             // Application Health
             'access-health-check',
-            // Comment
-            'view-any-comment',
-            'view-comment',
-            'create-comment',
-            'update-comment',
-            'delete-comment',
-            'restore-comment',
-            'force-delete-comment',
-        ];
-
-        foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
-        }
-
-        $admin->syncPermissions([
-            // Access Admin
-            'access-filament',
-            // Manage Users
-            'view-any-user',
-            'view-user',
-            'create-user',
-            'update-user',
-            'delete-user',
-            'restore-user',
-            // Manage Roles
-            'view-any-role',
-            'view-role',
-            'create-role',
-            'update-role',
-            'delete-role',
-            'restore-role',
-            // Manage Permissions
-            'view-any-permission',
-            'view-permission',
-            'update-permission',
-            // Activity Logs
-            'view-any-activity-log',
-            'view-activity-log',
-            // Application Health
-            'access-health-check',
-            // Comment
-            'view-any-comment',
-            'view-comment',
-            'create-comment',
-            'update-comment',
-            'delete-comment',
-            'restore-comment',
-            // Download Link
-            'create-download-link',
-            'update-download-link',
-            'delete-download-link',
-            'view-any-download-link',
-            'view-download-link',
             // Live View
             'view-any-live-view',
             'view-live-view',
@@ -124,7 +96,53 @@ class RolesPermissionsSeeder extends Seeder
             'delete-live-view',
             'restore-live-view',
             'force-delete-live-view',
-            // Upgrade
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
+
+        $admin->syncPermissions([
+            // Access Page
+            'access-filament',
+            // Manage Users
+            'view-any-users',
+            'view-user',
+            'create-user',
+            'update-user',
+            'delete-user',
+            'restore-user',
+            'force-delete-user',
+            // Manage Roles
+            'view-any-roles',
+            'view-role',
+            'create-role',
+            'update-role',
+            'delete-role',
+            'restore-role',
+            'force-delete-role',
+            // Manage Permissions
+            'view-any-permissions',
+            'view-permission',
+            'update-permission',
+            // Manage Posts
+            'view-any-posts',
+            'view-post',
+            'create-post',
+            'update-post',
+            'delete-post',
+            'restore-post',
+            'force-delete-post',
+            'view-nsfw-post',
+            // Manage Comment
+            'view-any-comment',
+            'view-comment',
+            'create-comment',
+            'update-comment',
+            'delete-comment',
+            'restore-comment',
+            'force-delete-comment',
+            // Membership
             'free-short-link',
             'free-ads',
         ]);

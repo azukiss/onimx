@@ -11,8 +11,21 @@ class PageController extends Controller
 {
     private $page_id = 'post-page';
 
+    public function __construct()
+    {
+        //
+    }
+
     public function post(Post $post)
     {
+        if ($post->is_nsfw == true)
+        {
+            if (!auth()->check() || auth()->user()->cannot('view-nsfw-post'))
+            {
+                return abort(404);
+            }
+        }
+
         return view('post.page', [
             'page_title' => $post->title,
             'page_id' => $this->page_id,

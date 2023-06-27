@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('code')->unique();
             $table->string('icon')->nullable();
-            $table->integer('order')->default(0);
+            $table->integer('order')->default(1);
 
             $table->timestamps();
             $table->softDeletes();

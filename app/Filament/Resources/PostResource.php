@@ -33,7 +33,7 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Post Image')
+                Forms\Components\Section::make('Images')
                     ->schema([
                         Forms\Components\FileUpload::make('image')
                             ->multiple()
@@ -49,9 +49,17 @@ class PostResource extends Resource
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                 return (string) str(Str::ulid().'.'.$file->extension());
                             })
+                            ->imagePreviewHeight('250')
+                            ->disablePreview()
                     ]),
-                Forms\Components\Section::make('Post Data')
+                Forms\Components\Section::make('Data')
                     ->schema([
+                        Forms\Components\BelongsToSelect::make('author_id')
+                            ->label('Author')
+                            ->required()
+                            ->searchable()
+                            ->default(auth()->user()->id)
+                            ->relationship('author', 'username'),
                         Forms\Components\TextInput::make('title')
                             ->rules(['required', 'min:3', 'max:100'])
                             ->required()
@@ -66,67 +74,103 @@ class PostResource extends Resource
                             ->rules(['required', 'alpha-dash'])
                             ->required()
                             ->disabled(),
-                        Forms\Components\TextInput::make('code')
-                            ->required()
-                            ->disabled()
-                            ->unique(table: Post::class, ignoreRecord: true)
-                            ->hint('Auto generate by select tag')
-                            ->hintIcon('heroicon-o-information-circle'),
-                        Forms\Components\MultiSelect::make('tag_id')
-                            ->required()
-                            ->relationship('tags', 'name')
-                            ->afterStateUpdated(function ($state, callable $set, Page $livewire) {
-                                if (!empty($state) && $livewire instanceof CreateRecord)
-                                {
-                                    $code = Tag::where('id', $state)->pluck('code')->first();
-                                    $length = Str::length($code) + 4;
-                                    $config = [
-                                        'table' => 'posts',
-                                        'field' => 'code',
-                                        'length' => (int)$length,
-                                        'prefix' => (string)$code,
-                                        'reset_on_prefix_change' => true
-                                    ];
-                                    $set('code', IdGenerator::generate($config));
-                                }
-                                Elseif(empty($state) && $livewire instanceof CreateRecord)
-                                {
-                                    $set('code', null);
-                                }
-                            })
-                            ->reactive(),
-                        Forms\Components\Textarea::make('description')
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\BelongsToManyMultiSelect::make('tag_id')
+                                    ->required()
+                                    ->relationship('tags', 'name')
+                                    ->afterStateUpdated(function ($state, callable $set, Page $livewire) {
+                                        if (!empty($state) && $livewire instanceof CreateRecord)
+                                        {
+                                            $code = Tag::where('id', $state)->pluck('code')->first();
+                                            $length = Str::length($code) + 4;
+                                            $config = [
+                                                'table' => 'posts',
+                                                'field' => 'code',
+                                                'length' => (int)$length,
+                                                'prefix' => (string)$code,
+                                                'reset_on_prefix_change' => true
+                                            ];
+                                            $set('code', IdGenerator::generate($config));
+                                        }
+                                        elseif(empty($state) && $livewire instanceof CreateRecord)
+                                        {
+                                            $set('code', null);
+                                        }
+                                    })
+                                    ->reactive(),
+                                Forms\Components\TextInput::make('code')
+                                    ->required()
+                                    ->disabled()
+                                    ->unique(table: Post::class, ignoreRecord: true)
+                                    ->hint('Auto generate by select tag')
+                                    ->hintIcon('heroicon-o-information-circle'),
+                            ]),
+                        Forms\Components\MarkdownEditor::make('description')
                             ->nullable()
-                            ->rows(3)
                             ->minLength(10)
-                            ->maxLength(1000),
-                        Forms\Components\Section::make('Information')
-                            ->statePath('info')
+                            ->maxLength(1000)
+                            ->disableAllToolbarButtons()
+                            ->enableToolbarButtons([
+                                'bold',
+                                'bulletList',
+                                'codeBlock',
+                                'edit',
+                                'italic',
+                                'link',
+                                'orderedList',
+                                'preview',
+                                'strike',
+                            ]),
+                    ]),
+                Forms\Components\Section::make('Information')
+                    ->statePath('info')
+                    ->schema([
+                        Forms\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\TextInput::make('pics')
                                     ->label('Total Pictures')
                                     ->numeric()
-                                    ->suffix('.Pics'),
+                                    ->suffix('Pics'),
                                 Forms\Components\TextInput::make('vids')
                                     ->label('Total Videos')
                                     ->numeric()
-                                    ->suffix('.Vids'),
+                                    ->suffix('Vids'),
                                 Forms\Components\TextInput::make('size')
                                     ->label('Total Size'),
-                            ]),
+                            ])
+                    ]),
+                Forms\Components\Section::make('Download Links')
+                    ->schema([
                         Forms\Components\Repeater::make('Download Link')
                             ->minItems(1)
+                            ->maxItems(4)
                             ->statePath('link')
                             ->schema([
                                 Forms\Components\TextInput::make('link')
                                     ->required()
                                     ->rules(['required', 'url']),
                             ]),
+                    ]),
+                Forms\Components\Section::make('Options')
+                    ->schema([
                         Forms\Components\Toggle::make('is_published')
                             ->label('Published')
 //                            ->hidden(fn (Page $livewire) => ($livewire instanceof CreateRecord))
                             ->afterStateHydrated(function (Forms\Components\Toggle $component, ?Post $record) {
-                                if  (!empty($record->is_published) && $record->is_published == true)
+                                if (auth()->user()->hasRole('admin'))
+                                {
+                                    $component->state(true);
+                                }
+                                elseif  (!empty($record->is_published) && $record->is_published == true)
+                                {
+                                    $component->state(true);
+                                }
+                            }),
+                        Forms\Components\Toggle::make('is_nsfw')
+                            ->label('NSFW')
+                            ->afterStateHydrated(function (Forms\Components\Toggle $component, ?Post $record) {
+                                if  (!empty($record->is_nsfw) && $record->is_nsfw == true)
                                 {
                                     $component->state(true);
                                 }
@@ -170,7 +214,6 @@ class PostResource extends Resource
                                 foreach ($record->image as $image)
                                 {
                                     File::delete(public_path($image));
-//                                    File::delete(public_path(str_replace('uploads/post/', 'uploads/post/thumb/', $image)));
                                 }
                             }
                         }),
