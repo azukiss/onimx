@@ -21,7 +21,7 @@ class RolePolicy
      */
     public function view(User $user, Role $role): bool
     {
-        return $user->can('view-role');
+        return $user->can('view-role') && ($role->order ? ($role->order > $user->roles()->pluck('order')) : true);
     }
 
     /**
@@ -37,7 +37,7 @@ class RolePolicy
      */
     public function update(User $user, Role $role): bool
     {
-        return $user->can('update-role');
+        return $user->can('update-role') && ($role->order ? ($role->order > $user->roles()->pluck('order')) : true);
     }
 
     /**
@@ -45,7 +45,7 @@ class RolePolicy
      */
     public function delete(User $user, Role $role): bool
     {
-        return $user->can('delete-role');
+        return $user->can('delete-role') && ($role->order ? ($role->order > $user->roles()->pluck('order')) : true);
     }
 
     /**
@@ -53,7 +53,7 @@ class RolePolicy
      */
     public function restore(User $user, Role $role): bool
     {
-        return $user->can('restore-role');
+        return $user->can('restore-role') && ($role->order ? ($role->order > $user->roles()->pluck('order')) : true);
     }
 
     /**
@@ -61,6 +61,6 @@ class RolePolicy
      */
     public function forceDelete(User $user, Role $role): bool
     {
-        return $user->can('force-delete-role');
+        return $user->can('force-delete-role') && ($role->order ? ($role->order > $user->roles()->pluck('order')) : true);
     }
 }

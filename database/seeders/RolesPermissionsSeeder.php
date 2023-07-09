@@ -17,7 +17,7 @@ class RolesPermissionsSeeder extends Seeder
     {
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
-        Role::create(['name' => 'super-admin']);
+        $super_admin = Role::create(['name' => 'super-admin']);
         $admin = Role::create(['name' => 'admin']);
         $mod = Role::create(['name' => 'moderator']);
 
@@ -32,6 +32,8 @@ class RolesPermissionsSeeder extends Seeder
 //        ];
 
         $permissions = [
+            // Super Admin
+            'super-admin',
             // Access Page
             'access-filament',
             // Manage Users
@@ -101,6 +103,11 @@ class RolesPermissionsSeeder extends Seeder
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
         }
+
+        $super_admin->syncPermissions([
+            // Super Admin
+            'super-admin',
+        ]);
 
         $admin->syncPermissions([
             // Access Page

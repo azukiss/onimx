@@ -188,18 +188,36 @@ class PostResource extends Resource
                 'xl' => 4,
             ])
             ->columns([
-                Tables\Columns\ViewColumn::make('image')
-                    ->view('filament.tables.columns.post.imagearray'),
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('code')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TagsColumn::make('tags.name')
-                    ->label('Tags')
-                    ->sortable(),
+                Tables\Columns\Layout\Stack::make([
+                    Tables\Columns\ViewColumn::make('image')
+                        ->view('filament.tables.columns.post.imagearray'),
+                    Tables\Columns\Layout\Stack::make([
+                        Tables\Columns\TextColumn::make('title')
+                            ->weight('bold')
+                            ->limit(27)
+                            ->searchable()
+                            ->sortable(),
+                        Tables\Columns\TextColumn::make('code')
+                            ->size('sm')
+                            ->fontFamily('mono')
+                            ->searchable()
+                            ->sortable(),
+                    ]),
+                    Tables\Columns\Layout\Stack::make([
+                        Tables\Columns\TextColumn::make('author.username')
+                            ->size('sm'),
+                        Tables\Columns\TextColumn::make('created_at')
+                            ->since()
+                            ->size('sm')
+                            ->sortable(),
+                    ]),
+
+                    Tables\Columns\TagsColumn::make('tags.name')
+                        ->label('Tags')
+                        ->sortable(),
+                ])->space(3),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])

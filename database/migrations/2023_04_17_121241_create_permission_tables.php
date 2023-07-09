@@ -46,6 +46,7 @@ class CreatePermissionTables extends Migration
             $table->string('txtcolor')->default('ffffff')->nullable();
             $table->string('bgcolor')->default('000000')->nullable();
             $table->string('icon')->default('fa-user')->nullable();
+            $table->string('order')->default(1)->nullable();
             $table->timestamps();
             $table->softDeletes();
             if ($teams || config('permission.testing')) {
