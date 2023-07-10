@@ -54,28 +54,14 @@ class PostResource extends Resource
                     ]),
                 Forms\Components\Section::make('Data')
                     ->schema([
-                        Forms\Components\BelongsToSelect::make('author_id')
-                            ->label('Author')
-                            ->required()
-                            ->searchable()
-                            ->default(auth()->user()->id)
-                            ->relationship('author', 'username'),
-                        Forms\Components\TextInput::make('title')
-                            ->rules(['required', 'min:3', 'max:100'])
-                            ->required()
-                            ->afterStateUpdated(function ($state, callable $set) {
-                                $set('title', Str::title($state));
-                                $set('slug', Str::slug($state));
-                            })
-                            ->reactive()
-                            ->hint('Auto generate by input title')
-                            ->hintIcon('heroicon-o-information-circle'),
-                        Forms\Components\TextInput::make('slug')
-                            ->rules(['required', 'alpha-dash'])
-                            ->required()
-                            ->disabled(),
-                        Forms\Components\Grid::make(2)
+                        Forms\Components\Grid::make(3)
                             ->schema([
+                                Forms\Components\BelongsToSelect::make('author_id')
+                                    ->label('Author')
+                                    ->required()
+                                    ->searchable()
+                                    ->default(auth()->user()->id)
+                                    ->relationship('author', 'username'),
                                 Forms\Components\BelongsToManyMultiSelect::make('tag_id')
                                     ->required()
                                     ->relationship('tags', 'name')
@@ -105,6 +91,23 @@ class PostResource extends Resource
                                     ->unique(table: Post::class, ignoreRecord: true)
                                     ->hint('Auto generate by select tag')
                                     ->hintIcon('heroicon-o-information-circle'),
+                            ]),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('title')
+                                    ->rules(['required', 'min:3', 'max:100'])
+                                    ->required()
+                                    ->afterStateUpdated(function ($state, callable $set) {
+                                        $set('title', Str::title($state));
+                                        $set('slug', Str::slug($state));
+                                    })
+                                    ->reactive(),
+                                Forms\Components\TextInput::make('slug')
+                                    ->rules(['required', 'alpha-dash'])
+                                    ->required()
+                                    ->hint('Auto generate by input title')
+                                    ->hintIcon('heroicon-o-information-circle')
+                                    ->disabled(),
                             ]),
                         Forms\Components\MarkdownEditor::make('description')
                             ->nullable()
@@ -149,7 +152,19 @@ class PostResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('link')
                                     ->required()
-                                    ->rules(['required', 'url']),
+                                    ->rules(['required', 'url'])
+                                    ->afterStateUpdated(function ($state, callable $set) {
+                                        $slink = new \AshAllenDesign\ShortURL\Classes\Builder();
+                                        $shortURLObject = $slink->destinationUrl($state)->make();
+                                        $shortURL = $shortURLObject->url_key;
+
+                                        $set('url_key', $shortURL);
+                                    })
+                                    ->reactive(),
+                                Forms\Components\TextInput::make('url_key')
+                                    ->required()
+
+                                    ->disabled(),
                             ]),
                     ]),
                 Forms\Components\Section::make('Options')
@@ -211,7 +226,6 @@ class PostResource extends Resource
                             ->size('sm')
                             ->sortable(),
                     ]),
-
                     Tables\Columns\TagsColumn::make('tags.name')
                         ->label('Tags')
                         ->sortable(),

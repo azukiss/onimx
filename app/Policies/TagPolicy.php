@@ -2,26 +2,26 @@
 
 namespace App\Policies;
 
-use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class PostPolicy
+class TagPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view-any-posts');
+        return $user->can('view-any-tags');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user): bool
+    public function view(User $user, Tag $tag): bool
     {
-        return $user->can('view-post');
+        return $user->can('view-tag');
     }
 
     /**
@@ -29,38 +29,38 @@ class PostPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create-post');
+        return $user->can('create-tag');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Post $post): bool
+    public function update(User $user, Tag $tag): bool
     {
-        return $user->can('update-post') || $post->author_id == $user->id;
+        return $user->can('update-tag');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Post $post): bool
+    public function delete(User $user, Tag $tag): bool
     {
-        return $user->can('delete-post') || $post->author_id == $user->id;
+        return $user->can('delete-tag');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Post $post): bool
+    public function restore(User $user, Tag $tag): bool
     {
-        return $user->can('restore-post') || $post->author_id == $user->id;
+        return $user->can('restore-tag');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user): bool
+    public function forceDelete(User $user, Tag $tag): bool
     {
-        return $user->can('force-delete-post');
+        return $user->can('force-delete-tag');
     }
 }

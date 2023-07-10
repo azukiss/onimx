@@ -23,10 +23,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-        User::class => UserPolicy::class,
-        Role::class => RolePolicy::class,
-        Permission::class => PermissionPolicy::class,
-        Post::class => PostPolicy::class,
+//        User::class => UserPolicy::class,
+//        Role::class => RolePolicy::class,
+//        Permission::class => PermissionPolicy::class,
+//        Post::class => PostPolicy::class,
     ];
 
     /**
@@ -40,7 +40,7 @@ class AuthServiceProvider extends ServiceProvider
         // This works in the app by using gate-related functions like auth()->user->can() and @can()
         Gate::before(function ($user, $ability) {
 //            return $user->hasRole('super-admin') ? true : null;
-            return $user->can('super-admin') ? true : null;
+            return $user->hasPermissionTo('super-admin') ? true : null;
         });
     }
 }

@@ -17,18 +17,18 @@ class RolesPermissionsSeeder extends Seeder
     {
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
-        $super_admin = Role::create(['name' => 'super-admin']);
-        $admin = Role::create(['name' => 'admin']);
-        $mod = Role::create(['name' => 'moderator']);
+        $super_admin = Role::create(['name' => 'super-admin', 'order' => 1]);
+        $admin = Role::create(['name' => 'admin', 'order' => 2]);
+        $mod = Role::create(['name' => 'moderator', 'order' => 3]);
 
 //        $resources = [
-//            'view-any',
-//            'view',
-//            'create',
-//            'update',
-//            'delete',
-//            'restore',
-//            'force-delete',
+//            'view-any-',
+//            'view-',
+//            'create-',
+//            'update-',
+//            'delete-',
+//            'restore-',
+//            'force-delete-',
 //        ];
 
         $permissions = [
@@ -65,10 +65,19 @@ class RolesPermissionsSeeder extends Seeder
             'restore-post',
             'force-delete-post',
             'view-nsfw-post',
+            // Manage Tags
+            'view-any-tags',
+            'view-tag',
+            'create-tag',
+            'update-tag',
+            'delete-tag',
+            'restore-tag',
+            'force-delete-tag',
             // Download Link
-            'update-download-link',
             'view-any-download-link',
             'view-download-link',
+            'update-download-link',
+
             // Manage Comment
             'view-any-comment',
             'view-comment',
@@ -78,9 +87,8 @@ class RolesPermissionsSeeder extends Seeder
             'restore-comment',
             'force-delete-comment',
             // Membership
-            'free-short-link',
-            'free-ads',
-
+            'no-short-link',
+            'no-ads',
             // Activity Logs
             'view-any-activity-log',
             'view-activity-log',
@@ -141,17 +149,47 @@ class RolesPermissionsSeeder extends Seeder
             'restore-post',
             'force-delete-post',
             'view-nsfw-post',
-            // Manage Comment
-            'view-any-comment',
-            'view-comment',
-            'create-comment',
-            'update-comment',
-            'delete-comment',
-            'restore-comment',
-            'force-delete-comment',
-            // Membership
-            'free-short-link',
-            'free-ads',
+            // Manage Tags
+            'view-any-tags',
+            'view-tag',
+            'create-tag',
+            'update-tag',
+            'delete-tag',
+            'restore-tag',
+            'force-delete-tag',
+            // Download Link
+            'view-any-download-link',
+            'view-download-link',
+            'update-download-link',
+        ]);
+
+        $mod->syncPermissions([
+            // Access Page
+            'access-filament',
+            // Manage Users
+            'view-any-users',
+            'view-user',
+            'create-user',
+            'update-user',
+            // Manage Posts
+            'view-any-posts',
+            'view-post',
+            'view-nsfw-post',
+            'create-post',
+            'update-post',
+            'delete-post',
+            'restore-post',
+            // Manage Tags
+            'view-any-tags',
+            'view-tag',
+            'create-tag',
+            'update-tag',
+            'delete-tag',
+            'restore-tag',
+            // Download Link
+            'update-download-link',
+            'view-any-download-link',
+            'view-download-link',
         ]);
 
         User::find(1)->syncRoles('super-admin');
