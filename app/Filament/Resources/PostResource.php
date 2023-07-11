@@ -29,6 +29,11 @@ class PostResource extends Resource
 
     protected static ?string $navigationGroup = 'Manage Posts';
 
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -163,7 +168,6 @@ class PostResource extends Resource
                                     ->reactive(),
                                 Forms\Components\TextInput::make('url_key')
                                     ->required()
-
                                     ->disabled(),
                             ]),
                     ]),

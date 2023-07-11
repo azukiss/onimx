@@ -22,7 +22,7 @@ class RolePolicy
     public function view(User $user, Role $role): bool
     {
 
-        return $user->can('view-role') && ($role->order ? ($role->order > $user->roles()->pluck('order')) : true);
+        return $user->can('view-role') && ($role->order > $user->roles()->pluck('order')->first());
     }
 
     /**
