@@ -16,10 +16,13 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Livewire\TemporaryUploadedFile;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+
+use AshAllenDesign\ShortURL\Models\ShortURL;
 
 class PostResource extends Resource
 {
@@ -152,18 +155,29 @@ class PostResource extends Resource
                     ->schema([
                         Forms\Components\Repeater::make('Download Link')
                             ->minItems(1)
-                            ->maxItems(4)
+                            ->maxItems(5)
                             ->statePath('link')
                             ->schema([
                                 Forms\Components\TextInput::make('link')
                                     ->required()
-                                    ->rules(['required', 'url'])
-                                    ->afterStateUpdated(function ($state, callable $set) {
-                                        $slink = new \AshAllenDesign\ShortURL\Classes\Builder();
-                                        $shortURLObject = $slink->destinationUrl($state)->make();
-                                        $shortURL = $shortURLObject->url_key;
+                                    ->activeUrl()
+                                    ->afterStateUpdated(function (callable $set, callable $get, $state) {
+                                        if (!empty($state) && !filter_var($state, FILTER_VALIDATE_URL) == false)
+                                        {
+                                            DB::transaction(function () use ($set, $get, $state) {
+                                                if (!empty($get('url_key')))
+                                                {
+                                                    ShortURL::where('url_key', $get('url_key'))->delete();
+                                                    $set('url_key', null);
+                                                }
 
-                                        $set('url_key', $shortURL);
+                                                $slink = new \AshAllenDesign\ShortURL\Classes\Builder();
+                                                $shortURLObject = $slink->destinationUrl($state)->make();
+                                                $shortURL = $shortURLObject->url_key;
+
+                                                $set('url_key', $shortURL);
+                                            });
+                                        }
                                     })
                                     ->reactive(),
                                 Forms\Components\TextInput::make('url_key')
