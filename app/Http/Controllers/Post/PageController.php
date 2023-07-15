@@ -26,22 +26,15 @@ class PageController extends Controller
             }
         }
 
-        $links = [];
-        if (auth()->user()->cannot('no-short-link'))
+        $urls = [];
+        foreach ($post->postShortUrls as $link)
         {
-            foreach (array_values($post->link) as $link)
-            {
-                array_push($links, url(config('short-url.prefix').'/'.$link['url_key']));
+            array_push($urls, $link->url_key);
 
-            }
+            $links = ShortURL::select('default_short_url')->whereIn('url_key', $urls)->get();
         }
-        else
-        {
-            foreach (array_values($post->link) as $link)
-            {
-                array_push($links, $link['link']);
-            }
-        }
+
+//        dd($links);
 
         return view('post.page', [
             'page_title' => $post->title,

@@ -15,11 +15,19 @@ class TagSeeder extends Seeder
                 'name' => 'Cosplay',
                 'slug' => 'cosplay',
                 'code' => 'CSPLY',
+                'order' => 1
             ],
             [
                 'name' => 'Gravure',
                 'slug' => 'gravure',
                 'code' => 'GRVR',
+                'order' => 2
+            ],
+            [
+                'name' => 'Nude',
+                'slug' => 'nude',
+                'code' => 'ND',
+                'order' => 3
             ],
         ];
 

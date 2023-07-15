@@ -49,7 +49,7 @@
 
                     <div class="mt-10 flex flex-col space-y-2">
                         @foreach($links as $link)
-                            <a href="{{ $link }}" target="_blank" class="btn btn-primary btn-lg btn-scooter w-full" x-data x-ripple>{{ __('Download') }}</a>
+                            <a href="{{ $link->default_short_url }}" target="_blank" class="btn btn-primary btn-lg btn-scooter w-full" x-data x-ripple>{{ __('Download') }}</a>
                         @endforeach
                     </div>
 

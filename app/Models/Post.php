@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
@@ -21,7 +21,7 @@ class Post extends Model
         'code',
         'description',
         'info',
-        'link',
+//        'link',
         'image',
         'is_nsfw',
         'is_published',
@@ -30,7 +30,7 @@ class Post extends Model
     protected $casts = [
         'author_id' => 'integer',
         'info' => 'array',
-        'link' => 'array',
+//        'link' => 'array',
         'image' => 'array',
         'is_nsfw' => 'bool',
         'is_published' => 'bool',
@@ -44,5 +44,10 @@ class Post extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id', 'id');
+    }
+
+    public function postShortUrls(): HasMany
+    {
+        return $this->hasMany(PostShortUrl::class, 'post_id', 'id');
     }
 }

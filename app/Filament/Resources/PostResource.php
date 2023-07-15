@@ -10,7 +10,6 @@ use Filament\Forms;
 use Filament\Pages\Page;
 use Filament\Resources\Form;
 use Filament\Resources\Pages\CreateRecord;
-use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -21,7 +20,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Livewire\TemporaryUploadedFile;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-
 use AshAllenDesign\ShortURL\Models\ShortURL;
 
 class PostResource extends Resource
@@ -58,7 +56,6 @@ class PostResource extends Resource
                                 return (string) str(Str::ulid().'.'.$file->extension());
                             })
                             ->imagePreviewHeight('250')
-                            ->disablePreview()
                     ]),
                 Forms\Components\Section::make('Data')
                     ->schema([
@@ -76,7 +73,7 @@ class PostResource extends Resource
                                     ->afterStateUpdated(function ($state, callable $set, Page $livewire) {
                                         if (!empty($state) && $livewire instanceof CreateRecord)
                                         {
-                                            $code = Tag::where('id', $state)->pluck('code')->first();
+                                            $code = Tag::where('id', $state)->pluck('code')->first().'-';
                                             $length = Str::length($code) + 4;
                                             $config = [
                                                 'table' => 'posts',
@@ -153,14 +150,26 @@ class PostResource extends Resource
                     ]),
                 Forms\Components\Section::make('Download Links')
                     ->schema([
-                        Forms\Components\Repeater::make('Download Link')
+                        Forms\Components\HasManyRepeater::make('postShortUrls')
+                            ->relationship()
+                            ->label('')
+                            ->createItemButtonLabel('Add new link')
                             ->minItems(1)
                             ->maxItems(5)
-                            ->statePath('link')
                             ->schema([
-                                Forms\Components\TextInput::make('link')
+                                Forms\Components\TextInput::make('destination_url')
+                                    ->label('Download link')
                                     ->required()
-                                    ->activeUrl()
+                                    ->url()
+                                    ->dehydrated(false)
+                                    ->afterStateHydrated(function (Forms\Components\TextInput $component, $record) {
+                                        if (!empty($record->url_key))
+                                        {
+                                            $component->state(ShortURL::findByKey($record->url_key)->destination_url);
+                                        }
+                                    })
+                                    ->disabled(fn ($record) => !empty($record->url_key))
+                                    ->reactive()
                                     ->afterStateUpdated(function (callable $set, callable $get, $state) {
                                         if (!empty($state) && !filter_var($state, FILTER_VALIDATE_URL) == false)
                                         {
@@ -178,8 +187,7 @@ class PostResource extends Resource
                                                 $set('url_key', $shortURL);
                                             });
                                         }
-                                    })
-                                    ->reactive(),
+                                    }),
                                 Forms\Components\TextInput::make('url_key')
                                     ->required()
                                     ->disabled(),
@@ -255,6 +263,7 @@ class PostResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
+//                    Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                     Tables\Actions\ForceDeleteAction::make()
