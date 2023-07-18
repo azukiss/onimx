@@ -244,6 +244,9 @@ class PostResource extends Resource
                             ->searchable()
                             ->sortable(),
                     ]),
+                    Tables\Columns\TagsColumn::make('tags.name')
+                        ->label('Tags')
+                        ->sortable(),
                     Tables\Columns\Layout\Stack::make([
                         Tables\Columns\TextColumn::make('author.username')
                             ->size('sm'),
@@ -252,9 +255,6 @@ class PostResource extends Resource
                             ->size('sm')
                             ->sortable(),
                     ]),
-                    Tables\Columns\TagsColumn::make('tags.name')
-                        ->label('Tags')
-                        ->sortable(),
                 ])->space(3),
             ])
             ->defaultSort('created_at', 'desc')

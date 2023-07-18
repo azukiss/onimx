@@ -7,8 +7,8 @@
     <div class="sub-image">
         <div class="grid grid-cols-4 gap-6">
             <template x-for="(image,index) in images" :key="index">
-                <button @click="selected = index" :class="{'ring-scooter-200': selected == index, 'ring-transparent': selected != index}">
-                    <span class="absolute inset-0 overflow-hidden rounded-md bg-gray-50">
+                <button @click="selected = index" :class="{'ring-oni-500': selected == index, 'ring-transparent': selected != index}">
+                    <span class="absolute inset-0 overflow-hidden rounded-md bg-gray-100">
                         <img :src="images[index]" class="h-full w-full object-cover object-center" loading="lazy">
                     </span>
                 </button>

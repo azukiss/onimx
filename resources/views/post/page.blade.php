@@ -17,7 +17,7 @@
                     @if(!empty(array_values($post->info)))
                         <div class="mt-5">
                             <div class="mb-2 font-medium">{{ __('Content Information') }}</div>
-                            <div class="font-mono">
+                            <div class="font-mono text-sm">
                                 <div class="flex">
                                     <span>Code:&nbsp;</span>
                                     <h2 class="font-mono">{{ $post->code ?? "-" }}</h2>
@@ -42,22 +42,22 @@
                         <div class="mt-5">
                             <div class="mb-2 font-medium">{{ __('Tags') }}</div>
                             @foreach($post->tags->pluck('name') as $tag)
-                                <div class="badge-base badge-circle badge-amber">{{ $tag }}</div>
+                                <div class="badge-base badge-circle badge-scooter">{{ $tag }}</div>
                             @endforeach
                         </div>
                     @endisset
 
-                    <div class="mt-10 flex flex-col space-y-2">
-                        @foreach($links as $link)
-                            <a href="{{ $link->default_short_url }}" target="_blank" class="btn btn-primary btn-lg btn-scooter w-full" x-data x-ripple>{{ __('Download') }}</a>
-                        @endforeach
-                    </div>
+                    @isset($links)
+                        <div class="mt-10 flex flex-col space-y-2">
+                            @foreach($links as $link)
+                                <a href="{{ route('shortlink.download', $link) }}" target="_blank" class="btn btn-primary btn-lg btn-oni w-full" x-data x-ripple>{{ __('Download') }}</a>
+                            @endforeach
+                        </div>
+                    @endisset
 
                     @include('templates.post.acordion.carousel')
                 </div>
             </div>
-
-
         </div>
     </div>
 @endsection

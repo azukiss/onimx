@@ -17,13 +17,7 @@
             @endforeach
         </nav>
         <div class="footer">
-            @cannot('hide-sponsor')
-                <div class="sponsors">
-                    <a href="#">
-                        <img src="https://4play.to/assets/ads/00/150x150.png" loading="lazy" class="">
-                    </a>
-                </div>
-            @endcannot
+            @include('templates.ads.sidebar')
             <div class="links">
                 <a href="#" class="link">Advertising</a>
                 <a href="#" class="link">Terms of Service</a>

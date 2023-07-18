@@ -19,7 +19,7 @@
                             @isset($post->tags)
                                 <div class="px-4 mt-1">
                                     @foreach($post->tags->pluck('name') as $tag)
-                                        <div class="badge-base badge-circle badge-amber">{{ $tag }}</div>
+                                        <div class="badge-base badge-circle badge-scooter">{{ $tag }}</div>
                                     @endforeach
                                 </div>
                             @endisset

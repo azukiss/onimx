@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use AshAllenDesign\ShortURL\Models\ShortURL;
+use Illuminate\Support\Facades\Crypt;
 
 class PageController extends Controller
 {
@@ -27,20 +28,16 @@ class PageController extends Controller
         }
 
         $urls = [];
-        foreach ($post->postShortUrls as $link)
+        foreach ($post->postShortUrls as $url)
         {
-            array_push($urls, $link->url_key);
-
-            $links = ShortURL::select('default_short_url')->whereIn('url_key', $urls)->get();
+            array_push($urls, base64_encode($url->url_key));
         }
-
-//        dd($links);
 
         return view('post.page', [
             'page_title' => $post->title,
             'page_id' => $this->page_id,
             'post' => $post,
-            'links' => $links,
+            'links' => $urls,
         ]);
     }
 

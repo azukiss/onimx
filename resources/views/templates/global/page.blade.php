@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="light">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="{{ session('theme', 'light') }}">
 
 @include('templates.global.head')
 
@@ -16,7 +16,6 @@
             @include('templates.global.footer')
         </div>
     </div>
-    @include('sweetalert::alert')
 </body>
 
 </html>

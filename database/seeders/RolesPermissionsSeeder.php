@@ -87,8 +87,8 @@ class RolesPermissionsSeeder extends Seeder
             'restore-comment',
             'force-delete-comment',
             // Membership
-            'no-short-link',
-            'no-ads',
+            'skip-short-link',
+            'hide-sponsor',
             // Activity Logs
             'view-any-activity-log',
             'view-activity-log',
