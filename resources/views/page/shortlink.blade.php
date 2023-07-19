@@ -12,11 +12,13 @@
         </div>
         @include('templates.ads.header')
         <div class="short-main">
-            <div class="short-form">
+            <div class="short-form border">
                 @livewire('post.short-link', ['link' => $link])
             </div>
         </div>
         @include('templates.ads.footer')
     </div>
+    @include('templates.global.footer')
 </body>
+
 </html>

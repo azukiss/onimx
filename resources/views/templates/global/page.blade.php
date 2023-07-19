@@ -8,11 +8,13 @@
         @include('templates.global.sidebar')
         <div class="main-section">
             @include('templates.global.header')
+            @include('templates.ads.header')
             <div class="page-section">
                 @hasSection('main')
                     @yield('main')
                 @endif
             </div>
+            @include('templates.ads.footer')
             @include('templates.global.footer')
         </div>
     </div>

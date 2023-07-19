@@ -48,4 +48,3 @@
     </div>
 </div>
 {{ Breadcrumbs::render() }}
-@include('templates.ads.header')
