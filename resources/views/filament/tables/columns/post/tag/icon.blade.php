@@ -1,3 +1,3 @@
 <div>
-    <i class="{{ $getState() }}"></i>
+    <i class="{{ $getState() ?? 'fa-solid fa-circle' }}"></i>
 </div>

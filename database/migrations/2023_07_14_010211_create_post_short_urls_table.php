@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('post_short_urls', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('post_id')->references('id')->on('posts')->cascadeOnDelete()->constrained();
+            $table->foreignId('post_id')->references('id')->on('posts')->cascadeOnDelete();
             $table->string('url_key');
-            $table->foreign('url_key')->references('url_key')->on('short_urls')->cascadeOnUpdate()->cascadeOnDelete()->constrained();
+            $table->foreign('url_key')->references('url_key')->on('short_urls')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->timestamps();
         });

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_tags', function (Blueprint $table) {
-            $table->foreignId('tag_id')->references('id')->on('tags')->cascadeOnDelete();
-            $table->foreignId('post_id')->references('id')->on('posts')->cascadeOnDelete();
+        Schema::table('tags', function (Blueprint $table) {
+            $table->foreignId('cat_id')->after('icon')->nullable()->references('id')->on('categories')->cascadeOnDelete();
         });
     }
 
@@ -22,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_tags');
+        Schema::table('tags', function (Blueprint $table) {
+            $table->dropForeign(['cat_id']);
+            $table->dropColumn('cat_id');
+        });
     }
 };

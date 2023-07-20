@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Tag;
+use App\Models\Category;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         view()->composer('*',function($view) {
-            $view->with('tags', Tag::orderBy('order', 'asc')->get());
+            $view->with('categories', Category::orderBy('order', 'asc')->get());
         });
     }
 }

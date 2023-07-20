@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Page;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -44,8 +45,6 @@ class HomeController extends Controller
         {
             $post = $post->where('is_published', true)->whereNull('deleted_at');
         }
-
-//        dd($post);
 
         return view('page.home', [
             'page_title' => 'Home',
