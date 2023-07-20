@@ -5,7 +5,6 @@
         <div class="basis-full md:basis-3/4 lg:basis-4/5">
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-{{--                {{ dd(config('app.url').'/'.config('filament.path').'/login') }}--}}
                 @foreach($posts as $post)
                     <div class="card card-hover">
                         <a href="{{ route('post.page', [$post->id, $post->slug]) }}" class="relative" x-data x-ripple>
@@ -23,13 +22,6 @@
                                     @endforeach
                                 </div>
                             @endisset
-                            @if(isset($post->info))
-                                <div class="px-6 mt-4">
-                                    <div class="text-sm text-gray-500 font-mono space-y-0.5">
-                                        <div class="flex items-center space-x-3">{{ $post->tags->pluck('name') }}</div>
-                                    </div>
-                                </div>
-                            @endif
                         </a>
                         <div class="border-t px-4 py-3 mt-4">
                             <div class="flex items-center justify-between">

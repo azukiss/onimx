@@ -25,6 +25,12 @@
 }
 
 @layer components {
+    /* START Basic*/
+    a.href {
+        @apply hover:text-oni-600;
+    }
+    /* END Basic */
+
     /* START Header */
     .header {
         @apply sticky top-0 z-50 flex h-16 flex-shrink-0 bg-white shadow;

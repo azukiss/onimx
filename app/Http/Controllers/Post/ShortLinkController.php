@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class ShortLinkController extends Controller
 {
+    private $page_title = 'Short Link';
     private $page_id = 'short-link';
 
     public function dlink($base64)
@@ -21,8 +22,8 @@ class ShortLinkController extends Controller
         }
 
         return view('page.shortlink', [
-            'page_title' => 'Short Link - '. $url_key,
-            'page_id' => $this->page_id . ' ' . $url_key,
+            'page_title' => $this->page_title . ' ' . $url_key,
+            'page_id' => $this->page_id . '-' . $url_key,
             'link' => $direct,
         ]);
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Page\HomeController as HomeController;
 use App\Http\Controllers\User\SettingsController as SettingsController;
 use App\Http\Controllers\Post\PageController as PostPageController;
 use App\Http\Controllers\Post\ShortLinkController as ShortLinkController;
+use App\Http\Controllers\Post\TagController as TagController;
 
 require_once __DIR__ . '/fortify.php';
 
@@ -38,5 +39,11 @@ Route::controller(PostPageController::class)->prefix('/post')->name('post')->gro
 });
 
 Route::controller(ShortLinkController::class)->name('shortlink')->group(function () {
-    Route::get('/{base64}', 'dlink')->prefix('/dl')->name('.download');
+    Route::get('/dl/{base64}', 'dlink')->name('.download');
+});
+
+Route::controller(TagController::class)->name('tag')->group(function () {
+    Route::get('/tags', 'index')->name('.index');
+    Route::get('/tag/{tag:slug}', 'show')->name('.show');
+    Route::get('/tag/archive/{tag:slug}', 'archive')->name('.archive');
 });
