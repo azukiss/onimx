@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -60,6 +59,26 @@ class PermissionPolicy
      * Determine whether the user can permanently delete the model.
      */
     public function forceDelete(): bool
+    {
+        return false;
+    }
+
+    public function deleteAny(): bool
+    {
+        return false;
+    }
+
+    public function restoreAny(): bool
+    {
+        return false;
+    }
+
+    public function forceDeleteAny(): bool
+    {
+        return false;
+    }
+
+    public function reorder(): bool
     {
         return false;
     }

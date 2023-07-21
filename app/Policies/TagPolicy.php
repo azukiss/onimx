@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -48,11 +47,6 @@ class TagPolicy
         return $user->can('delete-tag');
     }
 
-    public function deleteAny(User $user): bool
-    {
-        return $user->can('delete-any-tag');
-    }
-
     /**
      * Determine whether the user can restore the model.
      */
@@ -61,17 +55,22 @@ class TagPolicy
         return $user->can('restore-tag');
     }
 
-    public function restoreAny(User $user): bool
-    {
-        return $user->can('restore-any-tag');
-    }
-
     /**
      * Determine whether the user can permanently delete the model.
      */
     public function forceDelete(User $user): bool
     {
         return $user->can('force-delete-tag');
+    }
+
+    public function deleteAny(User $user): bool
+    {
+        return $user->can('delete-any-tag');
+    }
+
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('restore-any-tag');
     }
 
     public function forceDeleteAny(User $user): bool
