@@ -5,14 +5,14 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class UserPolicy
+class CategoryPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view-any-users');
+        return $user->can('view-any-category');
     }
 
     /**
@@ -20,7 +20,7 @@ class UserPolicy
      */
     public function view(User $user): bool
     {
-        return $user->can('view-user');
+        return $user->can('view-category');
     }
 
     /**
@@ -28,7 +28,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create-user');
+        return $user->can('create-category');
     }
 
     /**
@@ -36,7 +36,7 @@ class UserPolicy
      */
     public function update(User $user): bool
     {
-        return $user->can('update-user');
+        return $user->can('update-category');
     }
 
     /**
@@ -44,7 +44,7 @@ class UserPolicy
      */
     public function delete(User $user): bool
     {
-        return $user->can('delete-user');
+        return $user->can('delete-category');
     }
 
     /**
@@ -52,34 +52,34 @@ class UserPolicy
      */
     public function restore(User $user): bool
     {
-        return $user->can('restore-user');
+        return $user->can('restore-category');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(): bool
+    public function forceDelete(User $user): bool
     {
-        return false;
+        return $user->can('force-delete-category');
     }
 
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete-any-user');
+        return $user->can('delete-any-category');
     }
 
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore-any-user');
+        return $user->can('restore-any-category');
     }
 
-    public function forceDeleteAny(): bool
+    public function forceDeleteAny(User $user): bool
     {
-        return false;
+        return $user->can('force-delete-any-category');
     }
 
-    public function reorder(): bool
+    public function reorder(User $user): bool
     {
-        return false;
+        return $user->can('reorder-category');
     }
 }

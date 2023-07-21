@@ -63,4 +63,24 @@ class PostPolicy
     {
         return $user->can('force-delete-post');
     }
+
+    public function deleteAny(User $user): bool
+    {
+        return $user->can('delete-any-post');
+    }
+
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('restore-any-post');
+    }
+
+    public function forceDeleteAny(User $user): bool
+    {
+        return $user->can('force-delete-any-post');
+    }
+
+    public function reorder(User $user): bool
+    {
+        return $user->can('reorder-post');
+    }
 }

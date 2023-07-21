@@ -25,6 +25,12 @@
 }
 
 @layer components {
+    /* START Basic*/
+    a.href {
+        @apply hover:text-oni-600;
+    }
+    /* END Basic */
+
     /* START Header */
     .header {
         @apply sticky top-0 z-50 flex h-16 flex-shrink-0 bg-white shadow;
@@ -111,7 +117,7 @@
     .card-hover {
         @apply hover:border-oni-300 hover:border-opacity-50;
         @apply hover:ring-2 hover:ring-oni-300 hover:ring-opacity-50;
-        /*@apply hover:shadow-oni-500;*/
+        @apply hover:shadow-oni-500;
     }
     /* End Card */
 
@@ -388,7 +394,7 @@
     }
 
     .sidebar-d nav.links {
-        @apply mt-5 flex flex-grow flex-col flex-1 space-y-1 px-2 pb-4;
+        @apply mt-5 flex flex-grow flex-col flex-1 px-2 pb-4;
     }
     /* END Sidebar */
 

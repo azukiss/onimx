@@ -64,4 +64,24 @@ class RolePolicy
     {
         return $user->can('force-delete-role');
     }
+
+    public function deleteAny(User $user): bool
+    {
+        return $user->can('delete-any-role');
+    }
+
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('restore-any-role');
+    }
+
+    public function forceDeleteAny(User $user): bool
+    {
+        return $user->can('force-delete-any-role');
+    }
+
+    public function reorder(User $user): bool
+    {
+        return $user->can('reorder-role');
+    }
 }

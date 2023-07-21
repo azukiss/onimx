@@ -11,26 +11,9 @@
             <div class="logo">
                 <img class="h-8 w-auto" src="{{ asset('assets/images/logo_small.png') }}" alt="{{ config('app.name') }}">
             </div>
-            <nav class="links">
-                <a href="{{ route('page.home') }}" class="link @if(Route::is('home')) bg-gray-100 text-gray-900 @else text-gray-600 @endif">
-                    <i class="fa-regular fa-home fa-fw text-gray-500 mr-4 flex-shrink-0"></i>
-                    Home
-                </a>
-                @foreach($tags as $tag)
-                    <a href="#" class="link">
-                        <i class="{{ (!empty($tag->icon)) ? $tag->icon : 'fa-regular fa-circle fa-fw' }}"></i>
-                        {{ !empty($tag->name) ? $tag->name : 'Undifined' }}
-                    </a>
-                @endforeach
-            </nav>
+            @include('templates.global.navbar-mobile')
             <div class=footer>
-                @cannot('hide-sponsor')
-                    <div class="sponsors">
-                        <a href="#">
-                            <img src="https://4play.to/assets/ads/00/150x150.png" loading="lazy">
-                        </a>
-                    </div>
-                @endcannot
+                @include('templates.ads.sidebar')
                 <div class="links">
                     <a href="#" class="link">Advertising</a>
                     <a href="#" class="link">Terms of Service</a>
