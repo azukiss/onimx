@@ -124,8 +124,6 @@ class RolesPermissionsSeeder extends Seeder
             'view-download-link',
             'update-download-link',
 
-
-
 //            // Manage Comment
 //            'view-any-comment',
 //            'view-comment',
@@ -283,7 +281,7 @@ class RolesPermissionsSeeder extends Seeder
             'view-any-permissions',
             'view-permission',
             'update-permission',
-
+          
             // Manage Category
             'view-any-category',
             'view-category',
