@@ -6,31 +6,58 @@
             <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
                 @include('templates.post.image')
 
-                <article class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-                    <div class="space-y-2">
-                        <h1 class="text-3xl font-bold text-gray-900">{{ !empty($page_title) ? $page_title : "Undefined Page Title" }}</h1>
-                        <h2>{{ !empty($code_collection) ? $code_collection : "-" }}</h2>
-                    </div>
-
-                    <div class="mt-6">
-                        <div class="mb-2 font-semibold">Description</div>
-                        <div class="space-y-6 text-base text-gray-700">
-                            <p>The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack.
-                                With convertible straps, you can hand carry, should sling, or backpack this convenient
-                                and spacious bag. The zip top and durable canvas construction keeps your goods protected
-                                for all-day use.</p>
+                <div class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
+                    <div id="post-info">
+                        <div class="space-y-1">
+                            <h1 class="text-3xl font-bold text-gray-900">{{ !empty($page_title) ? $page_title : "Undefined Page Title" }}</h1>
+                            <div class="text-sm">{{__('Posted by')}} {{ $post->author->username }} &bull; {{ \Carbon\Carbon::parse($post->created_at)->locale(config('app.locale'))->diffForHumans() }}</div>
                         </div>
                     </div>
 
-                    <div class="mt-10 flex">
-                        <a href="#" class="btn btn-primary btn-lg btn-scooter w-full">Download</a>
-                    </div>
+                    @if(!empty(array_values($post->info)))
+                        <div class="mt-5">
+                            <div class="mb-2 font-medium">{{ __('Content Information') }}</div>
+                            <div class="font-mono text-sm">
+                                <div class="flex">
+                                    <span>Code:&nbsp;</span>
+                                    <h2 class="font-mono">{{ $post->code ?? "-" }}</h2>
+                                </div>
+                                <div>{{ 'Pics: ' . $post->info['pics'] }}</div>
+                                <div>{{ 'Vids: ' . $post->info['vids'] }}</div>
+                                <div>{{ 'Size: ' . $post->info['size'] }}</div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if(!empty($post->description))
+                        <article class="mt-5 prose prose-cyan">
+                            <div class="mb-2 font-semibold">{{ __('Description') }}</div>
+                            <div class="space-y-6 text-base text-gray-700">
+                                <p>{!! Str::markdown($post->description) !!}</p>
+                            </div>
+                        </article>
+                    @endif
+
+                    @isset($post->tags)
+                        <div class="mt-5">
+                            <div class="mb-2 font-medium">{{ __('Tags') }}</div>
+                            @foreach($post->tags->pluck('name') as $tag)
+                                <div class="badge-base badge-circle badge-scooter">{{ $tag }}</div>
+                            @endforeach
+                        </div>
+                    @endisset
+
+                    @isset($links)
+                        <div class="mt-10 flex flex-col space-y-2">
+                            @foreach($links as $link)
+                                <a href="{{ route('shortlink.download', $link) }}" target="_blank" class="btn btn-primary btn-lg btn-oni w-full" x-data x-ripple>{{ __('Download') }}</a>
+                            @endforeach
+                        </div>
+                    @endisset
 
                     @include('templates.post.acordion.carousel')
-                </article>
+                </div>
             </div>
-
-
         </div>
     </div>
 @endsection

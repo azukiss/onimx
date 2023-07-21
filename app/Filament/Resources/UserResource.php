@@ -26,6 +26,11 @@ class UserResource extends Resource
 
     protected static ?string $navigationGroup = 'Manage Users';
 
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -33,36 +38,46 @@ class UserResource extends Resource
                 Forms\Components\Section::make('User Data')
                     ->schema([
                         Forms\Components\FileUpload::make('avatar')
-                            ->rules(['required', 'image', 'mimes:png,jpg,jpeg'])
+                            ->nullable()
                             ->image()
+                            ->avatar()
+                            ->rules(['nullable', 'image', 'mimes:png,jpg,jpeg'])
                             ->disk('public')
-                            ->directory('uploads/avatar')
                             ->visibility('public')
+                            ->directory('uploads/avatar')
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                 return (string) str(bin2hex(random_bytes(10)).'.'.$file->extension());
                             })
                             ->hint('Fixed resize to 150 x 150 pixels.')
                             ->hintIcon('heroicon-o-exclamation')
                             ->hintColor('warning'),
-                        Forms\Components\TextInput::make('username')
-                            ->rules(['required', 'min:5', 'max:30'])
-                            ->unique(ignoreRecord: true)
-                            ->disableAutocomplete(),
-                        Forms\Components\TextInput::make('email')
-                            ->rules(['required', 'email'])
-                            ->unique(ignoreRecord: true)
-                            ->disableAutocomplete(),
-                        Forms\Components\TextInput::make('password')
-                            ->rules(['min:8'])
-                            ->password()
-                            ->same('password_confirmation')
-                            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                            ->dehydrated(fn ($state) => filled($state))
-                            ->required(fn (Page $livewire) => ($livewire instanceof CreateRecord)),
-                        Forms\Components\TextInput::make('password_confirmation')
-                            ->password()
-                            ->dehydrated(false)
-                            ->required(fn (Page $livewire) => ($livewire instanceof CreateRecord)),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('username')
+                                    ->required()
+                                    ->rules(['required', 'min:5', 'max:30'])
+                                    ->unique(ignoreRecord: true)
+                                    ->disableAutocomplete(),
+                                Forms\Components\TextInput::make('email')
+                                    ->required()
+                                    ->rules(['required', 'email'])
+                                    ->unique(ignoreRecord: true)
+                                    ->disableAutocomplete(),
+                            ]),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('password')
+                                    ->rules(['min:8'])
+                                    ->password()
+                                    ->same('password_confirmation')
+                                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                                    ->dehydrated(fn ($state) => filled($state))
+                                    ->required(fn (Page $livewire) => ($livewire instanceof CreateRecord)),
+                                Forms\Components\TextInput::make('password_confirmation')
+                                    ->password()
+                                    ->dehydrated(false)
+                                    ->required(fn (Page $livewire) => ($livewire instanceof CreateRecord)),
+                            ]),
                         Forms\Components\Toggle::make('verified')
                             ->label('Email Verified')
                             ->hidden(fn (Page $livewire) => ($livewire instanceof CreateRecord))

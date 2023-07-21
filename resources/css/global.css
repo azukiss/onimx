@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -15,18 +16,18 @@
 
     .main-section {
         @apply flex flex-1 flex-col lg:pl-64;
+        @apply min-h-screen;
     }
 
     .page-section {
         @apply flex-1 space-y-6 py-6 px-4 sm:px-6 md:px-8;
-        @apply min-h-screen;
     }
 }
 
 @layer components {
     /* START Header */
     .header {
-        @apply sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow;
+        @apply sticky top-0 z-50 flex h-16 flex-shrink-0 bg-white shadow;
     }
     .header .avatar {
         @apply flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-oni-500 focus:ring-opacity-50;
@@ -108,9 +109,9 @@
     }
 
     .card-hover {
-        @apply hover:border-oni-500 hover:border-opacity-50;
-        /*@apply hover:ring-2 hover:ring-oni-500 hover:ring-opacity-50;*/
-        @apply hover:shadow-oni-500;
+        @apply hover:border-oni-300 hover:border-opacity-50;
+        @apply hover:ring-2 hover:ring-oni-300 hover:ring-opacity-50;
+        /*@apply hover:shadow-oni-500;*/
     }
     /* End Card */
 
@@ -202,15 +203,71 @@
 
     /* Start Badge*/
     .badge-md, .badge-base {
-        @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+        @apply inline-flex items-center px-2.5 py-0.5 text-xs font-medium;
     }
 
     .badge-lg {
-        @apply inline-flex items-center rounded-full px-3 py-0.5 text-sm font-medium;
+        @apply inline-flex items-center px-3 py-0.5 text-sm font-medium;
     }
 
     .badge-rounded {
-        @apply
+        @apply rounded;
+    }
+
+    .badge-circle {
+        @apply rounded-full;
+    }
+
+    .badge-oni {
+        @apply bg-oni-100 text-oni-800;
+    }
+
+    .badge-roman {
+        @apply bg-roman-100 text-roman-800;
+    }
+
+    .badge-salmon {
+        @apply bg-salmon-100 text-salmon-800;
+    }
+
+    .badge-scooter {
+        @apply bg-scooter-100 text-scooter-800;
+    }
+
+    .badge-gray {
+        @apply bg-gray-100 text-gray-800;
+    }
+
+    .badge-red {
+        @apply bg-red-100 text-red-800;
+    }
+
+    .badge-yellow {
+        @apply bg-yellow-100 text-yellow-800;
+    }
+
+    .badge-green {
+        @apply bg-green-100 text-green-800;
+    }
+
+    .badge-blue {
+        @apply bg-blue-100 text-blue-800;
+    }
+
+    .badge-indigo {
+        @apply bg-indigo-100 text-indigo-800;
+    }
+
+    .badge-purple {
+        @apply bg-purple-100 text-purple-800;
+    }
+
+    .badge-pink {
+        @apply bg-pink-100 text-pink-800;
+    }
+
+    .badge-amber {
+        @apply bg-amber-100 text-amber-800;
     }
     /* End Badge */
 
@@ -260,6 +317,14 @@
         @apply w-full h-64 md:h-96;
     }
 
+    .cosplay-gallery .main-image img {
+        @apply h-64 md:h-96 w-full object-contain object-center rounded-md;
+    }
+
+    .cosplay-gallery .main-image .canvas {
+        @apply bg-gray-50 ring ring-oni-500 ring-opacity-50 rounded-md;
+    }
+
     .cosplay-gallery .sub-image {
         @apply mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none;
     }
@@ -267,6 +332,115 @@
     .cosplay-gallery .sub-image button {
         @apply relative flex h-24 cursor-pointer items-center justify-center rounded-md focus:outline-none ring ring-opacity-50 ring-offset-4;
     }
-
     /* END Cosplay Content*/
+
+    /* START Sidebar */
+    .sidebar-m {
+        @apply relative z-40 lg:hidden;
+    }
+
+    .sidebar-m .body {
+        @apply relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4 overflow-x-hidden;
+    }
+
+    .sidebar-m .burger-button {
+        @apply ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white;
+    }
+
+    .sidebar-m .logo, .sidebar-d .logo {
+        @apply flex flex-shrink-0 justify-center items-center px-4;
+    }
+
+    .sidebar-m nav.links {
+        @apply mt-5 h-0 flex-1 space-y-1 px-2;
+    }
+
+    .sidebar-m nav.links .link, .sidebar-d nav.links .link {
+        @apply flex items-center px-2 py-2 text-base rounded-md hover:bg-gray-100 hover:text-oni-500;
+    }
+
+    .sidebar-m nav.links .link i, .sidebar-d nav.links .link i {
+        @apply mr-4 flex-shrink-0 hover:text-oni-500;
+    }
+
+    .sidebar-m .footer, .sidebar-d .footer {
+        @apply flex flex-col flex-shrink-0 items-center justify-center;
+    }
+
+    .sidebar-m .sponsors-sidebar img, .sidebar-d .sponsors-sidebar img {
+        @apply h-full w-full max-w-[150px] max-h-[150px] z-0;
+    }
+
+    .sidebar-m .footer .links, .sidebar-d .footer .links {
+        @apply flex flex-col mt-5 justify-center items-center space-y-1;
+    }
+
+    .sidebar-m .footer .links .link, .sidebar-d .footer .links .link {
+        @apply font-medium text-sm hover:text-oni-600;
+    }
+
+    .sidebar-d {
+        @apply hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col;
+    }
+
+    .sidebar-d .body {
+        @apply flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white py-5;
+    }
+
+    .sidebar-d nav.links {
+        @apply mt-5 flex flex-grow flex-col flex-1 space-y-1 px-2 pb-4;
+    }
+    /* END Sidebar */
+
+    /* START Auth Page */
+    .auth .auth-page {
+        @apply flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8;
+    }
+
+    .auth .auth-header {
+        @apply sm:mx-auto sm:w-full sm:max-w-md;
+    }
+
+    .auth .logo{
+        @apply mx-auto h-32 w-auto;
+    }
+
+    .auth .auth-base {
+        @apply mt-8 sm:mx-auto sm:w-full sm:max-w-md;
+    }
+
+    .auth .auth-form {
+        @apply bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10;
+    }
+    /* END Auth Page */
+
+
+    /* START Short Link Page */
+    .short-link .short-page {
+        @apply flex flex-col py-12 sm:px-6 lg:px-8;
+    }
+
+    .short-link .short-header {
+        @apply sm:mx-auto sm:w-full sm:max-w-md;
+    }
+
+    .short-link .logo{
+        @apply mx-auto h-32 w-auto;
+        @apply mb-10;
+    }
+
+    .short-link .short-main {
+        @apply my-auto mx-auto w-full max-w-xs sm:max-w-md;
+    }
+
+    .short-link .short-form {
+        @apply bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10;
+        @apply text-center;
+    }
+    /* END Short Link Page */
+
+    /* START Ads Banner*/
+    .ads-header, .ads-footer {
+        @apply flex items-center justify-center p-4 sm:px-6 md:px-8;
+    }
 }

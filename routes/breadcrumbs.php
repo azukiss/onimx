@@ -37,13 +37,12 @@ Breadcrumbs::for('user.settings.2fa', function (BreadcrumbTrail $trail) {
     $trail->parent('user.settings.index');
     $trail->push('Two Factor Authentication', route('user.settings.2fa'));
 });
-
-
 /* END Settings */
 
-/* START Cosplay Page */
-Breadcrumbs::for('post.cosplay', function (BreadcrumbTrail $trail) {
+/* START Post Page */
+Breadcrumbs::for('post.page', function (BreadcrumbTrail $trail, $post) {
     $trail->parent('page.home');
-    $trail->push('Cosplay', route('post.cosplay'));
+    $trail->push($post->tags->pluck('name')->first(), '#');
+    $trail->push($post->title, route('post.page', [$post->id, $post->slug]));
 });
-/* END Cosplay Page */
+/* END Post Page */

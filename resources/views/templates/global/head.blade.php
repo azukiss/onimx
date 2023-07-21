@@ -16,4 +16,5 @@
     @hasSection('headerCSS')
         @yield('headerCSS')
     @endif
+    @livewireStyles
 </head>

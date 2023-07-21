@@ -13,6 +13,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\FilamentLoginController;
 
 return [
 
@@ -89,7 +90,8 @@ return [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
 //            'login' => \Filament\Http\Livewire\Auth\Login::class,
-            'login' => [AuthenticatedSessionController::class, 'create'],
+//            'login' => [AuthenticatedSessionController::class, 'create'],
+            'login' => FilamentLoginController::class,
         ],
     ],
 
@@ -305,6 +307,7 @@ return [
     */
 
     'google_fonts' => 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap',
+//    'google_fonts' => 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap',
 
     /*
     |--------------------------------------------------------------------------

@@ -29,7 +29,7 @@
                         <a href="{{ route('user.settings.index') }}" class="block px-4 py-2 text-sm text-gray-700 @if(Route::is('settings')) bg-gray-100 @endif">Settings</a>
 
                         @can('access-filament')
-                            <a href="{{ config('app.url').'/'.config('filament.path') }}" class="block px-4 py-2 text-sm text-gray-700" target="_blank">Admin Panel</a>
+                            <a href="{{ route('filament.pages.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700" target="_blank">Admin Panel</a>
                         @endcan
 
                         <a class="block px-4 py-2 text-sm text-gray-700 cursor-pointer" onclick="event.preventDefault(); document.getElementById('logout').submit();">Sign out</a>
@@ -48,8 +48,3 @@
     </div>
 </div>
 {{ Breadcrumbs::render() }}
-{{--<div class="flex items-center justify-center px-4 sm:px-6 md:px-8">
-    <a href="#">
-        <img src="https://4play.to/assets/ads/00/728x90.png" loading="lazy">
-    </a>
-</div>--}}

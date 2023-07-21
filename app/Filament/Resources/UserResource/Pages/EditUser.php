@@ -58,10 +58,7 @@ class EditUser extends EditRecord
             $path = public_path($this->record->avatar);
             $image= Image::make($path);
 
-            if ($image->height() > 150 || $image->width() > 150)
-            {
-                $image->resize(150, 150)->save($path);
-            }
+            $image->fit(150, 150)->save($path);
 
             $image->destroy();
         }

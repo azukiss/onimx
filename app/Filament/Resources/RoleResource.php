@@ -27,23 +27,50 @@ class RoleResource extends Resource
             ->schema([
                 Forms\Components\Card::make()
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->rules(['required', 'alpha-dash', 'min:3', 'max:15'])
-                            ->dehydrated(!auth()->user()->hasRole('super-admin')),
-                        Forms\Components\Select::make('guard_name')
-                            ->rules('required', 'in:web,api')
-                            ->options([
-                                'web' => 'Web',
-                                'api' => 'API',
-                            ])
-                            ->default('web')
-                            ->dehydrated(!auth()->user()->hasRole('super-admin')),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->rules(['required', 'alpha-dash', 'min:3', 'max:15'])
+                                    ->dehydrated(fn ($record) => auth()->user()->hasPermissionTo('update-role') && ($record->order > auth()->user()->roles()->pluck('order')->first())),
+                                Forms\Components\Select::make('guard_name')
+                                    ->required()
+                                    ->rules('required', 'in:web,api')
+                                    ->options([
+                                        'web' => 'Web',
+                                        'api' => 'API',
+                                    ])
+                                    ->default('web')
+                                    ->dehydrated(fn ($record) => auth()->user()->hasPermissionTo('update-role') && ($record->order > auth()->user()->roles()->pluck('order')->first())),
+                            ]),
+                    ]),
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\ColorPicker::make('txtcolor')
+                                    ->label('Text Color')
+                                    ->required()
+                                    ->default('#FFFFFF'),
+                                Forms\Components\ColorPicker::make('bgcolor')
+                                    ->label('Background Color')
+                                    ->required()
+                                    ->default('#000000'),
+                                Forms\Components\TextInput::make('icon')
+                                    ->required()
+                                    ->default('fa-solid fa-user'),
+                                Forms\Components\TextInput::make('order')
+                                    ->rules(['numeric', 'min:1', 'max:99'])
+                                    ->numeric()
+                                    ->required()
+                                    ->default(1),
+                            ]),
                     ]),
                 Forms\Components\Card::make()
                     ->schema([
                         Forms\Components\MultiSelect::make('permissions')
                             ->relationship('permissions', 'name')
-                            ->dehydrated(!auth()->user()->hasRole('super-admin')),
+                            ->dehydrated(!auth()->user()->hasPermissionTo('update-role')),
                     ]),
             ]);
     }
@@ -56,6 +83,7 @@ class RoleResource extends Resource
                 Tables\Columns\BadgeColumn::make('guard_name')->sortable()->searchable(),
                 Tables\Columns\TagsColumn::make('permissions.name')->sortable(),
             ])
+            ->defaultSort('order')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
@@ -71,7 +99,8 @@ class RoleResource extends Resource
 //                Tables\Actions\DeleteBulkAction::make(),
 //                Tables\Actions\ForceDeleteBulkAction::make(),
 //                Tables\Actions\RestoreBulkAction::make(),
-            ]);
+            ])
+            ->reorderable('order');
     }
 
     public static function getRelations(): array
