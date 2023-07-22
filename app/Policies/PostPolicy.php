@@ -81,6 +81,6 @@ class PostPolicy
 
     public function reorder(User $user): bool
     {
-        return $user->can('reorder-post');
+        return false;
     }
 }

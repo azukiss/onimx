@@ -23,7 +23,6 @@ class RolesPermissionsSeeder extends Seeder
         $premium = Role::create(['name' => 'premium', 'order' => 4]);
         $vip = Role::create(['name' => 'vip', 'order' => 5]);
         $member = Role::create(['name' => 'member', 'order' => 6]);
-        $awaiting = Role::create(['name' => 'awaiting', 'order' => 7]);
 
 //        $resources = [
 //            'view-any-',
@@ -110,20 +109,20 @@ class RolesPermissionsSeeder extends Seeder
             // Manage Posts
             'view-any-posts',
             'view-post',
+            'view-nsfw-post',
             'create-post',
             'update-post',
             'delete-post',
             'restore-post',
             'force-delete-post',
-            'view-nsfw-post',
             'delete-any-post',
             'restore-any-post',
             'force-delete-any-post',
-            'reorder-post',
 
             // Download Link
             'view-any-download-link',
             'view-direct-download-link',
+            'view-paid-download-link',
 
 //            // Manage Comment
 //            'view-any-comment',
@@ -236,18 +235,18 @@ class RolesPermissionsSeeder extends Seeder
             // Manage Posts
             'view-any-posts',
             'view-post',
+            'view-nsfw-post',
             'create-post',
             'update-post',
             'delete-post',
             'restore-post',
-            'view-nsfw-post',
             'delete-any-post',
             'restore-any-post',
-            'reorder-post',
 
             // Download Link
             'view-any-download-link',
             'view-direct-download-link',
+            'view-paid-download-link',
         ]);
 
         // Moderator Permissions
@@ -260,76 +259,64 @@ class RolesPermissionsSeeder extends Seeder
             'view-user',
             'create-user',
             'update-user',
-            'delete-user',
-            'restore-user',
-            'delete-any-user',
-            'restore-any-user',
 
             // Manage Roles
             'view-any-roles',
             'view-role',
-            'create-role',
-            'update-role',
-            'delete-role',
-            'restore-role',
-            'force-delete-role',
-            'delete-any-role',
-            'restore-any-role',
-            'force-delete-any-role',
-            'reorder-role',
 
             // Manage Permissions
             'view-any-permissions',
             'view-permission',
-            'update-permission',
 
             // Manage Category
             'view-any-category',
             'view-category',
-            'create-category',
-            'update-category',
-            'delete-any-category',
-            'delete-category',
-            'restore-any-category',
-            'restore-category',
-            'force-delete-any-category',
-            'force-delete-category',
-            'reorder-category',
 
             // Manage Tags
             'view-any-tags',
             'view-tag',
-            'create-tag',
-            'update-tag',
-            'delete-tag',
-            'restore-tag',
-            'force-delete-tag',
-            'delete-any-tag',
-            'restore-any-tag',
-            'force-delete-any-tag',
-            'reorder-tag',
 
             // Manage Posts
             'view-any-posts',
             'view-post',
+            'view-nsfw-post',
             'create-post',
             'update-post',
             'delete-post',
             'restore-post',
-            'force-delete-post',
-            'view-nsfw-post',
             'delete-any-post',
             'restore-any-post',
-            'force-delete-any-post',
-            'reorder-post',
 
             // Download Link
             'view-any-download-link',
             'view-direct-download-link',
+            'view-paid-download-link',
         ]);
 
-        User::find(1)->syncRoles('super-admin');
-        User::find(2)->syncRoles('admin');
-        User::find(3)->syncRoles('moderator');
+        $premium->syncPermissions([
+            // Download Link
+            'view-direct-download-link',
+            'view-paid-download-link',
+        ]);
+
+        $vip->syncPermissions([
+            // Download Link
+            'view-direct-download-link',
+        ]);
+
+        $member->syncPermissions([
+            // Manage Posts
+            'create-post',
+            'update-post',
+            'delete-post',
+            'restore-post',
+        ]);
+
+        User::where('username', 'SuperAdmin')->first()->syncRoles('super-admin');
+        User::where('username', 'Admin')->first()->syncRoles('admin');
+        User::where('username', 'Moderator')->first()->syncRoles('moderator');
+        User::where('username', 'Premium')->first()->syncRoles('premium');
+        User::where('username', 'VIP')->first()->syncRoles('vip');
+        User::where('username', 'Member')->first()->syncRoles('member');
     }
 }

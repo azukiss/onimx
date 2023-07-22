@@ -2,10 +2,30 @@
 
 namespace App\Models\Membership;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+//use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PlanFeature extends Model
 {
-    use HasFactory;
+//    use HasFactory;
+    Use SoftDeletes;
+
+    protected $fillable = [
+        'plan_id',
+        'name',
+        'description',
+        'type',
+        'value',
+        'order',
+    ];
+
+    protected $casts = [
+        'plan_id' => 'integer',
+        'name' => 'string',
+        'description' => 'string',
+        'type' => 'string',
+        'value' => 'string',
+        'order' => 'integer',
+    ];
 }
