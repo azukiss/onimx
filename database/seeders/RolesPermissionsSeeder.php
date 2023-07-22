@@ -20,8 +20,10 @@ class RolesPermissionsSeeder extends Seeder
         $super_admin = Role::create(['name' => 'super-admin', 'order' => 1]);
         $admin = Role::create(['name' => 'admin', 'order' => 2]);
         $mod = Role::create(['name' => 'moderator', 'order' => 3]);
-        $vip = Role::create(['name' => 'vip', 'order' => 4]);
-        $premium = Role::create(['name' => 'premium', 'order' => 5]);
+        $premium = Role::create(['name' => 'premium', 'order' => 4]);
+        $vip = Role::create(['name' => 'vip', 'order' => 5]);
+        $member = Role::create(['name' => 'member', 'order' => 6]);
+        $awaiting = Role::create(['name' => 'awaiting', 'order' => 7]);
 
 //        $resources = [
 //            'view-any-',
@@ -121,8 +123,7 @@ class RolesPermissionsSeeder extends Seeder
 
             // Download Link
             'view-any-download-link',
-            'view-download-link',
-            'update-download-link',
+            'view-direct-download-link',
 
 //            // Manage Comment
 //            'view-any-comment',
@@ -281,7 +282,7 @@ class RolesPermissionsSeeder extends Seeder
             'view-any-permissions',
             'view-permission',
             'update-permission',
-          
+
             // Manage Category
             'view-any-category',
             'view-category',

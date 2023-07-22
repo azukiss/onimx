@@ -11,7 +11,7 @@
             <div class="logo">
                 <img class="h-8 w-auto" src="{{ asset('assets/images/logo_small.png') }}" alt="{{ config('app.name') }}">
             </div>
-            @include('templates.global.navbar-mobile')
+            @include('templates.global.navbar')
             <div class=footer>
                 @include('templates.ads.sidebar')
                 <div class="links">
