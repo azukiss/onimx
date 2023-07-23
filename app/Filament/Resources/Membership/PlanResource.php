@@ -23,6 +23,8 @@ class PlanResource extends Resource
 
     protected static ?string $navigationGroup = 'Membership';
 
+    protected static ?int $navigationSort = 1;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -57,11 +59,7 @@ class PlanResource extends Resource
                             ->minLength(3)
                             ->maxLength(30)
                             ->rules(['required', 'string', 'min:3', 'max:30'])
-                            ->unique(table: Plan::class, ignoreRecord: true)
-                            ->afterStateUpdated(function (callable $set, $state) {
-                                $set('name', Str::slug($state));
-                            })
-                            ->reactive(),
+                            ->unique(table: Plan::class, ignoreRecord: true),
                         Forms\Components\Select::make('currency')
                             ->required()
                             ->rules(['required', 'in:idr,usd,eur'])
@@ -130,7 +128,12 @@ class PlanResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ForceDeleteAction::make(),
+                    Tables\Actions\RestoreAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

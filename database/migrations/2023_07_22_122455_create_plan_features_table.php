@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->text('description')->nullable();
-            $table->enum('type', ['string', 'boolean']);
+            $table->enum('type', ['string', 'boolean', 'icon']);
             $table->string('value');
             $table->mediumInteger('order')->unsigned()->default(1);
 

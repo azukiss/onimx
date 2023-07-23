@@ -4,6 +4,7 @@ namespace App\Models\Membership;
 
 //use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PlanFeature extends Model
@@ -28,4 +29,9 @@ class PlanFeature extends Model
         'value' => 'string',
         'order' => 'integer',
     ];
+
+    public function plans(): BelongsTo
+    {
+        return $this->belongsTo(Plan::class, 'plan_id', 'id')->orderBy('order');
+    }
 }

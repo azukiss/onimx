@@ -5,6 +5,7 @@ namespace App\Models\Membership;
 //use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -36,8 +37,8 @@ class Plan extends Model
         'is_active' => 'boolean',
     ];
 
-    public function role(): HasOne
+    public function features(): HasMany
     {
-        return $this->hasOne(Role::class, 'name', 'slug');
+        return $this->hasMany(PlanFeature::class,'plan_id', 'id')->orderBy('order');
     }
 }

@@ -3,38 +3,33 @@
 @section('main')
     <div class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:mx-auto lg:max-w-4xl lg:grid-cols-3 mb-20">
         @foreach($plans as $plan)
-            <div class="divide-y divide-gray-200 rounded-lg border border-gray-400 shadow-sm">
-                <div class="p-6">
-                    <div class="text-2xl font-medium leading-6 text-center">{{ str($plan->name)->title() }}</div>
-                    <p class="flex flex-col mt-5 text-center">
-                        <span class="text-4xl font-bold tracking-tight text-gray-900">{{ number_format($plan->price, 0, ',', '.') }}</span>
-                        <span class="text-base font-medium text-gray-500">{{ str($plan->currency)->upper() }} / {{ __('Month') }}</span>
-                    </p>
-                    @if($plan->stock > 0)
-                        <a href="#" class="mt-8 block w-full rounded-md border border-gray-100 bg-gray-700 py-2 text-center text-sm font-semibold text-white hover:bg-gray-900 hover:border-gray-100 transition ease-in-out duration-150">{{ __('Buy') . ' ' . $plan->name }}</a>
-                    @else
-                        <button class="mt-8 block w-full rounded-md border border-gray-100 bg-gray-400 py-2 text-center text-sm font-semibold text-white cursor-not-allowed">{{ __('Out of Stock') }}</button>
-                    @endif
+            <div class="flex flex-col border border-gray-400 shadow-sm rounded-lg divide-y divide-gray-200">
+                <div class="p-5 text-center">
+                    <div class="text-2xl font-medium leading-6 text-center">{{ $plan->name }}</div>
+                    <div class="flex flex-col mt-5 text-center">
+                        <div class="text-4xl font-bold tracking-tight text-gray-900">{{ number_format($plan->price, 0, ',', '.') }}</div>
+                        <div class="text-sm font-medium text-gray-500">{{ str($plan->currency)->upper() }} / {{ __('Month') }}</div>
+                    </div>
                 </div>
-                <div class="px-6 pt-6 pb-8">
-                    <h3 class="text-sm font-medium text-gray-900">{{ __('Upgrade Perks') }}</h3>
-                    <ul role="list" class="mt-6 space-y-4">
-                        <li class="flex space-x-3">
-                            <!-- Heroicon name: mini/check -->
-                            <svg class="h-5 w-5 flex-shrink-0 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                            </svg>
-                            <span class="text-sm text-gray-500">Potenti felis, in cras at at ligula nunc.</span>
-                        </li>
-
-                        <li class="flex space-x-3">
-                            <!-- Heroicon name: mini/check -->
-                            <svg class="h-5 w-5 flex-shrink-0 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                            </svg>
-                            <span class="text-sm text-gray-500">Orci neque eget pellentesque.</span>
-                        </li>
+                <div class="p-5">
+{{--                    <div class="text-sm font-medium text-gray-900 mb-6">{{ __('Upgrade Perks') }}</div>--}}
+                    <ul role="list" class="space-y-4">
+                        @foreach($plan->features as $feature)
+                            <li class="flex space-x-3 justify-between">
+                                <span class="text-sm text-gray-500">{{ $feature->name }}</span>
+                                @if($feature->type == 'string') <span>{{ $feature->value }}</span>
+                                @elseif($feature->type == 'icon') <i class="{{ $feature->value }} flex-shrink-0 text-green-500"></i>
+                                @elseif($feature->type == 'boolean') <i class="fa-solid @if($feature->value == true) fa-check @else fa-times @endif fa-fw flex-shrink-0 text-green-500"></i> @endif
+                            </li>
+                        @endforeach
                     </ul>
+                </div>
+                <div class="p-5 mt-auto">
+                    @if($plan->stock > 0)
+                        <a href="#" class="block w-full rounded-md border border-gray-100 bg-gray-700 py-2 text-center text-sm font-semibold text-white hover:bg-gray-900 hover:border-gray-100 transition ease-in-out duration-150">{{ __('Buy') . ' ' . $plan->name }}</a>
+                    @else
+                        <button class="block w-full rounded-md border border-gray-100 bg-gray-400 py-2 text-center text-sm font-semibold text-white cursor-not-allowed">{{ __('Out of Stock') }}</button>
+                    @endif
                 </div>
             </div>
         @endforeach
