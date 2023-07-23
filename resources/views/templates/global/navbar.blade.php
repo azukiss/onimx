@@ -2,7 +2,11 @@
     <div>
         <a href="{{ route('page.home') }}" class="link @if(Route::is('page.home')) bg-oni-100 text-gray-900 @endif">
             <i class="fa-regular fa-home fa-fw"></i>
-            Home
+            {{ __('Home') }}
+        </a>
+        <a href="{{ route('page.upgrade') }}" class="link @if(Route::is('page.upgrade')) bg-oni-100 text-gray-900 @endif">
+            <i class="fa-regular fa-star fa-fw"></i>
+            {{ __('Upgrade') }}
         </a>
     </div>
     <div class="navbar-tags overflow-y-auto overflow-x-hidden py-3">

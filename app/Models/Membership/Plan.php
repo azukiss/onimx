@@ -3,7 +3,9 @@
 namespace App\Models\Membership;
 
 //use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Plan extends Model
@@ -14,8 +16,6 @@ class Plan extends Model
     public $fillable = [
         'code',
         'name',
-        'slug',
-        'description',
         'price',
         'currency',
         'currency_code',
@@ -28,14 +28,16 @@ class Plan extends Model
     public $casts = [
         'code' => 'string',
         'name' => 'string',
-        'slug' => 'string',
-        'description' => 'string',
         'price' => 'integer',
         'currency' => 'string',
-        'currency_code' => 'string',
         'stock' => 'integer',
         'length' => 'integer',
         'order' => 'integer',
         'is_active' => 'boolean',
     ];
+
+    public function role(): HasOne
+    {
+        return $this->hasOne(Role::class, 'name', 'slug');
+    }
 }

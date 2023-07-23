@@ -16,13 +16,10 @@ return new class extends Migration
 
             $table->string('code')->unique();
             $table->string('name');
-            $table->string('slug');
-            $table->text('description')->nullable();
-            $table->bigInteger('price');
-            $table->string('currency');
-            $table->string('currency_code');
+            $table->bigInteger('price')->default(10000);
+            $table->string('currency')->default('idr');
             $table->bigInteger('stock')->unsigned()->default(0);
-            $table->bigInteger('length')->unsigned();
+            $table->bigInteger('length')->unsigned()->default(30);
             $table->mediumInteger('order')->unsigned()->default(1);
             $table->boolean('is_active');
 

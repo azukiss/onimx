@@ -16,11 +16,6 @@ class CreatePost extends CreateRecord
         return $this->previousUrl ?? $this->getResource()::getUrl('index');
     }
 
-    protected function beforeCreate(): void
-    {
-//        dd($this->data);
-    }
-
     protected function afterCreate(): void
     {
         if (!empty(array_values($this->record->image)))

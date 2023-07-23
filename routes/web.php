@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Page\HomeController as HomeController;
+use App\Http\Controllers\Page\UpgradeController as UpgradeController;
+
 use App\Http\Controllers\User\SettingsController as SettingsController;
 use App\Http\Controllers\Post\PageController as PostPageController;
 use App\Http\Controllers\Post\ShortLinkController as ShortLinkController;
@@ -14,9 +16,15 @@ Route::get('/logout', function () {
     return abort(403);
 });
 
-Route::controller(HomeController::class)->name('page')->group(function () {
-    Route::get('/', 'welcome')->name('.welcome');
-    Route::get('/home', 'home')->name('.home');
+Route::name('page')->group(function () {
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/', 'welcome')->name('.welcome');
+        Route::get('/home', 'home')->name('.home');
+    });
+
+    Route::controller(UpgradeController::class)->group(function () {
+        Route::get('/upgrade', 'index')->name('.upgrade');
+    });
 });
 
 Route::name('user')->group(function () {

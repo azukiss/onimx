@@ -6,7 +6,9 @@ use App\Filament\Resources\RoleResource\Pages;
 use App\Filament\Resources\RoleResource\RelationManagers;
 use App\Models\Role;
 use Filament\Forms;
+use Filament\Pages\Page;
 use Filament\Resources\Form;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -32,7 +34,14 @@ class RoleResource extends Resource
                                 Forms\Components\TextInput::make('name')
                                     ->required()
                                     ->rules(['required', 'alpha-dash', 'min:3', 'max:15'])
-                                    ->dehydrated(fn ($record) => auth()->user()->hasPermissionTo('update-role') && ($record->order > auth()->user()->roles()->pluck('order')->first())),
+                                    ->dehydrated(function (Page $livewire, $record) {
+                                        if ($livewire instanceof EditRecord)
+                                        {
+                                            return auth()->user()->hasPermissionTo('update-role') && ($record->order > auth()->user()->roles()->pluck('order')->first());
+                                        }
+
+                                        return false;
+                                    }),
                                 Forms\Components\Select::make('guard_name')
                                     ->required()
                                     ->rules('required', 'in:web,api')
@@ -41,7 +50,14 @@ class RoleResource extends Resource
                                         'api' => 'API',
                                     ])
                                     ->default('web')
-                                    ->dehydrated(fn ($record) => auth()->user()->hasPermissionTo('update-role') && ($record->order > auth()->user()->roles()->pluck('order')->first())),
+                                    ->dehydrated(function (Page $livewire, $record) {
+                                        if ($livewire instanceof EditRecord)
+                                        {
+                                            return auth()->user()->hasPermissionTo('update-role') && ($record->order > auth()->user()->roles()->pluck('order')->first());
+                                        }
+
+                                        return false;
+                                    }),
                             ]),
                     ]),
                 Forms\Components\Card::make()
