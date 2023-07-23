@@ -17,12 +17,13 @@ class RolesPermissionsSeeder extends Seeder
     {
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
-        $super_admin = Role::create(['name' => 'super-admin', 'order' => 1]);
-        $admin = Role::create(['name' => 'admin', 'order' => 2]);
-        $mod = Role::create(['name' => 'moderator', 'order' => 3]);
-        $premium = Role::create(['name' => 'premium', 'order' => 4]);
-        $vip = Role::create(['name' => 'vip', 'order' => 5]);
-        $member = Role::create(['name' => 'member', 'order' => 6]);
+        $super_admin = Role::create(['name' => 'super-admin', 'order' => 1, 'bgcolor' => '#3C5675']);
+        $admin = Role::create(['name' => 'admin', 'order' => 2, 'bgcolor' => '#E85578']);
+        $mod = Role::create(['name' => 'moderator', 'order' => 3, 'bgcolor' => '#764AF1']);
+        $citrine = Role::create(['name' => 'citrine', 'order' => 4, 'bgcolor' => '#c99356']);
+        $diamond = Role::create(['name' => 'diamond', 'order' => 5, 'bgcolor' => '#11999E']);
+        $emerald = Role::create(['name' => 'emerald', 'order' => 6, 'bgcolor' => '#87bd6f']);
+        $member = Role::create(['name' => 'member', 'order' => 7, 'bgcolor' => '#404040']);
 
 //        $resources = [
 //            'view-any-',
@@ -74,6 +75,7 @@ class RolesPermissionsSeeder extends Seeder
             'restore-any-role',
             'force-delete-any-role',
             'reorder-role',
+            'update-role-permissions',
 
             // Manage Permissions
             'view-any-permissions',
@@ -124,6 +126,23 @@ class RolesPermissionsSeeder extends Seeder
             'view-direct-download-link',
             'view-paid-download-link',
 
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+
+            // Live View
+            'view-any-live-view',
+            'view-live-view',
+            'create-live-view',
+            'update-live-view',
+            'delete-live-view',
+            'restore-live-view',
+            'force-delete-live-view',
+            'delete-any-live-view',
+            'restore-any-live-view',
+            'force-delete-any-live-view',
+            'reorder-live-view',
+
 //            // Manage Comment
 //            'view-any-comment',
 //            'view-comment',
@@ -137,10 +156,6 @@ class RolesPermissionsSeeder extends Seeder
 //            'force-delete-any-comment',
 //            'reorder-comment',
 //
-//            // Membership
-//            'skip-short-link',
-//            'hide-sponsor',
-//
 //            // Activity Logs
 //            'view-any-activity-log',
 //            'view-activity-log',
@@ -153,19 +168,6 @@ class RolesPermissionsSeeder extends Seeder
 //
 //            // Application Health
 //            'access-health-check',
-//
-//            // Live View
-//            'view-any-live-view',
-//            'view-live-view',
-//            'create-live-view',
-//            'update-live-view',
-//            'delete-live-view',
-//            'restore-live-view',
-//            'force-delete-live-view',
-//            'delete-any-live-view',
-//            'restore-any-live-view',
-//            'force-delete-any-live-view',
-//            'reorder-live-view',
         ];
 
 
@@ -205,6 +207,7 @@ class RolesPermissionsSeeder extends Seeder
             'delete-any-role',
             'restore-any-role',
             'reorder-role',
+            'update-role-permissions',
 
             // Manage Permissions
             'view-any-permissions',
@@ -247,6 +250,21 @@ class RolesPermissionsSeeder extends Seeder
             'view-any-download-link',
             'view-direct-download-link',
             'view-paid-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+
+            // Live View
+            'view-any-live-view',
+            'view-live-view',
+            'create-live-view',
+            'update-live-view',
+            'delete-live-view',
+            'restore-live-view',
+            'delete-any-live-view',
+            'restore-any-live-view',
+            'reorder-live-view',
         ]);
 
         // Moderator Permissions
@@ -291,17 +309,53 @@ class RolesPermissionsSeeder extends Seeder
             'view-any-download-link',
             'view-direct-download-link',
             'view-paid-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+
+            // Live View
+            'view-any-live-view',
+            'view-live-view',
+            'create-live-view',
+            'update-live-view',
+            'delete-live-view',
+            'restore-live-view',
+            'delete-any-live-view',
+            'restore-any-live-view',
+            'reorder-live-view',
         ]);
 
-        $premium->syncPermissions([
+        $citrine->syncPermissions([
             // Download Link
             'view-direct-download-link',
             'view-paid-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+
+            // Live View
+            'view-live-view',
         ]);
 
-        $vip->syncPermissions([
+        $diamond->syncPermissions([
             // Download Link
             'view-direct-download-link',
+            'view-paid-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+        ]);
+
+        $emerald->syncPermissions([
+            // Download Link
+            'view-direct-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
         ]);
 
         $member->syncPermissions([
@@ -315,8 +369,8 @@ class RolesPermissionsSeeder extends Seeder
         User::where('username', 'SuperAdmin')->first()->syncRoles('super-admin');
         User::where('username', 'Admin')->first()->syncRoles('admin');
         User::where('username', 'Moderator')->first()->syncRoles('moderator');
-        User::where('username', 'Premium')->first()->syncRoles('premium');
-        User::where('username', 'VIP')->first()->syncRoles('vip');
+        User::where('username', 'Diamond')->first()->syncRoles('diamond');
+        User::where('username', 'Emerald')->first()->syncRoles('emerald');
         User::where('username', 'Member')->first()->syncRoles('member');
     }
 }

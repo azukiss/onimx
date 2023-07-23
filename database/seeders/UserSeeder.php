@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
                 'deleted_at' => null,
             ],
             [
-                'username' => 'Premium',
+                'username' => 'Diamond',
                 'email' => 'premium@oni.test',
                 'password' => Hash::make('test-premium'),
                 'email_verified_at' => $dateTime,
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
                 'deleted_at' => null,
             ],
             [
-                'username' => 'VIP',
+                'username' => 'Emerald',
                 'email' => 'vip@oni.test',
                 'password' => Hash::make('test-vip'),
                 'email_verified_at' => $dateTime,

@@ -1,5 +1,5 @@
 <nav class="links">
-    <div>
+    <div class="space-y-2">
         <a href="{{ route('page.home') }}" class="link @if(Route::is('page.home')) bg-oni-100 text-gray-900 @endif">
             <i class="fa-regular fa-home fa-fw"></i>
             {{ __('Home') }}
