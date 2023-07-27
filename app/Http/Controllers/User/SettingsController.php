@@ -53,7 +53,7 @@ class SettingsController extends Controller
     {
         if ($request->save == true) {
             $request->validate([
-                'avatar' => ['required', 'image', 'mimes:png,jpg,jpeg'],
+                'avatar' => ['required', 'image', 'dimensions:max_width=2048,max_height=2048'],
             ]);
 
             DB::transaction(function () use ($request) {

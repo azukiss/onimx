@@ -16,6 +16,9 @@
                         <input type="file" name="avatar" id="avatar_file" accept="image/*" onchange="document.getElementById('avatar_output').src = window.URL.createObjectURL(this.files[0])" class="hidden">
                         <button type="button" class="btn btn-sm btn-tertiary" onclick="document.getElementById('avatar_file').click();">{{ __('Upload') }}</button>
                     </div>
+                    @error('avatar')
+                        <div class="text-error">{{ $message }}</div>
+                    @enderror
                 </div>
 
             </div>

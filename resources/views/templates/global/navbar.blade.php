@@ -11,7 +11,7 @@
     </div>
     <div class="navbar-tags overflow-y-auto overflow-x-hidden py-3">
         @foreach($categories as $category)
-            <div class="pt-3 px-2" x-data="{ expanded: @if(in_array(str_replace('tag-', '', $page_id), $category->tags()->pluck('slug')->toArray())) true @else false @endif }">
+            <div class="pt-3 px-2" x-data="{ expanded: @if(in_array(str_replace('tag-', '', $page_id), $category->tags->pluck('slug')->toArray())) true @else false @endif }">
                 <div class="flex justify-between align-middle cursor-pointer mb-2" @click="expanded = !expanded">
                     <div class="font-semibold text-sm">{{ $category->name }}</div>
                     <i class="fa-solid fa-chevron-down" x-show="!expanded"></i>
