@@ -22,8 +22,9 @@ Route::name('page')->group(function () {
         Route::get('/home', 'home')->name('.home');
     });
 
-    Route::controller(UpgradeController::class)->group(function () {
-        Route::get('/upgrade', 'index')->name('.upgrade');
+    Route::controller(UpgradeController::class)->name('.upgrade')->group(function () {
+        Route::get('/upgrade', 'index')->name('.index');
+        Route::get('/payment/{plan:code}', 'payment')->name('.payment');
     });
 });
 

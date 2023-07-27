@@ -10,9 +10,15 @@ Breadcrumbs::for('page.home', function (BreadcrumbTrail $trail) {
 });
 
 // Upgrade
-Breadcrumbs::for('page.upgrade', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('page.upgrade.index', function (BreadcrumbTrail $trail) {
     $trail->parent('page.home');
-    $trail->push('Upgrade', route('page.upgrade'));
+    $trail->push('Upgrade', route('page.upgrade.index'));
+});
+
+// Upgrade Payment
+Breadcrumbs::for('page.upgrade.payment', function (BreadcrumbTrail $trail, $plan) {
+    $trail->parent('page.upgrade.index');
+    $trail->push('Payment', route('page.upgrade.payment', $plan->code));
 });
 /* END Page */
 

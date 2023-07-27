@@ -4,7 +4,7 @@
             <i class="fa-regular fa-home fa-fw"></i>
             {{ __('Home') }}
         </a>
-        <a href="{{ route('page.upgrade') }}" class="link @if(Route::is('page.upgrade')) bg-oni-100 text-gray-900 @endif">
+        <a href="{{ route('page.upgrade.index') }}" class="link @if(Route::is('page.upgrade')) bg-oni-100 text-gray-900 @endif">
             <i class="fa-regular fa-star fa-fw"></i>
             {{ __('Upgrade') }}
         </a>
