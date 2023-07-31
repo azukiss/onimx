@@ -57,6 +57,31 @@ return [
             'throw' => false,
         ],
 
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_HOST'),
+            'username' => env('FTP_USERNAME'),
+            'password' => env('FTP_PASSWORD'),
+
+            // Optional FTP Settings...
+            // 'port' => env('FTP_PORT', 21),
+            // 'root' => env('FTP_ROOT'),
+            // 'passive' => true,
+            // 'ssl' => true,
+            // 'timeout' => 30,
+        ],
+
+        'storj' => [
+            'driver' => 's3',
+            'key' => env('STORJ_ACCESS_KEY_ID'),
+            'secret' => env('STORJ_SECRET_ACCESS_KEY'),
+            'region' => env('STORJ_DEFAULT_REGION'),
+            'bucket' => env('STORJ_BUCKET'),
+            'url' => env('STORJ_URL'),
+            'endpoint' => env('STORJ_ENDPOINT'),
+            'use_path_style_endpoint' => env('STORJ_USE_PATH_STYLE_ENDPOINT', false),
+            'throw' => false,
+        ],
     ],
 
     /*

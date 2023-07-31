@@ -12,7 +12,7 @@
 
                 <div class="col-span-full">
                     <div class="mt-2 flex items-center gap-x-3">
-                        <img class="h-20 w-20 rounded-full" src="{{ asset(auth()->user()->avatar) }}" alt="user-avatar" id="avatar_output" onerror="this.src='{{ asset('assets/images/default_avatar.jpg') }}'">
+                        <img class="h-20 w-20 rounded-full" src="{{ auth()->user()->avatar ? Storage::disk(config('filesystems.default'))->url(auth()->user()->avatar) : asset('assets/images/default_avatar.jpg') }}" alt="user-avatar" id="avatar_output">
                         <input type="file" name="avatar" id="avatar_file" accept="image/*" onchange="document.getElementById('avatar_output').src = window.URL.createObjectURL(this.files[0])" class="hidden">
                         <button type="button" class="btn btn-sm btn-tertiary" onclick="document.getElementById('avatar_file').click();">{{ __('Upload') }}</button>
                     </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\User;
@@ -72,7 +73,9 @@ class SettingsController extends Controller
                     });
 
                     $avatarName = 'uploads/avatar/' . bin2hex(random_bytes(10)) . '.' . $request->file('avatar')->extension();
-                    $img->save(public_path($avatarName));
+
+                    Storage::disk(config('filesystems.default'))->put($avatarName, $img->stream());
+
                     $img->destroy();
                 } else {
                     $avatarName = $user->avatar;
@@ -91,7 +94,7 @@ class SettingsController extends Controller
                 $user = auth()->user();
 
                 if (!empty($user->avatar)) {
-                    File::delete(public_path($user->avatar));
+                    Storage::disk(config('filesystems.default'))->delete($user->avatar);
                 }
 
                 $avatarName = null;
