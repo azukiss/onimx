@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
@@ -42,7 +43,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser, Has
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return !empty($this->avatar) ? asset($this->avatar) : asset('assets/images/default_avatar.jpg');
+        return !empty($this->avatar) ? Storage::disk(config('filesystems.default'))->url($this->avatar) : asset('assets/images/default_avatar.jpg');
     }
 
     public function getFilamentName(): string

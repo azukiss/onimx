@@ -18,7 +18,6 @@ return new class extends Migration
             $table->json('image');
             $table->text('description')->nullable();
             $table->json('info');
-//            $table->json('link');
             $table->boolean('is_nsfw')->default(false);
             $table->boolean('is_published')->default(false);
 

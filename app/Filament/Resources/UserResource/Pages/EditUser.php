@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class EditUser extends EditRecord
@@ -32,10 +33,12 @@ class EditUser extends EditRecord
         {
             if (!empty(array_values($this->data['avatar'])) && $this->record->avatar != array_values($this->data['avatar'])[0])
             {
+                Storage::disk(config('filesystems.default', 'public'))->delete($this->record->avatar);
                 File::delete(public_path($this->record->avatar));
             }
             elseif (empty(array_values($this->data['avatar'])))
             {
+                Storage::disk(config('filesystems.default', 'public'))->delete($this->record->avatar);
                 File::delete(public_path($this->record->avatar));
             }
         }
@@ -60,6 +63,7 @@ class EditUser extends EditRecord
 
             $image->fit(150, 150)->save($path);
 
+            Storage::disk(config('filesystems.default', 'public'))->put($this->record->avatar, $image->stream());
             $image->destroy();
         }
     }

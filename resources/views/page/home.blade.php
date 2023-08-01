@@ -10,7 +10,7 @@
                         <a href="{{ route('post.page', [$post->id, $post->slug]) }}" class="relative" x-data x-ripple>
                             <div class="absolute top-0 left-0 text-xs font-medium px-2 py-1 bg-oni-200 rounded-br-md font-mono z-10">{{ $post->code }}</div>
                             <div class="bg-gray-50">
-                                <img src="{{ array_values($post->image)[0] }}" alt="{{ $post->slug }}" loading="lazy" class="h-40 md:h-52 w-full object-contain onject-center">
+                                <img src="{{ isset($post->image) ? Storage::disk(config('filesystems.default'))->url($post->image[0]) : $post->image[0] }}" alt="{{ $post->slug }}" loading="lazy" class="h-40 md:h-52 w-full object-contain onject-center">
                             </div>
                             <div class="px-4 mt-4">
                                 <div class="font-medium text-lg">{{ $post->title }}</div>

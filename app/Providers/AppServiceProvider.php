@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
 
-        view()->composer('*',function($view) {
+        view()->composer('templates.global.navbar',function($view) {
             $view->with('categories', Category::orderBy('order', 'asc')->get());
         });
     }

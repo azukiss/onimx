@@ -17,11 +17,13 @@ class RolesPermissionsSeeder extends Seeder
     {
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
-        $super_admin = Role::create(['name' => 'super-admin', 'order' => 1]);
-        $admin = Role::create(['name' => 'admin', 'order' => 2]);
-        $mod = Role::create(['name' => 'moderator', 'order' => 3]);
-        $vip = Role::create(['name' => 'vip', 'order' => 4]);
-        $premium = Role::create(['name' => 'premium', 'order' => 5]);
+        $super_admin = Role::create(['name' => 'super-admin', 'order' => 1, 'bgcolor' => '#3C5675']);
+        $admin = Role::create(['name' => 'admin', 'order' => 2, 'bgcolor' => '#E85578']);
+        $mod = Role::create(['name' => 'moderator', 'order' => 3, 'bgcolor' => '#764AF1']);
+        $citrine = Role::create(['name' => 'citrine', 'order' => 4, 'bgcolor' => '#c99356']);
+        $diamond = Role::create(['name' => 'diamond', 'order' => 5, 'bgcolor' => '#11999E']);
+        $emerald = Role::create(['name' => 'emerald', 'order' => 6, 'bgcolor' => '#87bd6f']);
+        $member = Role::create(['name' => 'member', 'order' => 7, 'bgcolor' => '#404040']);
 
 //        $resources = [
 //            'view-any-',
@@ -73,6 +75,7 @@ class RolesPermissionsSeeder extends Seeder
             'restore-any-role',
             'force-delete-any-role',
             'reorder-role',
+            'update-role-permissions',
 
             // Manage Permissions
             'view-any-permissions',
@@ -108,21 +111,37 @@ class RolesPermissionsSeeder extends Seeder
             // Manage Posts
             'view-any-posts',
             'view-post',
+            'view-nsfw-post',
             'create-post',
             'update-post',
             'delete-post',
             'restore-post',
             'force-delete-post',
-            'view-nsfw-post',
             'delete-any-post',
             'restore-any-post',
             'force-delete-any-post',
-            'reorder-post',
 
             // Download Link
             'view-any-download-link',
-            'view-download-link',
-            'update-download-link',
+            'view-direct-download-link',
+            'view-paid-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+
+            // Live View
+            'view-any-live-view',
+            'view-live-view',
+            'create-live-view',
+            'update-live-view',
+            'delete-live-view',
+            'restore-live-view',
+            'force-delete-live-view',
+            'delete-any-live-view',
+            'restore-any-live-view',
+            'force-delete-any-live-view',
+            'reorder-live-view',
 
 //            // Manage Comment
 //            'view-any-comment',
@@ -137,10 +156,6 @@ class RolesPermissionsSeeder extends Seeder
 //            'force-delete-any-comment',
 //            'reorder-comment',
 //
-//            // Membership
-//            'skip-short-link',
-//            'hide-sponsor',
-//
 //            // Activity Logs
 //            'view-any-activity-log',
 //            'view-activity-log',
@@ -153,19 +168,6 @@ class RolesPermissionsSeeder extends Seeder
 //
 //            // Application Health
 //            'access-health-check',
-//
-//            // Live View
-//            'view-any-live-view',
-//            'view-live-view',
-//            'create-live-view',
-//            'update-live-view',
-//            'delete-live-view',
-//            'restore-live-view',
-//            'force-delete-live-view',
-//            'delete-any-live-view',
-//            'restore-any-live-view',
-//            'force-delete-any-live-view',
-//            'reorder-live-view',
         ];
 
 
@@ -205,6 +207,7 @@ class RolesPermissionsSeeder extends Seeder
             'delete-any-role',
             'restore-any-role',
             'reorder-role',
+            'update-role-permissions',
 
             // Manage Permissions
             'view-any-permissions',
@@ -235,18 +238,33 @@ class RolesPermissionsSeeder extends Seeder
             // Manage Posts
             'view-any-posts',
             'view-post',
+            'view-nsfw-post',
             'create-post',
             'update-post',
             'delete-post',
             'restore-post',
-            'view-nsfw-post',
             'delete-any-post',
             'restore-any-post',
-            'reorder-post',
 
             // Download Link
             'view-any-download-link',
             'view-direct-download-link',
+            'view-paid-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+
+            // Live View
+            'view-any-live-view',
+            'view-live-view',
+            'create-live-view',
+            'update-live-view',
+            'delete-live-view',
+            'restore-live-view',
+            'delete-any-live-view',
+            'restore-any-live-view',
+            'reorder-live-view',
         ]);
 
         // Moderator Permissions
@@ -259,76 +277,100 @@ class RolesPermissionsSeeder extends Seeder
             'view-user',
             'create-user',
             'update-user',
-            'delete-user',
-            'restore-user',
-            'delete-any-user',
-            'restore-any-user',
 
             // Manage Roles
             'view-any-roles',
             'view-role',
-            'create-role',
-            'update-role',
-            'delete-role',
-            'restore-role',
-            'force-delete-role',
-            'delete-any-role',
-            'restore-any-role',
-            'force-delete-any-role',
-            'reorder-role',
 
             // Manage Permissions
             'view-any-permissions',
             'view-permission',
-            'update-permission',
-          
+
             // Manage Category
             'view-any-category',
             'view-category',
-            'create-category',
-            'update-category',
-            'delete-any-category',
-            'delete-category',
-            'restore-any-category',
-            'restore-category',
-            'force-delete-any-category',
-            'force-delete-category',
-            'reorder-category',
 
             // Manage Tags
             'view-any-tags',
             'view-tag',
-            'create-tag',
-            'update-tag',
-            'delete-tag',
-            'restore-tag',
-            'force-delete-tag',
-            'delete-any-tag',
-            'restore-any-tag',
-            'force-delete-any-tag',
-            'reorder-tag',
 
             // Manage Posts
             'view-any-posts',
             'view-post',
+            'view-nsfw-post',
             'create-post',
             'update-post',
             'delete-post',
             'restore-post',
-            'force-delete-post',
-            'view-nsfw-post',
             'delete-any-post',
             'restore-any-post',
-            'force-delete-any-post',
-            'reorder-post',
 
             // Download Link
             'view-any-download-link',
             'view-direct-download-link',
+            'view-paid-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+
+            // Live View
+            'view-any-live-view',
+            'view-live-view',
+            'create-live-view',
+            'update-live-view',
+            'delete-live-view',
+            'restore-live-view',
+            'delete-any-live-view',
+            'restore-any-live-view',
+            'reorder-live-view',
         ]);
 
-        User::find(1)->syncRoles('super-admin');
-        User::find(2)->syncRoles('admin');
-        User::find(3)->syncRoles('moderator');
+        $citrine->syncPermissions([
+            // Download Link
+            'view-direct-download-link',
+            'view-paid-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+
+            // Live View
+            'view-live-view',
+        ]);
+
+        $diamond->syncPermissions([
+            // Download Link
+            'view-direct-download-link',
+            'view-paid-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+        ]);
+
+        $emerald->syncPermissions([
+            // Download Link
+            'view-direct-download-link',
+
+            // Membership
+            'skip-short-link',
+            'hide-sponsor',
+        ]);
+
+        $member->syncPermissions([
+            // Manage Posts
+            'create-post',
+            'update-post',
+            'delete-post',
+            'restore-post',
+        ]);
+
+        User::where('username', 'SuperAdmin')->first()->syncRoles('super-admin');
+        User::where('username', 'Admin')->first()->syncRoles('admin');
+        User::where('username', 'Moderator')->first()->syncRoles('moderator');
+        User::where('username', 'Diamond')->first()->syncRoles('diamond');
+        User::where('username', 'Emerald')->first()->syncRoles('emerald');
+        User::where('username', 'Member')->first()->syncRoles('member');
     }
 }

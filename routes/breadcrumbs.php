@@ -3,11 +3,24 @@
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
+/* START Page */
 // Home
 Breadcrumbs::for('page.home', function (BreadcrumbTrail $trail) {
     $trail->push('Home', route('page.home'), ['icon' => 'fa-home']);
 });
 
+// Upgrade
+Breadcrumbs::for('page.upgrade.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('page.home');
+    $trail->push('Upgrade', route('page.upgrade.index'));
+});
+
+// Upgrade Payment
+Breadcrumbs::for('page.upgrade.payment', function (BreadcrumbTrail $trail, $plan) {
+    $trail->parent('page.upgrade.index');
+    $trail->push('Payment', route('page.upgrade.payment', $plan->code));
+});
+/* END Page */
 
 // Error 404
 Breadcrumbs::for('errors.404', function (BreadcrumbTrail $trail) {

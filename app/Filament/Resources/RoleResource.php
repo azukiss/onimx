@@ -6,7 +6,10 @@ use App\Filament\Resources\RoleResource\Pages;
 use App\Filament\Resources\RoleResource\RelationManagers;
 use App\Models\Role;
 use Filament\Forms;
+use Filament\Pages\Page;
 use Filament\Resources\Form;
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -32,7 +35,7 @@ class RoleResource extends Resource
                                 Forms\Components\TextInput::make('name')
                                     ->required()
                                     ->rules(['required', 'alpha-dash', 'min:3', 'max:15'])
-                                    ->dehydrated(fn ($record) => auth()->user()->hasPermissionTo('update-role') && ($record->order > auth()->user()->roles()->pluck('order')->first())),
+                                    ->disabled(!auth()->user()->can('update-role')),
                                 Forms\Components\Select::make('guard_name')
                                     ->required()
                                     ->rules('required', 'in:web,api')
@@ -41,7 +44,7 @@ class RoleResource extends Resource
                                         'api' => 'API',
                                     ])
                                     ->default('web')
-                                    ->dehydrated(fn ($record) => auth()->user()->hasPermissionTo('update-role') && ($record->order > auth()->user()->roles()->pluck('order')->first())),
+                                    ->disabled(!auth()->user()->can('update-role')),
                             ]),
                     ]),
                 Forms\Components\Card::make()
@@ -68,9 +71,9 @@ class RoleResource extends Resource
                     ]),
                 Forms\Components\Card::make()
                     ->schema([
-                        Forms\Components\MultiSelect::make('permissions')
+                        Forms\Components\BelongsToManyMultiSelect::make('permissions.name')
                             ->relationship('permissions', 'name')
-                            ->dehydrated(!auth()->user()->hasPermissionTo('update-role')),
+                            ->disabled(!auth()->user()->can('update-role-permissions')),
                     ]),
             ]);
     }

@@ -201,7 +201,9 @@ return [
         // SweetAlert2
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         // Intervention Image
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        // Debugger
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -220,7 +222,9 @@ return [
         // SweetAlert2
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         // Intervention Image
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        // Debugger
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
     ])->toArray(),
 
 ];

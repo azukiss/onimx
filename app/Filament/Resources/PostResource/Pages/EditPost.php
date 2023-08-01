@@ -6,6 +6,7 @@ use App\Filament\Resources\PostResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class EditPost extends EditRecord
@@ -22,6 +23,7 @@ class EditPost extends EditRecord
                     {
                         foreach ($this->record->image as $image)
                         {
+                            Storage::disk(config('filesystems.default', 'public'))->delete($image);
                             File::delete(public_path($image));
                         }
                     }
@@ -44,6 +46,7 @@ class EditPost extends EditRecord
         if (!empty($diff))
         {
             foreach ($diff as $img) {
+                Storage::disk(config('filesystems.default', 'public'))->delete($img);
                 File::delete(public_path($img));
             }
         }
@@ -61,12 +64,10 @@ class EditPost extends EditRecord
                 $image->resize(500, 500, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
-                });
+                })->save($path);
 
-                $image->save($path);
-
+                Storage::disk(config('filesystems.default', 'public'))->put($img, $image->stream());
                 $image->destroy();
-
             }
         }
     }
