@@ -36,9 +36,8 @@ class UserResource extends Resource
                             ->nullable()
                             ->image()
                             ->avatar()
-                            ->rules(['nullable', 'image', 'mimes:png,jpg,jpeg'])
+                            ->rules(['nullable', 'image'])
                             ->disk('public')
-                            ->visibility('public')
                             ->directory('uploads/avatar')
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                 return (string) str(bin2hex(random_bytes(10)).'.'.$file->extension());
@@ -107,8 +106,7 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('avatar')
-                    ->disk('public')
-                    ->visibility('public')
+                    ->disk(config('filesystems.default', 'public'))
                     ->defaultImageUrl(url(asset('assets/images/default_avatar.jpg')))
                     ->circular(),
                 Tables\Columns\TextColumn::make('username')

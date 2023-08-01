@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class CreateUser extends CreateRecord
@@ -26,7 +27,10 @@ class CreateUser extends CreateRecord
 
             $image->fit(150, 150)->save($path);
 
+            Storage::disk(config('filesystems.default'))->put($this->record->avatar, $image->stream());
             $image->destroy();
+
+            File::delete(public_path($this->record->avatar));
         }
     }
 }

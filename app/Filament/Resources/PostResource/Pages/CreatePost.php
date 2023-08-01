@@ -5,6 +5,8 @@ namespace App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class CreatePost extends CreateRecord
@@ -28,12 +30,10 @@ class CreatePost extends CreateRecord
                 $image->resize(500, 500, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
-                });
+                })->save($path);
 
-                $image->save($path);
-
+                Storage::disk(config('filesystems.default', 'public'))->put($img, $image->stream());
                 $image->destroy();
-
             }
         }
     }

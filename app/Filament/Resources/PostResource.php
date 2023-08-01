@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\TemporaryUploadedFile;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -43,9 +44,8 @@ class PostResource extends Resource
                             ->enableReordering()
                             ->required()
                             ->image()
-                            ->rules(['required', 'image', 'mimes:png,jpg,jpeg'])
+                            ->rules(['required', 'image'])
                             ->disk('public')
-                            ->visibility('public')
                             ->directory('uploads/post')
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                 return (string) str(Str::ulid().'.'.$file->extension());
@@ -267,6 +267,7 @@ class PostResource extends Resource
                             {
                                 foreach ($record->image as $image)
                                 {
+                                    Storage::disk(config('filesystems.default', 'public'))->delete($image);
                                     File::delete(public_path($image));
                                 }
                             }

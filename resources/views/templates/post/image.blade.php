@@ -24,7 +24,7 @@
                 selected: 0,
                 images: [
                     @foreach($post->image as $image)
-                    '{{ asset($image) }}',
+                        '{{ !empty($image) ? Storage::disk(config('filesystems.default', 'public'))->url($image) : asset($image) }}',
                     @endforeach
                 ]
             };

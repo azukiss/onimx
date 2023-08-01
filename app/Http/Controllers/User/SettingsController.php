@@ -62,19 +62,17 @@ class SettingsController extends Controller
 
                 if ($request->hasfile('avatar')) {
                     if (!empty($user->avatar)) {
+                        Storage::disk(config('filesystems.default', 'public'))->delete($user->avatar);
                         File::delete(public_path($user->avatar));
                     }
 
                     $img = Image::make($request->file('avatar'));
 
-                    $img->resize(150, 150, function ($constraint) {
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    });
+                    $img->fit(150, 150);
 
                     $avatarName = 'uploads/avatar/' . bin2hex(random_bytes(10)) . '.' . $request->file('avatar')->extension();
 
-                    Storage::disk(config('filesystems.default'))->put($avatarName, $img->stream());
+                    Storage::disk(config('filesystems.default', 'public'))->put($avatarName, $img->stream());
 
                     $img->destroy();
                 } else {
