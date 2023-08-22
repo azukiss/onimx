@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Membership;
 
+use App\Enum\Plan\CurrencyEnum;
+use App\Enum\Plan\LocaleEnum;
 use App\Filament\Resources\Membership\PlanResource\Pages;
 use App\Filament\Resources\Membership\PlanResource\RelationManagers;
 use App\Models\Membership\Plan;
@@ -13,7 +15,7 @@ use Filament\Tables;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Enum;
 
 class PlanResource extends Resource
 {
@@ -61,16 +63,19 @@ class PlanResource extends Resource
                             ->rules(['required', 'string', 'min:3', 'max:30'])
                             ->unique(table: Plan::class, ignoreRecord: true),
                         Forms\Components\Select::make('currency')
+                            ->searchable()
                             ->required()
-                            ->rules(['required', 'in:idr,usd,eur'])
-                            ->options([
-                                'idr' => 'IDR',
-                                'usd' => 'USD',
-                                'eur' => 'EUR',
-                            ])
-                            ->default('idr'),
+                            ->rules(['required', new Enum(CurrencyEnum::class)])
+                            ->options(CurrencyEnum::option())
+                            ->default(CurrencyEnum::IDR),
+                        Forms\Components\Select::make('locale')
+                            ->searchable()
+                            ->required()
+                            ->rules(['required', new Enum(LocaleEnum::class)])
+                            ->options(LocaleEnum::option())
+                            ->default(LocaleEnum::id_ID),
                         Forms\Components\TextInput::make('price')
-                            ->default(10000)
+                            ->default(50000)
                             ->numeric()
                             ->minValue(1)
                             ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
@@ -78,10 +83,6 @@ class PlanResource extends Resource
                                 ->integer()
                                 ->thousandsSeparator('.'),
                             ),
-                        Forms\Components\TextInput::make('stock')
-                            ->default(10)
-                            ->minValue(1)
-                            ->suffix('Users'),
                         Forms\Components\TextInput::make('length')
                             ->default(30)
                             ->minValue(1)
@@ -106,16 +107,19 @@ class PlanResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('code')
+                Tables\Columns\BadgeColumn::make('code')
+                    ->colors(['primary'])
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->fontFamily('mono'),
                 Tables\Columns\TextColumn::make('price')
                     ->searchable()
                     ->sortable()
-                    ->money(fn ($record) => $record->currency, true),
-                Tables\Columns\TextColumn::make('stock')
-                    ->alignCenter()
-                    ->sortable(),
+                    ->money(fn ($record) => $record->currency->value, true),
+                Tables\Columns\TextColumn::make('currency')
+                    ->searchable()
+                    ->sortable()
+                    ->fontFamily('mono'),
                 Tables\Columns\TextColumn::make('length')
                     ->suffix(' Days')
                     ->alignCenter()

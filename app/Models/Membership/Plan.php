@@ -2,36 +2,33 @@
 
 namespace App\Models\Membership;
 
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Role;
+use App\Enum\Plan\CurrencyEnum;
+use App\Enum\Plan\LocaleEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Plan extends Model
 {
-//    use HasFactory;
     use SoftDeletes;
 
-    public $fillable = [
+    protected $fillable = [
         'code',
         'name',
         'price',
         'currency',
-        'currency_code',
-        'stock',
+        'locale',
         'length',
         'order',
         'is_active',
     ];
 
-    public $casts = [
+    protected $casts = [
         'code' => 'string',
         'name' => 'string',
         'price' => 'integer',
-        'currency' => 'string',
-        'stock' => 'integer',
+        'currency' => CurrencyEnum::class,
+        'locale' => LocaleEnum::class,
         'length' => 'integer',
         'order' => 'integer',
         'is_active' => 'boolean',

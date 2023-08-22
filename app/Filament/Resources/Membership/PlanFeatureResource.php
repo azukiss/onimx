@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Membership;
 
+use App\Enum\PlanFeature\TypeEnum;
 use App\Filament\Resources\Membership\PlanFeatureResource\Pages;
 use App\Filament\Resources\Membership\PlanFeatureResource\RelationManagers;
 use App\Models\Membership\PlanFeature;
@@ -12,6 +13,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\Rules\Enum;
 
 class PlanFeatureResource extends Resource
 {
@@ -39,13 +41,9 @@ class PlanFeatureResource extends Resource
                             ->numeric(),
                         Forms\Components\Select::make('type')
                             ->required()
-                            ->rules(['required', 'in:string,icon,boolean'])
-                            ->options([
-                                'string' => 'Amount',
-                                'boolean' => 'Availability',
-                                'icon' => 'Icon',
-                            ])
-                            ->default('boolean')
+                            ->rules(['required', new Enum(TypeEnum::class)])
+                            ->options(TypeEnum::option())
+                            ->default(TypeEnum::Boolean)
                             ->reactive(),
                     ]),
                 ]),
@@ -55,11 +53,11 @@ class PlanFeatureResource extends Resource
                             ->required()
                             ->rules(['required', 'string'])
                             ->label('Feature')
-                            ->afterStateUpdated(fn (callable $set, $state) => $set('name', str($state)->title()))
+                            ->afterStateUpdated(fn (callable $set, $state) => $set('name', str($state)->headline()))
                             ->reactive(),
                         Forms\Components\Textarea::make('description')
                             ->nullable()
-                            ->rules(['required', 'string', 'max:256'])
+                            ->rules(['nullable', 'string', 'max:256'])
                             ->maxLength(256)
                             ->rows(1),
                         Forms\Components\TextInput::make('value')

@@ -2,14 +2,13 @@
 
 namespace App\Models\Membership;
 
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enum\PlanFeature\TypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PlanFeature extends Model
 {
-//    use HasFactory;
     Use SoftDeletes;
 
     protected $fillable = [
@@ -25,7 +24,7 @@ class PlanFeature extends Model
         'plan_id' => 'integer',
         'name' => 'string',
         'description' => 'string',
-        'type' => 'string',
+        'type' => TypeEnum::class,
         'value' => 'string',
         'order' => 'integer',
     ];

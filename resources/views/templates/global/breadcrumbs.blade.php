@@ -1,21 +1,26 @@
-<nav class="breadcrumb" aria-label="Breadcrumb">
+<nav class="breadcrumb">
     @unless ($breadcrumbs->isEmpty())
-        <ol role="list" class="lists">
+        <ol class="lists">
             @foreach ($breadcrumbs as $breadcrumb)
-                @if (!is_null($breadcrumb->url) && !$loop->last)
-                    <li>
-                        <div class="flex items-center">
-                            <i class="fa-regular {{ $breadcrumb->icon ?? 'fa-slash-forward' }} flex-shrink-0"></i>
-                            <a href="{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a>
-                        </div>
-                    </li>
+                @if (!is_null($breadcrumb->url) && $loop->first)
+                <li class="home">
+                    <a class="href" href="{{ $breadcrumb->url }}" x-tooltip.raw="{{ __('Home') }}"><i class="fa-regular {{ $breadcrumb->icon ?? 'fa-slash-forward' }} flex-shrink-0"></i></a>
+                </li>
+                @elseif (!is_null($breadcrumb->url) && !$loop->last)
+                <li>
+                    <i class="fa-regular {{ $breadcrumb->icon ?? 'fa-slash-forward' }} flex-shrink-0"></i>
+                    <a class="ml-4 truncate href" href="{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a>
+                </li>
+                @elseif (is_null($breadcrumb->url) && !$loop->last)
+                <li>
+                    <i class="fa-regular {{ $breadcrumb->icon ?? 'fa-slash-forward' }} flex-shrink-0"></i>
+                    <span class="ml-4 truncate href">{{ $breadcrumb->title }}</span>
+                </li>
                 @else
-                    <li>
-                        <div class="flex items-center">
-                            <i class="fa-regular {{ $breadcrumb->icon ?? 'fa-slash-forward' }} flex-shrink-0"></i>
-                            <a class="active">{{ $breadcrumb->title }}</a>
-                        </div>
-                    </li>
+                <li>
+                    <i class="fa-regular {{ $breadcrumb->icon ?? 'fa-slash-forward' }} flex-shrink-0"></i>
+                    <a class="ml-4 truncate href active">{{ $breadcrumb->title }}</a>
+                </li>
                 @endif
             @endforeach
         </ol>

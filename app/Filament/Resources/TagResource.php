@@ -90,7 +90,8 @@ class TagResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('code')
+                Tables\Columns\BadgeColumn::make('code')
+                    ->colors(['primary'])
                     ->sortable(),
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Category')

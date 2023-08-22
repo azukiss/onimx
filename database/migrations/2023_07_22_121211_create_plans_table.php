@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->string('name');
             $table->bigInteger('price')->default(10000);
-            $table->string('currency')->default('idr');
-            $table->bigInteger('stock')->unsigned()->default(0);
+            $table->string('currency')->default('IDR');
+            $table->string('locale')->default('id-ID');
             $table->bigInteger('length')->unsigned()->default(30);
             $table->mediumInteger('order')->unsigned()->default(1);
             $table->boolean('is_active');

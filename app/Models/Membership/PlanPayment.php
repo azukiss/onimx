@@ -2,24 +2,35 @@
 
 namespace App\Models\Membership;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enum\PlanPayment\TypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PlanPayment extends Model
 {
-//    use HasFactory;
     use SoftDeletes;
 
-    public $fillable = [
+    protected $fillable = [
+        'code',
+        'name',
         'type',
-        'number',
+        'address',
         'used',
+        'is_active',
     ];
 
-    public $casts = [
-        'type' => 'string',
-        'number' => 'string',
-        'used' => 'integer',
+    protected $casts = [
+        'code' => 'string',
+        'name' => 'string',
+        'type' => TypeEnum::class,
+        'address' => 'string',
+        'is_active' => 'boolean',
+    ];
+
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 }

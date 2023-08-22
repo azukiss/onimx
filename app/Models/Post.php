@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -11,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-//    use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
@@ -21,7 +19,6 @@ class Post extends Model
         'code',
         'description',
         'info',
-//        'link',
         'image',
         'is_nsfw',
         'is_published',
@@ -30,7 +27,6 @@ class Post extends Model
     protected $casts = [
         'author_id' => 'integer',
         'info' => 'array',
-//        'link' => 'array',
         'image' => 'array',
         'is_nsfw' => 'bool',
         'is_published' => 'bool',

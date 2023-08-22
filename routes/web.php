@@ -1,14 +1,19 @@
 <?php
 
+use App\Http\Controllers\Invoice\UpgradeInvoiceController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Page\HomeController as HomeController;
+use App\Http\Controllers\Page\InvoiceController as InvoiceController;
 use App\Http\Controllers\Page\UpgradeController as UpgradeController;
 
 use App\Http\Controllers\User\SettingsController as SettingsController;
+
 use App\Http\Controllers\Post\PageController as PostPageController;
 use App\Http\Controllers\Post\ShortLinkController as ShortLinkController;
 use App\Http\Controllers\Post\TagController as TagController;
+
+
 
 require_once __DIR__ . '/fortify.php';
 
@@ -22,9 +27,22 @@ Route::name('page')->group(function () {
         Route::get('/home', 'home')->name('.home');
     });
 
-    Route::controller(UpgradeController::class)->name('.upgrade')->group(function () {
-        Route::get('/upgrade', 'index')->name('.index');
-        Route::get('/payment/{plan:code}', 'payment')->name('.payment');
+    Route::controller(UpgradeController::class)->prefix('/upgrade')->name('.upgrade')->group(function () {
+        Route::get('/', 'index')->name('.index');
+        Route::get('/order/{plan:code}', 'payment')->name('.payment');
+        Route::post('/order/{plan:code}', 'makeInvoice');
+    });
+
+    Route::controller(InvoiceController::class)->prefix('/invoice')->name('.invoice')->group(function () {
+        Route::get('/', 'index')->name('.index');
+
+        Route::controller(UpgradeInvoiceController::class)->prefix('/upgrade')->name('.upgrade')->group(function () {
+            Route::get('/', 'index')->name('.index');
+            Route::get('/{planInvoice:code}', 'show')->name('.show');
+            Route::post('/{planInvoice:code}', 'proofUpload')->name('.proof.upload');
+            Route::delete('/{planInvoice:code}/proof/{planInvoiceProof}/remove', 'proofRemove')->name('.proof.remove');
+            Route::get('/{planInvoice:code}/proof/{key}/download', 'proofDownload')->name('.proof.download');
+        });
     });
 });
 
@@ -32,9 +50,9 @@ Route::name('user')->group(function () {
     Route::controller(SettingsController::class)->prefix('/settings')->name('.settings')->group(function () {
         Route::get('/', 'index')->name('.index');
         Route::get('/2fa', 'TwoFactor')->name('.2fa');
-        Route::get('/2fa/enable', function () { return abort(404); });
-        Route::get('/2fa/confirm', function () { return abort(404); });
-        Route::get('/2fa/disable', function () { return abort(404); });
+        // Route::get('/2fa/enable', function () { return abort(404); });
+        // Route::get('/2fa/confirm', function () { return abort(404); });
+        // Route::get('/2fa/disable', function () { return abort(404); });
         Route::get('/password', 'ChangePassword')->name('.password');
         Route::get('/account', 'AccountPreferences')->name('.account');
         Route::get('/avatar', function () { return abort(404); });

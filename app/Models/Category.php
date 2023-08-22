@@ -10,12 +10,12 @@ class Category extends Model
 {
     use SoftDeletes;
 
-    public $fillable = [
+    protected $fillable = [
         'name',
         'slug',
     ];
 
-    public $casts = [
+    protected $casts = [
         'name' => 'string',
         'slug' => 'string',
     ];

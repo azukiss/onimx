@@ -6,19 +6,36 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 /* START Page */
 // Home
 Breadcrumbs::for('page.home', function (BreadcrumbTrail $trail) {
-    $trail->push('Home', route('page.home'), ['icon' => 'fa-home']);
+    $trail->push(__('Home'), route('page.home'), ['icon' => 'fa-home']);
 });
 
-// Upgrade
+// Upgrade Page
 Breadcrumbs::for('page.upgrade.index', function (BreadcrumbTrail $trail) {
     $trail->parent('page.home');
-    $trail->push('Upgrade', route('page.upgrade.index'));
+    $trail->push(__('Upgrade'), route('page.upgrade.index'));
 });
 
 // Upgrade Payment
 Breadcrumbs::for('page.upgrade.payment', function (BreadcrumbTrail $trail, $plan) {
     $trail->parent('page.upgrade.index');
-    $trail->push('Payment', route('page.upgrade.payment', $plan->code));
+    $trail->push($plan->name);
+    $trail->push(__('Order Confirmation'), route('page.upgrade.payment', $plan->code));
+});
+
+//Invoices
+Breadcrumbs::for('page.invoice', function (BreadcrumbTrail $trail) {
+    $trail->parent('page.home');
+    $trail->push(__('Invoices'), route('page.invoice.index'));
+});
+
+Breadcrumbs::for('page.invoice.upgrade.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('page.invoice');
+    $trail->push(__('Upgrade Invoices'), route('page.invoice.upgrade.index'));
+});
+
+Breadcrumbs::for('page.invoice.upgrade.show', function (BreadcrumbTrail $trail, $invoice) {
+    $trail->parent('page.invoice.upgrade.index');
+    $trail->push(__('#' . $invoice->code), route('page.invoice.upgrade.show', $invoice->code));
 });
 /* END Page */
 

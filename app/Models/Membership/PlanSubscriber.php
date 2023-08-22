@@ -12,7 +12,7 @@ class PlanSubscriber extends Model
 
     Use SoftDeletes;
 
-    public $fillable = [
+    protected $fillable = [
         'plan_id',
         'user_id',
         'role_id',
@@ -20,7 +20,7 @@ class PlanSubscriber extends Model
         'ended_date',
     ];
 
-    public $casts = [
+    protected $casts = [
         'plan_id' => 'integer',
         'user_id' => 'integer',
         'role_id' => 'integer',

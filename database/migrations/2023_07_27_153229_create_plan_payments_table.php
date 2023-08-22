@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('plan_payments', function (Blueprint $table) {
             $table->id();
+
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->string('holder');
+            $table->string('type');
+            $table->tinyText('address')->nullable();
+            $table->boolean('is_active')->default(true);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

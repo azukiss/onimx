@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Tag extends Model
 {
     use SoftDeletes;
+
     protected $fillable = [
         'name',
         'slug',
@@ -24,11 +25,18 @@ class Tag extends Model
         'cat_id' => 'integer',
     ];
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function posts(): BelongsToMany
     {
         return $this->belongsToMany(Post::class, 'post_tags', 'tag_id', 'post_id');
     }
-  
+
     public function category(): HasOne
     {
         return $this->hasOne(Category::class, 'id', 'cat_id');
