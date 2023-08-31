@@ -52,17 +52,17 @@
         <div class="mt-10 space-y-6 divide-y divide-gray-900/10" x-data="faqList()">
             <template x-for="(faq,index) in faqs" :key="index">
                 <div class="pt-6" x-data="{show: false}">
-                    <dt>
+                    <div>
                         <button type="button" class="flex items-start justify-between w-full text-left text-gray-900" x-on:click="show = !show">
                             <span class="text-base font-semibold leading-7" x-text="faq.question"></span>
                             <span class="flex items-center ml-6 h-7">
                                 <i class="w-6 h-6 fa-fw" x-bind:class="show ? 'fa-solid fa-minus' : 'fa-solid fa-plus'"></i>
                             </span>
                         </button>
-                    </dt>
-                    <dd class="pr-12 mt-2" id="faq-0" x-show="show" x-collapse.transition.500ms>
+                    </div>
+                    <div class="pr-12 mt-2" id="faq-0" x-show="show" x-collapse.transition.500ms>
                         <p class="text-base leading-7 text-gray-600" x-text="faq.answer"></p>
-                    </dd>
+                    </div>
                 </div>
             </template>
         </div>
